@@ -3,373 +3,425 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>Admin - Kyaw Gyi</title>
+<title>Miki Game Shop Admin</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <style>
-  :root {
-      --bg: #030308; --text: #ffffff; --muted: #a1a1aa; 
-      --primary: #ff0000; --accent: #ffd700; --ok: #10b981; --danger: #ef4444; --warning: #f59e0b;
-      --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-      --glass-border: rgba(255, 255, 255, 0.15); 
-      --glass-highlight: rgba(255, 255, 255, 0.3);
-      --glass-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.03);
-      --input-bg: rgba(0, 0, 0, 0.3);
+  /* 🌸 FEMININE UI THEME FOR ADMIN 🌸 */
+  :root { 
+    --bg: #0f0b14; 
+    --text: #ffffff; 
+    --muted: #a8a2b3; 
+    --primary: #3b82f6; /* Blue */
+    --accent: #ec4899; /* Pink */
+    --ok: #10b981; 
+    --danger: #ef4444; 
+    --warning: #f59e0b; 
+    --glass-bg: linear-gradient(135deg, rgba(236, 72, 153, 0.08) 0%, rgba(59, 130, 246, 0.02) 100%); 
+    --glass-border: rgba(236, 72, 153, 0.15); 
+    --glass-highlight: rgba(236, 72, 153, 0.25); 
+    --glass-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(236,72,153,0.05); 
+    --nav-bg: rgba(15, 11, 20, 0.85); 
+    --input-bg: rgba(0, 0, 0, 0.3); 
+  }
+  [data-theme="light"] { 
+    --bg: #fff0f5; /* Soft pastel pink background */
+    --text: #4a4a4a; 
+    --muted: #8b8092; 
+    --primary: #3b82f6; 
+    --accent: #ec4899; 
+    --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%); 
+    --glass-border: rgba(236, 72, 153, 0.3); 
+    --glass-highlight: #ffffff; 
+    --glass-shadow: 0 8px 30px rgba(236, 72, 153, 0.15), inset 0 0 20px rgba(255,255,255,0.8); 
+    --nav-bg: rgba(255, 255, 255, 0.85); 
+    --input-bg: rgba(255, 255, 255, 0.6); 
   }
   
-  * { box-sizing: border-box; outline: none; margin: 0; padding: 0; font-family: 'Poppins', sans-serif;}
-  body { background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
-  .liquid-bg { position: fixed; inset: 0; z-index: -3; background: radial-gradient(circle at 20% 40%, rgba(14, 165, 233, 0.2), transparent 50%), radial-gradient(circle at 80% 60%, rgba(139, 92, 246, 0.2), transparent 50%); filter: blur(60px); animation: liquidFlow 15s infinite alternate ease-in-out; }
+  *{box-sizing:border-box; outline:none; margin:0; padding:0; -webkit-tap-highlight-color:transparent;} 
+  body{font-family:'Poppins', sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; transition: background 0.4s ease, color 0.4s ease;}
+  
+  .liquid-bg { position: fixed; inset: 0; z-index: -3; background: radial-gradient(circle at 15% 50%, rgba(236, 72, 153, 0.25), transparent 50%), radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.25), transparent 50%); filter: blur(60px); animation: liquidFlow 15s infinite alternate ease-in-out; pointer-events: none;} 
   @keyframes liquidFlow { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.1) translate(5%, 5%); } }
-  .glass-card { background: var(--glass-bg); backdrop-filter: blur(25px) saturate(150%); border: 1px solid var(--glass-border); border-top: 1px solid var(--glass-highlight); border-left: 1px solid var(--glass-highlight); box-shadow: var(--glass-shadow); border-radius: 16px; transition: 0.3s; }
-  .glass-nav { background: rgba(5,5,12,0.8); backdrop-filter: blur(25px); border-right: 1px solid var(--glass-border); }
-  .glass-header { background: rgba(5,5,12,0.8); backdrop-filter: blur(25px); border-bottom: 1px solid var(--glass-border); z-index: 50; }
-  .sidebar { width: 260px; display: flex; flex-direction: column; transition: 0.3s; z-index: 10000; flex-shrink: 0; }
-  .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999; backdrop-filter: blur(5px); }
-  .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; z-index: 1; width: 100%;}
-  .top-header { height: 70px; display: flex; align-items: center; padding: 0 25px; justify-content: space-between;}
-  .content-area { flex: 1; overflow-y: auto; padding: 25px; }
-  .brand-area { height: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 25px; border-bottom: 1px solid var(--glass-border); }
-  .brand-text { font-weight: 800; font-size: 20px; color: var(--accent); display: flex; align-items: center; gap: 10px; }
-  .close-sidebar { display: none; background: none; border: none; color: var(--text); font-size: 20px; cursor: pointer; }
   
-  .menu-wrap { flex: 1; overflow-y: auto; padding: 15px 0; }
-  .menu-label { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; margin: 15px 25px 5px; letter-spacing: 1px;}
-  .menu-item { display: flex; align-items: center; gap: 12px; padding: 12px 25px; color: var(--muted); font-size: 14px; font-weight: 500; cursor: pointer; transition: 0.3s; border-left: 4px solid transparent; }
-  .menu-item:hover, .menu-item.active { background: rgba(14, 165, 233, 0.15); color: #fff; border-left-color: var(--accent); text-shadow: 0 0 10px rgba(14,165,233,0.5);}
-  .menu-toggle { background: none; border: none; color: #fff; cursor: pointer; display: none; font-size: 20px; }
-  .view { display: none; animation: fadeIn 0.4s ease; } .view.active { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 25px; }
-  .stat-card { padding: 20px; }
-  .stat-val { font-size: 28px; font-weight: 800; color: #fff; margin-bottom: 5px; text-shadow: 0 0 15px rgba(255,255,255,0.3); }
-  .stat-label { font-size: 12px; color: var(--muted); }
+  .app-container{max-width:480px; margin:0 auto; min-height:100vh; position:relative; padding-bottom:100px;}
   
-  .table-wrapper { overflow-x: auto; width: 100%; margin-bottom: 25px; border-radius: 16px; border: 1px solid var(--glass-border); }
-  table { width: 100%; border-collapse: collapse; text-align: left; min-width: 600px; }
-  th { padding: 15px 20px; font-size: 12px; font-weight: 700; color: var(--muted); border-bottom: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); white-space: nowrap; text-transform: uppercase;}
-  td { padding: 15px 20px; font-size: 13px; border-bottom: 1px solid var(--glass-border); vertical-align: middle; }
-  tr:hover { background: rgba(255,255,255,0.05); }
-  .badge { padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; white-space: nowrap; display: inline-block; border: 1px solid transparent;}
-  .bg-active { background: rgba(16, 185, 129, 0.15); color: var(--ok); border-color: rgba(16,185,129,0.3); }
-  .bg-inactive { background: rgba(245, 158, 11, 0.15); color: var(--warning); border-color: rgba(245,158,11,0.3); }
-  .bg-pill { background: rgba(255,255,255,0.1); color: var(--muted); border-color: var(--glass-border); }
-  .btn-gel { background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%), linear-gradient(135deg, var(--accent), var(--primary)); color: #fff; border: 1px solid rgba(255,255,255,0.4); padding: 10px 16px; border-radius: 12px; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4), inset 0 2px 5px rgba(255,255,255,0.5); display: inline-flex; align-items: center; justify-content: center; gap:6px;}
-  .btn-gel:active { transform: scale(0.95); } 
-  .btn-danger { background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%), linear-gradient(135deg, #ef4444, #b91c1c); box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4); }
-  .btn-dark { background: rgba(0,0,0,0.5); border-color: var(--glass-border); box-shadow: none; }
-  .tabs-container { display: flex; gap: 12px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
-  .tab-pill { background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); color: var(--muted); padding: 10px 20px; border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-  .tab-pill.active { background: rgba(14, 165, 233, 0.2); color: var(--accent); border-color: var(--accent); box-shadow: 0 0 15px rgba(14,165,233,0.3);}
-  .input-box, .select-box { width: 100%; background: var(--input-bg); border: 1px solid var(--glass-border); padding: 14px; border-radius: 12px; color: #fff; font-size: 13px; margin-bottom: 15px; font-family: 'Poppins';}
-  .input-box:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(14,165,233,0.3);}
+  .glass-card { background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--glass-border); border-top: 1px solid var(--glass-highlight); border-left: 1px solid var(--glass-highlight); box-shadow: var(--glass-shadow); border-radius: 28px; transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+  .glass-tint-ok { background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.02)); border-color: rgba(16,185,129,0.3); } 
+  .glass-tint-warn { background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.02)); border-color: rgba(245,158,11,0.3); } 
+  .glass-tint-danger { background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(239,68,68,0.02)); border-color: rgba(239,68,68,0.3); }
   
-  .upload-box { border: 2px dashed var(--glass-highlight); border-radius: 16px; padding: 20px; text-align: center; color: var(--accent); cursor: pointer; font-size: 13px; font-weight: 600; background: rgba(0,0,0,0.2); transition: 0.3s; margin-bottom: 15px;}
-  .upload-box:hover { background: rgba(14,165,233,0.1); border-color: var(--accent); }
-  /* Toggles */
-  .switch-container { display: flex; align-items: center; justify-content: space-between; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; margin-bottom: 15px; border: 1px solid var(--glass-border); }
-  .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
-  .switch input { opacity: 0; width: 0; height: 0; }
-  .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--glass-border); transition: .4s; border-radius: 34px; border: 1px solid rgba(255,255,255,0.2); }
-  .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; }
-  input:checked + .slider { background-color: var(--ok); }
-  input:checked + .slider:before { transform: translateX(20px); }
-  .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); z-index: 20000; display: none; align-items: center; justify-content: center; padding: 15px; }
-  .modal-bg.active { display: flex; } 
-  .modal-card { width: 100%; max-width: 550px; max-height: 90vh; overflow-y: auto; padding: 30px; transform: scale(0.95); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-  .modal-bg.active .modal-card { transform: scale(1); }
-  .toast { position: fixed; top: 20px; right: 20px; background: var(--ok); color: #fff; padding: 12px 25px; border-radius: 10px; font-weight: 700; font-size: 13px; opacity: 0; transition: 0.4s; z-index: 30000; box-shadow: 0 5px 20px rgba(16,185,129,0.5); transform: translateY(-20px);}
-  .toast.show { opacity: 1; transform: translateY(0); }
-  @media (max-width: 768px) { 
-      .sidebar { position: fixed; left: -280px; height: 100%; box-shadow: 5px 0 25px rgba(0,0,0,0.7); } 
-      .sidebar.open { left: 0; } 
-      .sidebar-overlay.active { display: block; }
-      .menu-toggle { display: block; } 
-      .close-sidebar { display: block; } 
-  }
+  .page, #auth-screen{display:none; padding:16px; animation:fadeInSlide 0.3s forwards;} .page.active, #auth-screen.active{display:block;} 
+  @keyframes fadeInSlide { from {opacity:0; transform:translateY(15px);} to {opacity:1; transform:translateY(0);} }
+  
+  .glass-input { width: 100%; font-family: 'Poppins'; font-size: 14px; padding: 16px; border-radius: 20px; margin-bottom: 15px; transition: 0.3s; background: var(--input-bg); color: var(--text); border: 1px solid var(--glass-border); box-shadow: inset 0 4px 10px rgba(0,0,0,0.3); } 
+  .glass-input:focus { border-color: var(--accent); box-shadow: inset 0 4px 10px rgba(0,0,0,0.3), 0 0 15px rgba(236, 72, 153, 0.3); }
+  
+  .btn-gel { background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%), linear-gradient(135deg, var(--accent), var(--primary)); color: #fff; border: 1px solid rgba(255,255,255,0.4); padding: 16px 20px; border-radius: 30px; font-weight: 700; width: 100%; font-family: 'Poppins'; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4); } 
+  .btn-gel:active { transform: scale(0.95); } .btn-gel:disabled { background: rgba(128,128,128,0.3); border-color: transparent; color: var(--muted); box-shadow: none; cursor: not-allowed; }
+  
+  .toast{position:fixed; top:-100px; left:50%; transform:translateX(-50%); background:var(--ok); color:#fff; padding:12px 24px; border-radius:999px; font-weight:800; font-size:13px; opacity:0; transition:0.5s; z-index:99999; box-shadow: 0 8px 30px rgba(0,0,0,0.5);} 
+  .toast.show{opacity:1; top:30px;}
+  
+  .compact-header { display:flex; justify-content:space-between; align-items:center; padding:10px 15px; margin-bottom:20px; border-radius:24px; background:var(--glass-bg); backdrop-filter:blur(25px); border:1px solid var(--glass-border); box-shadow:var(--glass-shadow); } 
+  .top-action-btn { background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:var(--text); border-radius:16px; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition: 0.2s;}
+  
+  .banner-slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; margin-bottom: 25px; border-radius: 28px; scrollbar-width: none; }
+  .banner-slider::-webkit-scrollbar { display: none; }
+  .banner-slide { flex: 0 0 100%; width: 100%; height: 180px; object-fit: cover; scroll-snap-align: center; border-radius: 28px; border: 1px solid var(--glass-highlight); box-shadow: var(--glass-shadow); pointer-events: none;}
+
+  .game-container { display:grid; grid-template-columns:repeat(2, 1fr); gap:14px; } 
+  .game-card { padding:18px; display:flex; flex-direction:column; align-items:center; text-align:center; cursor: pointer; border-radius: 28px;} 
+  .game-img { width:80px; height:80px; border-radius:24px; margin-bottom:12px; object-fit: cover; box-shadow: 0 8px 25px rgba(0,0,0,0.4);} 
+  .game-card:active { transform: scale(0.96); border-color: var(--accent); }
+  
+  .pay-tabs { display:flex; background:rgba(0,0,0,0.3); border-radius:18px; padding:6px; margin-bottom:20px; border:1px solid var(--glass-border); } 
+  .pay-tab { flex:1; text-align:center; padding:12px; font-size:13px; font-weight:700; color:var(--muted); border-radius:14px; cursor:pointer; transition:0.3s; } 
+  .pay-tab.active { background:var(--glass-highlight); color:var(--text); box-shadow:0 4px 15px rgba(0,0,0,0.2); } 
+  .pay-view { display:none; animation:fadeInSlide 0.3s forwards; } .pay-view.active { display:block; }
+  
+  .dyn-pay-card { background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; display:flex; justify-content:space-between; align-items:center;} 
+  .dyn-pay-card.selected { border-color: var(--ok); background: rgba(16, 185, 129, 0.15); box-shadow:inset 0 0 15px rgba(16,185,129,0.2);}
+  
+  .pack-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-bottom:25px; } 
+  .pack-card { padding:20px 10px; cursor:pointer; text-align:center; border:2px solid transparent; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 24px;} 
+  .pack-card.selected { border-color:var(--accent); background:rgba(236, 72, 153, 0.15); box-shadow:0 10px 30px rgba(236, 72, 153, 0.2), inset 0 0 15px rgba(236, 72, 153, 0.1); transform: translateY(-5px); border-top: 2px solid rgba(255,255,255,0.5);}
+  
+  .buy-bottom-bar { position:fixed; bottom:0; left:0; right:0; max-width:480px; margin:0 auto; padding:20px 20px max(20px, env(safe-area-inset-bottom)); z-index:100; display:flex; justify-content:space-between; align-items:center; border-radius:35px 35px 0 0; background: var(--nav-bg); backdrop-filter: blur(30px) saturate(150%); border-top: 1px solid var(--glass-highlight); box-shadow: 0 -10px 40px rgba(0,0,0,0.8); }
+  
+  .main-nav { position:fixed; bottom:15px; left:15px; right:15px; max-width:450px; margin:0 auto; display:flex; justify-content:space-around; background: var(--nav-bg); backdrop-filter:blur(30px); border:1px solid var(--glass-border); border-top: 1px solid var(--glass-highlight); border-radius: 999px; padding:12px 10px max(12px,env(safe-area-inset-bottom)); z-index:90; box-shadow: 0 20px 40px rgba(0,0,0,0.8); } 
+  .nav-btn{flex:1; background:transparent; border:none; color:var(--muted); display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; transition: 0.3s;} 
+  .nav-btn.active{color:var(--accent); text-shadow: 0 0 15px rgba(236, 72, 153, 0.6);} 
+  .nav-btn.active i { transform: scale(1.15) translateY(-2px); color: var(--accent); }
+  
+  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(15px); display:none; align-items:center; justify-content:center; z-index:9000; padding:20px; opacity:0; transition:0.3s; } 
+  .modal-overlay.active { display:flex; opacity:1; } 
+  .modal-box { width:100%; max-width:400px; padding:24px; border-radius:32px; position:relative; transform:scale(0.95) translateY(20px); transition:0.4s; } 
+  .modal-overlay.active .modal-box { transform:scale(1) translateY(0); }
 </style>
 </head>
-<body>
+<body data-theme="dark">
 
 <div class="liquid-bg"></div>
+<div id="toast" class="toast">Message</div>
 
-<div id="toast" class="toast">Success</div>
-<div id="auth-gate" style="position:fixed; inset:0; background:var(--bg); z-index:99999; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-    <div style="font-size:32px; font-weight:800; margin-bottom:30px; color:var(--accent);"><img src="https://ibb.co/g2BWhkF" style="height:30px; object-fit:contain;"></div>
-    <div class="glass-card" style="padding: 30px; text-align: center; width: 90%; max-width: 350px;">
-        <input type="email" id="admin-email" class="input-box" placeholder="Admin Email" style="text-align:center;" value="kyawgyi@gmail.com">
-        <input type="password" id="admin-pass" class="input-box" placeholder="Password" style="text-align:center;" value="123456">
-        <button class="btn-gel" style="width:100%; font-size:15px; padding:14px;" onclick="window.adminLogin()" id="btn-login">Secure Login</button>
+<div id="auth-screen" class="modal-overlay active" style="z-index:999999; display:flex; opacity:1;">
+    <div class="glass-card modal-box" style="margin-top:0; border:1px solid var(--accent); text-align:center;">
+        <img src="https://i.ibb.co/JR3Qx2y2/2216.png" style="width:80px; height:80px; object-fit:contain; background:rgba(255,255,255,0.1); border-radius:24px; margin:0 auto 20px; box-shadow:0 15px 30px rgba(236,72,153,0.4), inset 0 2px 10px rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.4);">
+        <div style="font-size:24px; font-weight:800; margin-bottom:30px; color:var(--text);">Admin Login</div>
+        <input type="email" id="auth-email" class="glass-input" placeholder="Admin Email" value="kyawgyi@gmail.com">
+        <input type="password" id="auth-password" class="glass-input" placeholder="Password" value="123456">
+        <button class="btn-gel" id="auth-btn" onclick="window.handleAuth()">Login to Panel</button>
     </div>
 </div>
-<div id="main-admin" style="display:none; width:100%; height:100%;">
+
+<div id="main-app" class="app-container">
+    <div id="v-dashboard" class="page active" style="padding-bottom:120px;">
+        <div class="compact-header">
+            <div style="display:flex; gap:10px; align-items:center;">
+                <img src="https://i.ibb.co/JR3Qx2y2/2216.png" style="height:30px; object-fit:contain;">
+                <span style="font-weight:900; font-size:18px; background:linear-gradient(135deg, #fff, var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Admin Panel</span>
+            </div>
+            <div class="top-action-btn" onclick="window.logout()"><i class="fas fa-sign-out-alt text-danger"></i></div>
+        </div>
+
+        <div class="glass-card" style="padding:25px; display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <div>
+                <div style="font-size:13px; color:var(--muted); margin-bottom:5px;">Total Orders</div>
+                <div style="font-size:32px; font-weight:900; color:var(--accent);" id="stat-orders">0</div>
+            </div>
+            <div style="width:50px; height:50px; background:rgba(236,72,153,0.15); border-radius:18px; display:flex; align-items:center; justify-content:center; color:var(--accent); font-size:20px;"><i class="fas fa-box-open"></i></div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:25px;">
+            <div class="glass-card glass-tint-ok" style="padding:20px;">
+                <div style="font-size:12px; color:var(--muted); margin-bottom:5px;">Pending Deps</div>
+                <div style="font-size:24px; font-weight:800; color:var(--ok);" id="stat-deps">0</div>
+            </div>
+            <div class="glass-card glass-tint-danger" style="padding:20px;">
+                <div style="font-size:12px; color:var(--muted); margin-bottom:5px;">Pending WDs</div>
+                <div style="font-size:24px; font-weight:800; color:var(--danger);" id="stat-wds">0</div>
+            </div>
+        </div>
+
+        <h3 style="font-size:15px; margin-bottom:15px; color:var(--accent); font-weight:800;">Quick Management</h3>
+        <div style="display:flex; flex-wrap:wrap; gap:10px;">
+            <button class="btn-gel" style="flex:1; padding:12px;" onclick="window.navTo('v-users')"><i class="fas fa-users mr-2"></i> Users</button>
+            <button class="btn-gel" style="flex:1; padding:12px;" onclick="window.navTo('v-games')"><i class="fas fa-gamepad mr-2"></i> Games</button>
+            <button class="btn-gel" style="flex:1; padding:12px; background:transparent; border-color:var(--glass-border); color:var(--text); box-shadow:none;" onclick="window.navTo('v-settings')"><i class="fas fa-cog mr-2"></i> Settings</button>
+        </div>
+    </div>
+
+    <div id="v-orders" class="page" style="padding-bottom:120px;">
+        <h2 style="font-weight:800; margin-bottom:20px; color:var(--accent);">Manage Orders</h2>
+        <div class="pay-tabs">
+            <div class="pay-tab active" onclick="window.switchTab('orders', 'Pending', this)">Pending</div>
+            <div class="pay-tab" onclick="window.switchTab('orders', 'Completed', this)">Completed</div>
+            <div class="pay-tab" onclick="window.switchTab('orders', 'Cancelled', this)">Cancelled</div>
+        </div>
+        <div id="list-orders"></div>
+    </div>
+
+    <div id="v-deposits" class="page" style="padding-bottom:120px;">
+        <h2 style="font-weight:800; margin-bottom:20px; color:var(--accent);">Deposits</h2>
+        <div class="pay-tabs">
+            <div class="pay-tab active" onclick="window.switchTab('deposits', 'Pending', this)">Pending</div>
+            <div class="pay-tab" onclick="window.switchTab('deposits', 'Approved', this)">Approved</div>
+            <div class="pay-tab" onclick="window.switchTab('deposits', 'Rejected', this)">Rejected</div>
+        </div>
+        <div id="list-deposits"></div>
+    </div>
+
+    <div id="v-withdraws" class="page" style="padding-bottom:120px;">
+        <h2 style="font-weight:800; margin-bottom:20px; color:var(--accent);">Withdrawals</h2>
+        <div class="pay-tabs">
+            <div class="pay-tab active" onclick="window.switchTab('withdraws', 'Pending', this)">Pending</div>
+            <div class="pay-tab" onclick="window.switchTab('withdraws', 'Approved', this)">Approved</div>
+            <div class="pay-tab" onclick="window.switchTab('withdraws', 'Rejected', this)">Rejected</div>
+        </div>
+        <div id="list-withdraws"></div>
+    </div>
+
+    <div id="v-users" class="page" style="padding-bottom:120px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h2 style="font-weight:800; margin:0; color:var(--accent);">Users</h2>
+        </div>
+        <input type="text" id="user-search" class="glass-input" placeholder="Search by email..." oninput="window.renderUsers()">
+        <div id="list-users"></div>
+    </div>
+
+    <div id="v-games" class="page" style="padding-bottom:120px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h2 style="font-weight:800; margin:0; color:var(--accent);">Games</h2>
+            <button class="btn-gel" style="width:auto; padding:10px 15px; border-radius:14px; font-size:12px;" onclick="window.openGameModal()">+ New Game</button>
+        </div>
+        <div id="list-games"></div>
+    </div>
+
+    <div id="v-products" class="page" style="padding-bottom:120px;">
+        <div style="display:flex; align-items:center; gap:15px; margin-bottom:20px;">
+            <div class="top-action-btn" onclick="window.navTo('v-games')"><i class="fas fa-arrow-left"></i></div>
+            <h2 style="font-weight:800; margin:0; color:var(--accent);" id="prod-game-title">Game Items</h2>
+        </div>
+        <button class="btn-gel" style="margin-bottom:20px;" onclick="window.openProdModal()">+ Add New Item</button>
+        <div id="list-products"></div>
+    </div>
+
+    <div id="v-settings" class="page" style="padding-bottom:120px;">
+        <h2 style="font-weight:800; margin-bottom:20px; color:var(--accent);">System Settings</h2>
+        
+        <div class="glass-card" style="padding:20px; margin-bottom:20px;">
+            <h3 style="font-size:15px; margin-bottom:15px;">Payment Methods</h3>
+            <div id="list-pay-methods" style="margin-bottom:15px;"></div>
+            <button class="btn-gel" style="font-size:13px; padding:12px;" onclick="window.openPayModal()">+ Add Method</button>
+        </div>
+        
+        <div class="glass-card" style="padding:20px; margin-bottom:20px;">
+            <h3 style="font-size:15px; margin-bottom:15px;">Guides & Tutorials</h3>
+            <div id="list-guides" style="margin-bottom:15px;"></div>
+            <button class="btn-gel" style="font-size:13px; padding:12px;" onclick="window.openGuideModal()">+ Add Guide</button>
+        </div>
+
+        <div class="glass-card" style="padding:20px; margin-bottom:20px;">
+            <h3 style="font-size:15px; margin-bottom:15px;">Home Banners (Multi)</h3>
+            <div id="list-banners" style="margin-bottom:15px; display:flex; flex-direction:column; gap:10px;"></div>
+            <button class="btn-gel" style="font-size:13px; padding:12px;" onclick="window.openBannerModal()">+ Add Banner</button>
+        </div>
+
+        <div class="glass-card" style="padding:20px; margin-bottom:20px;">
+            <h3 style="font-size:15px; margin-bottom:15px;">Telegram Bot Integration</h3>
+            <input type="text" id="tg-bot-token" class="glass-input" placeholder="Bot Token">
+            <input type="text" id="tg-chat-id" class="glass-input" placeholder="Main Chat ID">
+            <input type="text" id="tg-dep-id" class="glass-input" placeholder="Deposit Topic ID (Optional)">
+            <input type="text" id="tg-ord-id" class="glass-input" placeholder="Order Topic ID (Optional)">
+            <input type="text" id="tg-admin-url" class="glass-input" placeholder="Admin Panel URL (e.g. https://site.com/admin.html)">
+            <button class="btn-gel" onclick="window.saveTgSettings()">Save TG Settings</button>
+        </div>
+
+        <div class="glass-card" style="padding:20px; margin-bottom:20px;">
+            <h3 style="font-size:15px; margin-bottom:15px;">Feature Toggles</h3>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <span style="font-weight:600;">Maintenance Mode</span>
+                <input type="checkbox" id="tgl-maint" style="width:20px; height:20px;">
+            </div>
+            <input type="text" id="inp-maint-msg" class="glass-input" placeholder="Maintenance Message">
+            
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <span style="font-weight:600;">Enable Lucky Spin</span>
+                <input type="checkbox" id="tgl-spin" style="width:20px; height:20px;">
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <span style="font-weight:600;">Enable Withdrawals</span>
+                <input type="checkbox" id="tgl-wd" style="width:20px; height:20px;">
+            </div>
+            <button class="btn-gel" onclick="window.saveToggleSettings()">Save Toggles</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="img-modal" onclick="if(event.target===this) window.closeModal('img-modal')">
+        <div class="modal-box glass-card" style="padding:10px; text-align:center;">
+            <img id="full-img" style="width:100%; border-radius:24px; max-height:80vh; object-fit:contain;">
+            <button class="btn-gel" style="margin-top:15px;" onclick="window.closeModal('img-modal')">Close</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="user-modal" onclick="if(event.target===this) window.closeModal('user-modal')">
+        <div class="modal-box glass-card">
+            <h3 style="margin-bottom:15px; color:var(--accent);">Edit Wallet</h3>
+            <div id="u-email" style="font-size:12px; color:var(--muted); margin-bottom:15px;"></div>
+            <input type="number" id="u-bal" class="glass-input" placeholder="New Balance">
+            <input type="number" id="u-spin" class="glass-input" placeholder="Spin Tickets">
+            <input type="hidden" id="u-id">
+            <button class="btn-gel" onclick="window.saveUser()">Save</button>
+            <button class="btn-gel" style="margin-top:10px; background:transparent; border-color:var(--glass-border); color:var(--text); box-shadow:none;" onclick="window.closeModal('user-modal')">Cancel</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="game-modal" onclick="if(event.target===this) window.closeModal('game-modal')">
+        <div class="modal-box glass-card" style="max-height:80vh; overflow-y:auto;">
+            <h3 style="margin-bottom:15px; color:var(--accent);">Add/Edit Game</h3>
+            <input type="hidden" id="g-id">
+            <input type="text" id="g-name" class="glass-input" placeholder="Game Name">
+            <input type="number" id="g-order" class="glass-input" placeholder="Sort Order (e.g. 1)">
+            
+            <label style="display:block; margin-bottom:10px; font-size:12px; color:var(--muted);">Game Logo (Square)</label>
+            <input type="file" id="g-logo-file" class="glass-input" accept="image/*">
+            <input type="hidden" id="g-logo-url">
+            <img id="g-logo-preview" style="width:60px; height:60px; border-radius:16px; margin-bottom:15px; display:none;">
+
+            <label style="display:block; margin-bottom:10px; font-size:12px; color:var(--muted);">Banner Image (Rectangle)</label>
+            <input type="file" id="g-banner-file" class="glass-input" accept="image/*">
+            <input type="hidden" id="g-banner-url">
+            <img id="g-banner-preview" style="width:100%; height:100px; object-fit:cover; border-radius:16px; margin-bottom:15px; display:none;">
+
+            <label style="display:block; margin-bottom:10px; font-size:12px; color:var(--muted);">Required Forms</label>
+            <div style="display:flex; gap:15px; margin-bottom:15px;">
+                <label><input type="checkbox" id="g-f-uid" checked> Player ID / Email</label>
+                <label><input type="checkbox" id="g-f-zone"> Zone / Server ID</label>
+            </div>
+            
+            <input type="text" id="g-p-uid" class="glass-input" placeholder="UID Placeholder (e.g. Enter Player ID)">
+            <input type="text" id="g-p-zone" class="glass-input" placeholder="Zone Placeholder (e.g. Enter Zone ID)">
+            
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <span style="font-weight:600;">Active</span>
+                <input type="checkbox" id="g-active" style="width:20px; height:20px;" checked>
+            </div>
+
+            <button class="btn-gel" id="btn-save-game" onclick="window.saveGame()">Save Game</button>
+            <button class="btn-gel" style="margin-top:10px; background:transparent; border-color:var(--glass-border); color:var(--text); box-shadow:none;" onclick="window.closeModal('game-modal')">Cancel</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="prod-modal" onclick="if(event.target===this) window.closeModal('prod-modal')">
+        <div class="modal-box glass-card">
+            <h3 style="margin-bottom:15px; color:var(--accent);">Add/Edit Item</h3>
+            <input type="hidden" id="p-id">
+            <input type="hidden" id="p-cat">
+            <input type="text" id="p-name" class="glass-input" placeholder="Item Name (e.g. 50 Diamonds)">
+            <input type="number" id="p-price" class="glass-input" placeholder="Selling Price (Ks)">
+            <input type="number" id="p-order" class="glass-input" placeholder="Sort Order (e.g. 1)">
+            
+            <label style="display:block; margin-bottom:10px; font-size:12px; color:var(--muted);">Item Icon (Optional)</label>
+            <input type="file" id="p-icon-file" class="glass-input" accept="image/*">
+            <input type="hidden" id="p-icon-url">
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <span style="font-weight:600;">Active</span>
+                <input type="checkbox" id="p-active" style="width:20px; height:20px;" checked>
+            </div>
+
+            <button class="btn-gel" id="btn-save-prod" onclick="window.saveProd()">Save Item</button>
+            <button class="btn-gel" style="margin-top:10px; background:transparent; border-color:var(--glass-border); color:var(--text); box-shadow:none;" onclick="window.closeModal('prod-modal')">Cancel</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="pay-modal" onclick="if(event.target===this) window.closeModal('pay-modal')">
+        <div class="modal-box glass-card">
+            <h3 style="margin-bottom:15px; color:var(--accent);">Payment Method</h3>
+            <input type="hidden" id="pm-id">
+            <input type="text" id="pm-name" class="glass-input" placeholder="Provider (e.g. KPay)">
+            <input type="text" id="pm-phone" class="glass-input" placeholder="Phone Number">
+            <input type="text" id="pm-acc" class="glass-input" placeholder="Account Name">
+            <button class="btn-gel" onclick="window.savePayMethod()">Save</button>
+            <button class="btn-gel" style="margin-top:10px; background:transparent; border-color:var(--glass-border); color:var(--text); box-shadow:none;" onclick="window.closeModal('pay-modal')">Cancel</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="guide-modal" onclick="if(event.target===this) window.closeModal('guide-modal')">
+        <div class="modal-box glass-card">
+            <h3 style="margin-bottom:15px; color:var(--accent);">Add/Edit Guide</h3>
+            <input type="hidden" id="gd-id">
+            <input type="text" id="gd-title" class="glass-input" placeholder="Guide Title">
+            <textarea id="gd-content" class="glass-input" style="height:100px; resize:none;" placeholder="Description / Steps"></textarea>
+            <input type="text" id="gd-video" class="glass-input" placeholder="YouTube Video URL (Optional)">
+            <button class="btn-gel" onclick="window.saveGuide()">Save Guide</button>
+            <button class="btn-gel" style="margin-top:10px; background:transparent; border-color:var(--glass-border); color:var(--text); box-shadow:none;" onclick="window.closeModal('guide-modal')">Cancel</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="banner-modal" onclick="if(event.target===this) window.closeModal('banner-modal')">
+        <div class="modal-box glass-card">
+            <h3 style="margin-bottom:15px; color:var(--accent);">Add Banner</h3>
+            <label style="display:block; margin-bottom:10px; font-size:12px; color:var(--muted);">Upload Banner Image</label>
+            <input type="file" id="bn-file" class="glass-input" accept="image/*">
+            <button class="btn-gel" id="btn-save-banner" onclick="window.saveBanner()">Upload & Save</button>
+            <button class="btn-gel" style="margin-top:10px; background:transparent; border-color:var(--glass-border); color:var(--text); box-shadow:none;" onclick="window.closeModal('banner-modal')">Cancel</button>
+        </div>
+    </div>
+
+    <div class="main-nav" id="main-nav">
+        <button class="nav-btn active" id="nav-v-dashboard" onclick="window.navTo('v-dashboard')"><i class="fas fa-chart-pie mb-1" style="font-size:22px;"></i><span style="font-size:11px; font-weight:600;">Dash</span></button>
+        <button class="nav-btn" id="nav-v-orders" onclick="window.navTo('v-orders')"><i class="fas fa-shopping-bag mb-1" style="font-size:22px;"></i><span style="font-size:11px; font-weight:600;">Orders</span></button>
+        <button class="nav-btn" id="nav-v-deposits" onclick="window.navTo('v-deposits')"><i class="fas fa-arrow-down mb-1" style="font-size:22px;"></i><span style="font-size:11px; font-weight:600;">Deps</span></button>
+        <button class="nav-btn" id="nav-v-withdraws" onclick="window.navTo('v-withdraws')"><i class="fas fa-arrow-up mb-1" style="font-size:22px;"></i><span style="font-size:11px; font-weight:600;">Withds</span></button>
+    </div>
+</div>
+
+<script>
+    window.toast = function(m) { const t = document.getElementById("toast"); t.textContent = m; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2500); };
+    window.openModal = function(id) { document.getElementById(id).classList.add('active'); };
+    window.closeModal = function(id) { document.getElementById(id).classList.remove('active'); };
+    window.formatDate = function(ts) { if(!ts) return "-"; let d; if(ts.toDate) d = ts.toDate(); else if(ts.seconds) d = new Date(ts.seconds * 1000); else d = new Date(ts); return d.toLocaleString('en-US', {month:'short', day:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'}); };
     
-    <div class="sidebar-overlay" id="sidebar-overlay" onclick="window.toggleSidebar()"></div>
-    <div class="sidebar glass-nav" id="sidebar">
-        <div class="brand-area"><div class="brand-text"><img src="https://ibb.co/g2BWhkF" style="height:30px; object-fit:contain;"></div><button class="close-sidebar" onclick="window.toggleSidebar()"><i class="fas fa-times"></i></button></div>
-        <div class="menu-wrap">
-            <div class="menu-label">Main</div>
-            <div class="menu-item active" onclick="window.switchTab('v-dash', this)"><i class="fas fa-chart-pie"></i> Dashboard </div>
-            <div class="menu-item" onclick="window.switchTab('v-users', this)"><i class="fas fa-users"></i> Users & Ledger </div>
-            
-            <div class="menu-label">Financials & Orders</div>
-            <div class="menu-item" onclick="window.switchTab('v-orders', this)"><i class="fas fa-box-open"></i> Process Orders </div>
-            <div class="menu-item" onclick="window.switchTab('v-deposits', this)"><i class="fas fa-arrow-down text-ok"></i> Deposits </div>
-            <div class="menu-item" onclick="window.switchTab('v-withdraws', this)"><i class="fas fa-arrow-up text-danger"></i> Withdrawals </div>
-            
-            <div class="menu-label">Catalog</div>
-            <div class="menu-item" onclick="window.switchTab('v-categories', this)"><i class="fas fa-gamepad"></i> Categories </div>
-            <div class="menu-item" onclick="window.switchTab('v-products', this)"><i class="fas fa-gem"></i> Products </div>
-            <div class="menu-item" onclick="window.switchTab('v-guides', this)"><i class="fas fa-book-open"></i> User Guides </div>
-            
-            <div class="menu-label">Configuration</div>
-            <div class="menu-item" onclick="window.switchTab('v-payments', this)"><i class="fas fa-money-check"></i> Payments </div>
-            <div class="menu-item" onclick="window.switchTab('v-settings', this)"><i class="fas fa-cog"></i> Settings & Control </div>
-            <div class="menu-item" style="color: var(--danger);" onclick="window.adminLogout()"><i class="fas fa-sign-out-alt"></i> Logout </div>
-        </div>
-    </div>
-    <div class="main-content">
-        <div class="top-header glass-header">
-            <div style="display:flex; align-items:center; gap:15px;"><button class="menu-toggle" onclick="window.toggleSidebar()"><i class="fas fa-bars"></i></button><div class="header-title" id="page-title">Dashboard</div></div>
-            <div style="width:40px; height:40px; background:linear-gradient(135deg, var(--accent), var(--primary)); border-radius:12px; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#fff;">A</div>
-        </div>
-        <div class="content-area">
-            
-            <div id="v-dash" class="view active">
-                <div class="dash-grid">
-                    <div class="stat-card glass-card"><div class="stat-label">Total Users</div><div class="stat-val" id="ds-users">0</div></div>
-                    <div class="stat-card glass-card"><div class="stat-label">Completed Orders</div><div class="stat-val" id="ds-orders">0</div></div>
-                    <div class="stat-card glass-card"><div class="stat-label">Categories</div><div class="stat-val" id="ds-cat">0</div></div>
-                    <div class="stat-card glass-card"><div class="stat-label">Products</div><div class="stat-val" id="ds-prod">0</div></div>
-                </div>
-                <div class="dash-grid">
-                    <div class="stat-card glass-card" style="border-top:3px solid var(--ok);"><div class="stat-label">Total Deposits</div><div class="stat-val" style="color:var(--ok);" id="ds-tot-dep">0 Ks</div></div>
-                    <div class="stat-card glass-card" style="border-top:3px solid var(--primary);"><div class="stat-label">Total Sales Revenue</div><div class="stat-val" style="color:var(--primary);" id="ds-tot-sales">0 Ks</div></div>
-                    <div class="stat-card glass-card" style="border-top:3px solid var(--accent);"><div class="stat-label">Real Profit</div><div class="stat-val" style="color:var(--accent);" id="ds-tot-profit">0 Ks</div></div>
-                    <div class="stat-card glass-card" style="border-top:3px solid var(--danger);"><div class="stat-label">User Wallets Liability</div><div class="stat-val" style="color:var(--danger);" id="ds-wal-left">0 Ks</div></div>
-                </div>
-            </div>
-            <div id="v-users" class="view">
-                <div class="header-actions"><div class="page-title">Users Management</div></div>
-                <div class="table-wrapper glass-card">
-                    <table>
-                        <thead><tr><th>Email</th><th>Role</th><th>Balance</th><th>Spins</th><th>Action</th></tr></thead>
-                        <tbody id="tb-users"><tr><td colspan="5" style="text-align:center; padding:30px;"><i class="fas fa-spinner fa-spin text-2xl"></i></td></tr></tbody>
-                    </table>
-                </div>
-            </div>
-            <div id="v-orders" class="view">
-                <div class="tabs-container">
-                    <div class="tab-pill active" onclick="window.filterOrders('Pending', this)">Pending</div>
-                    <div class="tab-pill" onclick="window.filterOrders('Processing', this)">Processing</div>
-                    <div class="tab-pill" onclick="window.filterOrders('Completed', this)">Completed</div>
-                    <div class="tab-pill" onclick="window.filterOrders('Cancelled', this)">Cancelled</div>
-                </div>
-                <div class="table-wrapper glass-card">
-                    <table>
-                        <thead><tr><th>Order ID</th><th>Date</th><th>Game/Item</th><th>Price</th><th>Status</th><th>Action</th></tr></thead>
-                        <tbody id="tb-orders-tabbed"></tbody>
-                    </table>
-                </div>
-            </div>
-            <div id="v-deposits" class="view">
-                <div class="header-actions"><div class="page-title">Deposits</div></div>
-                <div class="table-wrapper glass-card">
-                    <table>
-                        <thead><tr><th>ID & Status</th><th>User</th><th>Amount & Date</th><th>Action</th></tr></thead>
-                        <tbody id="tb-deposits"></tbody>
-                    </table>
-                </div>
-            </div>
-            <div id="v-withdraws" class="view">
-                <div class="header-actions"><div class="page-title">Withdrawals</div></div>
-                <div class="table-wrapper glass-card">
-                    <table>
-                        <thead><tr><th>ID & Status</th><th>User</th><th>Amount & Date</th><th>Action</th></tr></thead>
-                        <tbody id="tb-withdraws"></tbody>
-                    </table>
-                </div>
-            </div>
-            <div id="v-categories" class="view">
-                <div class="header-actions"><div class="page-title">Categories</div><button class="btn-gel" onclick="window.openCatModal()">+ New Category</button></div>
-                <div class="table-wrapper glass-card"><table><thead><tr><th>Name</th><th>Input Placeholders</th><th>Status</th><th>Action</th></tr></thead><tbody id="tb-categories"></tbody></table></div>
-            </div>
-            <div id="v-products" class="view">
-                <div class="header-actions"><div class="page-title">Products</div><button class="btn-gel" onclick="window.openProdModal()">+ New Product</button></div>
-                <div class="table-wrapper glass-card"><table><thead><tr><th>Product</th><th>Category</th><th>Prices (Cost/Sell)</th><th>Action</th></tr></thead><tbody id="tb-products"></tbody></table></div>
-            </div>
-            <div id="v-guides" class="view">
-                <div class="header-actions"><div class="page-title">User Guides</div><button class="btn-gel" onclick="window.openGuideModal()">+ Add Guide</button></div>
-                <div class="table-wrapper glass-card"><table><thead><tr><th>Title</th><th>Content Snippet</th><th>Video Embed</th><th>Action</th></tr></thead><tbody id="tb-guides"></tbody></table></div>
-            </div>
-            <div id="v-payments" class="view">
-                <div class="header-actions"><div class="page-title">Payment Methods</div><button class="btn-gel" onclick="window.openPayModal()">+ Add Method</button></div>
-                <div class="table-wrapper glass-card"><table><thead><tr><th>Provider</th><th>Account Info</th><th>Action</th></tr></thead><tbody id="tb-payments"></tbody></table></div>
-            </div>
-            <div id="v-settings" class="view">
-                <div class="dash-grid" style="grid-template-columns: 1fr; max-width: 600px;">
-                    
-                    <div class="stat-card glass-card" style="margin-bottom: 20px;">
-                        <h3 style="margin-bottom:15px; font-size:16px; color:var(--accent);"><i class="fas fa-sliders-h"></i> App Features Control</h3>
-                        
-                        <div class="switch-container">
-                            <div><strong style="font-size:14px; color:#fff;">Enable Lucky Spin</strong><br><span style="font-size:11px; color:var(--muted);">Allow users to play spin</span></div>
-                            <label class="switch"><input type="checkbox" id="inp-spin-on"><span class="slider"></span></label>
-                        </div>
-                        <div class="switch-container">
-                            <div><strong style="font-size:14px; color:#fff;">Enable Withdrawals</strong><br><span style="font-size:11px; color:var(--muted);">Allow users to withdraw money</span></div>
-                            <label class="switch"><input type="checkbox" id="inp-wd-on"><span class="slider"></span></label>
-                        </div>
-                        <div class="switch-container" style="border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.05);">
-                            <div><strong style="font-size:14px; color:var(--danger);">Maintenance Mode</strong><br><span style="font-size:11px; color:var(--muted);">Temporarily lock user app</span></div>
-                            <label class="switch"><input type="checkbox" id="inp-maint-on"><span class="slider"></span></label>
-                        </div>
-                        <input type="text" id="inp-maint-msg" class="input-box" placeholder="Maintenance Message (e.g. System is updating...)">
-                    </div>
-                    <div class="stat-card glass-card">
-                        <h3 style="margin-bottom:15px; font-size:16px; color:var(--ok);"><i class="fas fa-home"></i> Home Customization</h3>
-                        
-                        <label style="font-size:12px; color:var(--muted);">Home Banner Image</label>
-                        <img id="set-banner-preview" style="width:100%; height:120px; object-fit:cover; border-radius:12px; display:none; margin-bottom:10px; box-shadow:0 5px 15px rgba(0,0,0,0.5);">
-                        <div class="upload-box" onclick="document.getElementById('set-banner-file').click()"><i class="fas fa-image text-2xl mb-2 block"></i><br>Upload New Banner</div>
-                        <input type="file" id="set-banner-file" style="display:none;" accept="image/*" onchange="window.uploadImg(this, 'set-banner')">
-                        <input type="hidden" id="set-banner-url">
-                        <h3 style="margin-top:25px; margin-bottom:15px; font-size:16px; color:var(--primary);"><i class="fas fa-robot"></i> Telegram Alerts</h3>
-                        
-                        <label style="font-size:12px; color:var(--muted);">Admin Panel Link (For TG Buttons)</label>
-                        <input type="text" id="inp-admin-url" class="input-box" placeholder="e.g. https://your-site.github.io/admin">
-                        <label style="font-size:12px; color:var(--muted);">Bot API Token</label>
-                        <input type="text" id="inp-bot-token" class="input-box" placeholder="123456:ABC-DEF...">
-                        
-                        <label style="font-size:12px; color:var(--muted);">Group Chat ID</label>
-                        <input type="text" id="inp-chat-id" class="input-box" placeholder="-100123456789">
-                        
-                        <div style="display:flex; gap:10px; margin-bottom:15px;">
-                            <div style="flex:1;"><label style="font-size:12px; color:var(--muted);">Order Topic ID</label><input type="number" id="inp-tg-order-topic" class="input-box"></div>
-                            <div style="flex:1;"><label style="font-size:12px; color:var(--muted);">Deposit Topic ID</label><input type="number" id="inp-tg-dep-topic" class="input-box"></div>
-                        </div>
-                        <div style="display:flex; gap:10px;">
-                            <button class="btn-gel" style="flex:2; padding:15px;" onclick="window.saveAllSettings()">💾 Save All Settings</button>
-                            <button class="btn-gel btn-dark" style="flex:1;" onclick="window.testTelegram()"><i class="fab fa-telegram"></i> Test TG</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal-bg" id="order-info-modal" onclick="if(event.target===this) window.closeModal('order-info-modal')">
-    <div class="modal-card glass-card">
-        <h3 style="margin-bottom:20px; color:var(--accent); display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); padding-bottom:15px;">
-            Order Details <span id="od-badge"></span>
-        </h3>
-        <div id="od-content" style="line-height:2; font-size:14px; margin-bottom: 25px;"></div>
-        <div style="display:flex; gap:10px; justify-content:flex-end;" id="od-actions"></div>
-        <button class="btn-gel btn-dark" style="width:100%; margin-top:15px; padding:12px;" onclick="window.closeModal('order-info-modal')">Close Window</button>
-    </div>
-</div>
-<div class="modal-bg" id="user-info-modal" onclick="if(event.target===this) window.closeModal('user-info-modal')">
-    <div class="modal-card glass-card" style="max-width: 650px;">
-        <h3 style="margin-bottom:15px; color:var(--accent);">User Data & Ledger</h3>
-        <div style="font-size:20px; font-weight:800; margin-bottom:15px;" id="ud-email">--</div>
-        <div style="display:flex; gap:20px; flex-wrap:wrap; margin-bottom:20px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 16px; border:1px solid var(--glass-border);">
-            <div style="flex:1;"><div style="font-size:12px; color:var(--muted); text-transform:uppercase;">Balance</div><div style="color:var(--ok); font-weight:900; font-size:22px;" id="ud-bal">0 Ks</div></div>
-            <div style="flex:1;"><div style="font-size:12px; color:var(--muted); text-transform:uppercase;">Spins</div><div style="color:var(--warning); font-weight:900; font-size:22px;" id="ud-spins">0</div></div>
-            <button class="btn-gel" style="width:100%; margin-top:10px;" id="ud-edit-btn">Edit Profile</button>
-        </div>
-        <h4 style="margin-bottom:10px; font-size:15px; color:var(--muted);"><i class="fas fa-history"></i> Transaction Ledger</h4>
-        <div class="table-wrapper" style="max-height: 300px; overflow-y: auto; border:1px solid var(--glass-border); border-radius:16px;">
-            <table style="font-size: 12px; min-width: 400px;">
-                <thead><tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th></tr></thead>
-                <tbody id="tb-user-ledger"></tbody>
-            </table>
-        </div>
-        <button class="btn-gel btn-dark" style="width:100%; margin-top:15px; padding:12px;" onclick="window.closeModal('user-info-modal')">Close Window</button>
-    </div>
-</div>
-<div class="modal-bg" id="user-modal">
-    <div class="modal-card glass-card">
-        <h3 style="margin-bottom:20px; color:var(--accent);">Edit User Profile</h3><input type="hidden" id="um-id">
-        <label style="font-size:12px; color:var(--muted);">Wallet Balance</label><input type="number" id="um-wallet" class="input-box">
-        <label style="font-size:12px; color:var(--muted);">Spin Tickets</label><input type="number" id="um-spins" class="input-box">
-        <label style="font-size:12px; color:var(--muted);">Role</label>
-        <select id="um-role" class="input-box" style="color:#000;"><option value="Customer">Customer</option><option value="Seller">Seller</option><option value="Admin">Admin</option></select>
-        <div style="display:flex; gap:10px;"><button class="btn-gel" style="flex:1;" onclick="window.saveUserEdit()">Save</button><button class="btn-gel btn-dark" style="flex:1;" onclick="window.closeModal('user-modal')">Cancel</button></div>
-    </div>
-</div>
-<div class="modal-bg" id="cat-modal">
-    <div class="modal-card glass-card">
-        <h3 style="margin-bottom:15px; color:var(--accent);" id="cm-title">Category</h3><input type="hidden" id="cm-id">
-        <input type="text" id="cm-name" class="input-box" placeholder="Game Name (e.g. MLBB)">
-        <input type="text" id="cm-slug" class="input-box" placeholder="Slug (e.g. mlbb)">
-        
-        <label style="font-size:12px; color:var(--muted);">Category Logo</label>
-        <img id="cm-img-preview" style="width:70px; height:70px; border-radius:16px; object-fit:cover; display:none; margin-bottom:10px; box-shadow:0 5px 15px rgba(0,0,0,0.5);">
-        <div class="upload-box" onclick="document.getElementById('cm-file').click()"><i class="fas fa-image text-2xl mb-2 block"></i><br>Upload Image</div>
-        <input type="file" id="cm-file" style="display:none;" accept="image/*" onchange="window.uploadImg(this, 'cm-img')">
-        <input type="hidden" id="cm-img-url">
-        <div style="font-size:13px; margin-bottom:10px; font-weight:bold; color:var(--accent); border-top:1px solid var(--glass-border); padding-top:15px;">Input Fields Settings</div>
-        <div style="display:flex; gap:15px; margin-bottom:15px; font-size:13px;">
-            <label><input type="checkbox" id="cm-form-uid"> Field 1 (e.g. ID)</label>
-            <label><input type="checkbox" id="cm-form-zone"> Field 2 (e.g. Server)</label>
-        </div>
-        <input type="text" id="cm-ph-uid" class="input-box" placeholder="Placeholder 1 (e.g. 'Enter Player ID')">
-        <input type="text" id="cm-ph-zone" class="input-box" placeholder="Placeholder 2 (e.g. 'Enter Zone ID')">
-        <div style="display:flex; gap:10px; margin-top:10px;"><button class="btn-gel" style="flex:1;" onclick="window.saveCategory()">Save</button><button class="btn-gel btn-dark" style="flex:1;" onclick="window.closeModal('cat-modal')">Cancel</button></div>
-    </div>
-</div>
-<div class="modal-bg" id="prod-modal">
-    <div class="modal-card glass-card">
-        <h3 style="margin-bottom:15px; color:var(--accent);" id="pm-title">Product</h3><input type="hidden" id="pm-id">
-        <input type="text" id="pm-name" class="input-box" placeholder="Name (e.g. 11 Diamonds)">
-        <select id="pm-cat" class="input-box" style="color:#000;"></select>
-        
-        <label style="font-size:12px; color:var(--muted);">Product Icon (Optional)</label>
-        <img id="pm-img-preview" style="width:70px; height:70px; border-radius:16px; object-fit:cover; display:none; margin-bottom:10px;">
-        <div class="upload-box" onclick="document.getElementById('pm-file').click()"><i class="fas fa-image text-2xl mb-2 block"></i><br>Upload Image</div>
-        <input type="file" id="pm-file" style="display:none;" accept="image/*" onchange="window.uploadImg(this, 'pm-img')">
-        <input type="hidden" id="pm-img-url">
-        <div style="display:flex; gap:10px; margin-bottom:10px;">
-            <input type="number" id="pm-cost" class="input-box" placeholder="Cost Price">
-            <input type="number" id="pm-price" class="input-box" placeholder="Sell Price">
-        </div>
-        <div style="display:flex; gap:10px;"><button class="btn-gel" style="flex:1;" onclick="window.saveProduct()">Save</button><button class="btn-gel btn-dark" style="flex:1;" onclick="window.closeModal('prod-modal')">Cancel</button></div>
-    </div>
-</div>
-<div class="modal-bg" id="guide-modal">
-    <div class="modal-card glass-card">
-        <h3 style="margin-bottom:15px; color:var(--accent);" id="gm-title">User Guide</h3><input type="hidden" id="gm-id">
-        <input type="text" id="gm-title-inp" class="input-box" placeholder="Guide Title (e.g. How to buy)">
-        <textarea id="gm-content" class="input-box" rows="4" placeholder="Text Content..."></textarea>
-        <input type="text" id="gm-video" class="input-box" placeholder="Direct Video URL (e.g. https://.../video.mp4)">
-        <div style="display:flex; gap:10px;"><button class="btn-gel" style="flex:1;" onclick="window.saveGuide()">Save</button><button class="btn-gel btn-dark" style="flex:1;" onclick="window.closeModal('guide-modal')">Cancel</button></div>
-    </div>
-</div>
-<div class="modal-bg" id="pay-modal">
-    <div class="modal-card glass-card"><h3 style="margin-bottom:15px; color:var(--accent);">Payment Method</h3><input type="hidden" id="pay-id">
-        <input type="text" id="pay-name" class="input-box" placeholder="Provider (e.g. KPay)">
-        <input type="text" id="pay-phone" class="input-box" placeholder="Phone Number">
-        <input type="text" id="pay-acc" class="input-box" placeholder="Account Name">
-        
-        <label style="font-size:12px; color:var(--muted);">QR Code (Optional)</label>
-        <img id="pay-qr-preview" style="width:100px; height:100px; border-radius:16px; object-fit:cover; display:none; margin-bottom:10px;">
-        <div class="upload-box" onclick="document.getElementById('pay-qr-file').click()"><i class="fas fa-qrcode text-2xl mb-2 block"></i><br>Upload QR</div>
-        <input type="file" id="pay-qr-file" style="display:none;" accept="image/*" onchange="window.uploadImg(this, 'pay-qr')">
-        <input type="hidden" id="pay-qr-url">
-        <div style="display:flex; gap:10px;"><button class="btn-gel" style="flex:1;" onclick="window.savePayment()">Save</button><button class="btn-gel btn-dark" style="flex:1;" onclick="window.closeModal('pay-modal')">Cancel</button></div>
-    </div>
-</div>
-<div class="modal-bg" id="slip-modal" onclick="if(event.target===this) window.closeModal('slip-modal')">
-    <div class="modal-card glass-card" style="text-align:center;">
-        <img id="modal-img-src" style="width:100%; border-radius:16px; margin-bottom:20px; box-shadow:0 10px 30px rgba(0,0,0,0.6);" src="">
-        <button class="btn-gel btn-dark" style="width:100%; padding:14px;" onclick="window.closeModal('slip-modal')">Close</button>
-    </div>
-</div>
+    window.navTo = function(id) { 
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); 
+        let target = document.getElementById(id); if(target) target.classList.add('active'); 
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active')); 
+        let btn = document.getElementById('nav-'+id); if(btn) btn.classList.add('active');
+        window.scrollTo(0,0);
+        history.pushState(null, null, "#"+id);
+    };
+
+    window.switchTab = function(type, status, el) {
+        window[type + 'Status'] = status;
+        el.parentElement.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+        if(type === 'orders') window.renderOrders();
+        if(type === 'deposits') window.renderDeposits();
+        if(type === 'withdraws') window.renderWithdraws();
+    };
+    
+    window.ordersStatus = 'Pending';
+    window.depositsStatus = 'Pending';
+    window.withdrawsStatus = 'Pending';
+
+    window.viewImage = function(url) { if(!url) return; document.getElementById('full-img').src = url; window.openModal('img-modal'); };
+
+    // Deep link handling
+    window.addEventListener('load', () => {
+        let hash = window.location.hash.substring(1);
+        if(hash && document.getElementById(hash)) {
+            setTimeout(() => { window.navTo(hash); }, 500);
+        }
+    });
+</script>
+
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-    import { getFirestore, collection, onSnapshot, doc, updateDoc, getDoc, setDoc, addDoc, deleteDoc, query, orderBy, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-    // ⚠️ Firebase Keys ⚠️
+    import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, where, doc, setDoc, updateDoc, getDoc, getDocs, deleteDoc, orderBy } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
     const firebaseConfig = {
       apiKey: "AIzaSyAkJh1Q1gp172R5rBEAF2sijfpdg3Iw38Y",
       authDomain: "kyawgyi-390bc.firebaseapp.com",
@@ -379,250 +431,499 @@
       appId: "1:550934767997:web:02cec32177f7e8ceb20414",
       measurementId: "G-JR3HQ8PCNV"
     };
-    const app = initializeApp(firebaseConfig); 
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    // --- UI GLOBALS ---
-    window.toast = (m) => { const t = document.getElementById("toast"); t.textContent = m; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2500); }
-    window.toggleSidebar = () => { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebar-overlay').classList.toggle('active'); }
-    window.switchTab = (viewId, el) => { document.querySelectorAll('.menu-item').forEach(t => t.classList.remove('active')); if(el) el.classList.add('active'); document.querySelectorAll('.view').forEach(v => v.classList.remove('active')); document.getElementById(viewId).classList.add('active'); document.getElementById('page-title').innerText = el ? el.innerText.trim() : 'Dashboard'; if(window.innerWidth <= 768) window.toggleSidebar(); }
-    window.openModal = (id) => document.getElementById(id).classList.add('active');
-    window.closeModal = (id) => document.getElementById(id).classList.remove('active');
-    window.viewSlip = (url) => { if(!url)return window.toast("No slip"); document.getElementById('modal-img-src').src = url; window.openModal('slip-modal'); };
-    
-    // --- SAFE DATE PARSER ---
-    window.formatDate = (ts) => { if(!ts) return "-"; let d; if(ts.toDate) d = ts.toDate(); else if(ts.seconds) d = new Date(ts.seconds * 1000); else d = new Date(ts); return d.toLocaleString('en-US', {month:'short', day:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'}); }
-    window.getMs = (ts) => { if(!ts) return 0; if(typeof ts.toMillis === 'function') return ts.toMillis(); if(ts.seconds) return ts.seconds * 1000; return new Date(ts).getTime() || 0; }
-    let globalOrders = []; let globalUsers = []; let globalTransactions = []; let allCats = [];
-    // --- 💡 FIREBASE AUTH LOGIN 💡 ---
-    window.adminLogin = async () => {
-        let em = document.getElementById('admin-email').value.trim();
-        let pw = document.getElementById('admin-pass').value.trim();
-        if(!em || !pw) return window.toast("Enter email and password!");
-        let btn = document.getElementById('btn-login'); btn.innerText = "Loading..."; btn.disabled = true;
-        try {
-            await signInWithEmailAndPassword(auth, em, pw);
-            // The onAuthStateChanged listener will handle the rest
-        } catch(e) {
-            window.toast("Login Failed: " + e.message);
-            btn.innerText = "Secure Login"; btn.disabled = false;
-        }
+
+    const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
+
+    window.allOrders = []; window.allDeps = []; window.allWds = []; window.allUsers = []; window.allGames = []; window.allProds = []; window.allPays = []; window.allGuides = [];
+    window.currentCatId = null; window.appConfig = {};
+
+    window.handleAuth = async () => { 
+        const em = document.getElementById('auth-email').value.trim(); const pw = document.getElementById('auth-password').value.trim(); 
+        const btn = document.getElementById('auth-btn'); btn.innerText = "Loading...";
+        try { 
+            let res = await signInWithEmailAndPassword(auth, em, pw); 
+            let uDoc = await getDoc(doc(db, "users", res.user.uid));
+            if(uDoc.exists() && (uDoc.data().role === 'Admin' || uDoc.data().role === 'Owner')) {
+                window.toast("Welcome Admin!"); document.getElementById('auth-screen').style.display = 'none';
+            } else {
+                await signOut(auth); throw new Error("Not Authorized as Admin.");
+            }
+        } catch(e) { window.toast(e.message); btn.innerText = "Login to Panel"; } 
     };
-    window.adminLogout = () => { signOut(auth); location.reload(); };
+    window.logout = () => { signOut(auth); document.getElementById('auth-screen').style.display = 'flex'; };
+
     onAuthStateChanged(auth, async (user) => {
         if(user) {
-            // Verify if user is ADMIN
-            let uSnap = await getDoc(doc(db, "users", user.uid));
-            if(uSnap.exists() && uSnap.data().role === 'Admin') {
-                document.getElementById('auth-gate').style.display = "none"; 
-                document.getElementById('main-admin').style.display = "flex"; 
-                initAdmin(); 
-            } else {
-                signOut(auth);
-                window.toast("Access Denied: You are not an Admin!");
-                let btn = document.getElementById('btn-login'); if(btn){ btn.innerText = "Secure Login"; btn.disabled = false; }
-            }
-        } else {
-            document.getElementById('auth-gate').style.display = "flex"; 
-            document.getElementById('main-admin').style.display = "none"; 
-        }
+            let uDoc = await getDoc(doc(db, "users", user.uid));
+            if(uDoc.exists() && (uDoc.data().role === 'Admin' || uDoc.data().role === 'Owner')) {
+                document.getElementById('auth-screen').style.display = 'none';
+                loadData();
+            } else { signOut(auth); }
+        } else { document.getElementById('auth-screen').style.display = 'flex'; }
     });
-    // --- UPLOADS ---
-    window.uploadToImgBB = async (file) => {
-        window.toast("Uploading...");
+
+    async function uploadToImgBB(file) {
         let fd = new FormData(); fd.append("image", file);
-        let res = await fetch(`https://api.imgbb.com/1/upload?key=f0d759dd374df91104867c6701e199f2`, { method:'POST', body:fd });
-        let data = await res.json();
-        if(data.success) { window.toast("Done!"); return data.data.url; } else throw new Error("Upload Failed");
-    };
-    window.uploadImg = async (input, prefix) => {
-        if(!input.files[0]) return;
         try {
-            let url = await window.uploadToImgBB(input.files[0]);
-            document.getElementById(`${prefix}-url`).value = url;
-            let preview = document.getElementById(`${prefix}-preview`);
-            if(preview) { preview.src = url; preview.style.display = 'block'; }
-        } catch(e) { window.toast(e.message); }
-    };
-    // --- MAIN INIT ---
-    function initAdmin() {
+            let res = await fetch(`https://api.imgbb.com/1/upload?key=f0d759dd374df91104867c6701e199f2`, { method:'POST', body:fd });
+            let d = await res.json(); if(d.success) return d.data.url; throw new Error();
+        } catch(e) { throw new Error("Upload failed"); }
+    }
+
+    function loadData() {
+        onSnapshot(collection(db, "orders"), (s) => { window.allOrders = []; s.forEach(d => window.allOrders.push({id:d.id, ...d.data()})); window.renderOrders(); updateStats(); });
+        onSnapshot(collection(db, "deposits"), (s) => { window.allDeps = []; s.forEach(d => window.allDeps.push({id:d.id, ...d.data()})); window.renderDeposits(); updateStats(); });
+        onSnapshot(collection(db, "withdrawals"), (s) => { window.allWds = []; s.forEach(d => window.allWds.push({id:d.id, ...d.data()})); window.renderWithdraws(); updateStats(); });
+        onSnapshot(collection(db, "users"), (s) => { window.allUsers = []; s.forEach(d => window.allUsers.push({id:d.id, ...d.data()})); window.renderUsers(); });
+        onSnapshot(collection(db, "categories"), (s) => { window.allGames = []; s.forEach(d => window.allGames.push({id:d.id, ...d.data()})); window.allGames.sort((a,b)=>(a.orderNum||99)-(b.orderNum||99)); window.renderGames(); });
+        onSnapshot(collection(db, "products"), (s) => { window.allProds = []; s.forEach(d => window.allProds.push({id:d.id, ...d.data()})); window.allProds.sort((a,b)=>(a.orderNum||99)-(b.orderNum||99)); if(window.currentCatId) window.renderProducts(); });
+        onSnapshot(collection(db, "payment_methods"), (s) => { window.allPays = []; s.forEach(d => window.allPays.push({id:d.id, ...d.data()})); window.renderPays(); });
+        onSnapshot(collection(db, "guides"), (s) => { window.allGuides = []; s.forEach(d => window.allGuides.push({id:d.id, ...d.data()})); window.renderGuides(); });
+        
         onSnapshot(doc(db, "settings", "app_config"), (d) => {
             if(d.exists()) {
-                let data = d.data();
-                document.getElementById('inp-bot-token').value = data.tgBotToken || '';
-                document.getElementById('inp-chat-id').value = data.tgChatId || '';
-                document.getElementById('inp-tg-order-topic').value = data.tgOrderTopicId || '';
-                document.getElementById('inp-tg-dep-topic').value = data.tgDepositTopicId || '';
-                document.getElementById('inp-admin-url').value = data.adminUrl || '';
+                window.appConfig = d.data();
+                document.getElementById('tg-bot-token').value = window.appConfig.tgBotToken || '';
+                document.getElementById('tg-chat-id').value = window.appConfig.tgChatId || '';
+                document.getElementById('tg-dep-id').value = window.appConfig.tgDepositTopicId || '';
+                document.getElementById('tg-ord-id').value = window.appConfig.tgOrderTopicId || '';
+                document.getElementById('tg-admin-url').value = window.appConfig.adminUrl || '';
                 
-                document.getElementById('set-banner-url').value = data.homeBannerUrl || '';
-                if(data.homeBannerUrl) { document.getElementById('set-banner-preview').src = data.homeBannerUrl; document.getElementById('set-banner-preview').style.display = 'block'; }
-                document.getElementById('inp-spin-on').checked = data.spinEnabled !== false;
-                document.getElementById('inp-wd-on').checked = data.withdrawEnabled !== false;
-                document.getElementById('inp-maint-on').checked = data.maintenanceMode || false;
-                document.getElementById('inp-maint-msg').value = data.maintenanceMsg || '';
+                document.getElementById('tgl-maint').checked = !!window.appConfig.maintenanceMode;
+                document.getElementById('inp-maint-msg').value = window.appConfig.maintenanceMsg || '';
+                document.getElementById('tgl-spin').checked = window.appConfig.spinEnabled !== false;
+                document.getElementById('tgl-wd').checked = window.appConfig.withdrawEnabled !== false;
+
+                window.renderBanners();
             }
         });
-        onSnapshot(collection(db, "transactions"), (snap) => { globalTransactions = []; snap.forEach(s => globalTransactions.push({id: s.id, ...s.data()})); });
-        onSnapshot(collection(db, "users"), (s) => { 
-            globalUsers = []; let h="", t=0; document.getElementById('ds-users').innerText=s.size;
-            s.forEach(d=>{ 
-                let u={id:d.id, ...d.data()}; globalUsers.push(u); let wBal = parseInt(u.walletBalance)||0; t+=wBal; 
-                h+=`<tr><td><div style="font-weight:bold; font-size:13px;">${u.email||'No Email'}</div></td><td><span class="badge bg-pill">${u.role||'Customer'}</span></td><td style="color:var(--ok); font-weight:800;">${wBal.toLocaleString()} Ks</td><td style="color:var(--warning); font-weight:bold;">${u.spinCount||0}</td><td><button class="btn-gel" onclick="window.showUserDetail('${u.id}')"><i class="fas fa-eye"></i> View</button></td></tr>`; 
-            }); 
-            document.getElementById('tb-users').innerHTML=h || "<tr><td colspan='5' style='text-align:center;'>No users</td></tr>"; 
-            document.getElementById('ds-wal-left').innerText=t.toLocaleString()+" Ks"; 
-        });
-        onSnapshot(collection(db, "categories"), (snap) => { 
-            allCats = []; let h="", opt="<option value=''>Select Cat</option>"; 
-            snap.forEach(s => { 
-                let c = {id: s.id, ...s.data()}; allCats.push(c); opt+=`<option value="${c.id}">${c.name}</option>`; 
-                let phText = "";
-                if((c.forms||[]).includes('gameId')) phText += `F1: ${c.uidPlaceholder||'Default'}<br>`;
-                if((c.forms||[]).includes('zoneId')) phText += `F2: ${c.zonePlaceholder||'Default'}`;
-                h+=`<tr><td><div style="display:flex;align-items:center;gap:10px;"><img src="${c.logoUrl||'https://via.placeholder.com/30'}" style="width:30px;height:30px;border-radius:6px;object-fit:cover;"><strong>${c.name}</strong></div></td><td><div style="font-size:10px; color:var(--muted);">${phText||'None'}</div></td><td><span class="badge ${c.isActive?'bg-active':'bg-inactive'}">${c.isActive?'Active':'Inactive'}</span></td><td><button class="btn-gel btn-dark" onclick='window.openCatModal(${JSON.stringify(c).replace(/'/g,"&#39;")})'>Edit</button> <button class="btn-gel btn-danger" onclick="window.delCat('${c.id}')">Del</button></td></tr>`; 
-            }); 
-            document.getElementById('tb-categories').innerHTML=h || "<tr><td colspan='4' style='text-align:center;'>No categories</td></tr>"; 
-            document.getElementById('pm-cat').innerHTML=opt; document.getElementById('ds-cat').innerText=allCats.length;
-        });
-        onSnapshot(collection(db, "products"), (snap) => { 
-            let h=""; snap.forEach(s => { 
-                let p = {id: s.id, ...s.data()}; let cName = allCats.find(x=>x.id===p.categoryId)?.name || 'Unknown'; 
-                h+=`<tr><td><div style="display:flex;align-items:center;gap:10px;"><img src="${p.logoUrl||'https://via.placeholder.com/30'}" style="width:30px;height:30px;border-radius:6px;object-fit:contain;">${p.name}</div></td><td>${cName}</td><td><div style="font-size:10px; color:var(--muted);">Cost: ${p.retailPrice||0}</div><div style="font-weight:bold; color:var(--accent);">Sell: ${p.sellingPrice||0}</div></td><td><button class="btn-gel btn-dark" onclick='window.openProdModal(${JSON.stringify(p).replace(/'/g,"&#39;")})'>Edit</button> <button class="btn-gel btn-danger" onclick="window.delProd('${p.id}')">Del</button></td></tr>`; 
-            }); 
-            document.getElementById('tb-products').innerHTML=h || "<tr><td colspan='4' style='text-align:center;'>No products</td></tr>"; 
-            document.getElementById('ds-prod').innerText=snap.size; 
-        });
-        // 💡 DIRECT MP4 VIDEO SUPPORT 💡
-        onSnapshot(collection(db, "guides"), (snap) => { 
-            let h=""; snap.forEach(s => { 
-                let g = {id: s.id, ...s.data()};
-                let vStatus = g.videoUrl ? '<span class="text-ok">Yes</span>' : '<span class="text-muted">No</span>';
-                h+=`<tr><td><strong>${g.title}</strong></td><td><div style="max-width:150px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:11px; color:gray;">${g.content}</div></td><td>${vStatus}</td><td><button class="btn-gel btn-dark" onclick='window.openGuideModal(${JSON.stringify(g).replace(/'/g,"&#39;")})'>Edit</button> <button class="btn-gel btn-danger" onclick="window.delGuide('${g.id}')">Del</button></td></tr>`; 
-            }); 
-            document.getElementById('tb-guides').innerHTML=h || "<tr><td colspan='4' style='text-align:center;'>No guides</td></tr>"; 
-        });
-        onSnapshot(collection(db, "orders"), (s) => { 
-            globalOrders = []; let tS=0, tP=0; s.forEach(d=>{ let o={id:d.id, ...d.data()}; globalOrders.push(o); });
-            globalOrders.sort((a,b) => window.getMs(b.createdAt) - window.getMs(a.createdAt)); 
-            globalOrders.forEach(o=>{ if(o.status==='Completed'){ let p=parseInt(o.price)||0; let cp=parseInt(o.costPrice)||0; tS+=p; tP+=(p-cp); }}); 
-            document.getElementById('ds-orders').innerText=globalOrders.filter(x=>x.status==='Completed').length; document.getElementById('ds-tot-sales').innerText=tS.toLocaleString()+" Ks"; document.getElementById('ds-tot-profit').innerText=tP.toLocaleString()+" Ks"; 
-            window.filterOrders('Pending', document.querySelector('.tab-pill.active'));
-        });
-        onSnapshot(collection(db, "deposits"), (s) => { let tD=0, h=""; let a=[]; s.forEach(d=>a.push({id:d.id,...d.data()})); a.sort((x,y)=>window.getMs(y.createdAt)-window.getMs(x.createdAt)); a.forEach(dp=>{ if(dp.status==='Completed')tD+=(parseInt(dp.amount)||0); let cls=dp.status==='Completed'?'bg-active':(dp.status==='Cancelled'?'bg-inactive':'bg-pill'); h+=`<tr><td><span style="font-family:monospace; color:var(--accent); font-weight:bold;">${dp.depId||dp.id.substring(0,8)}</span><br><span class="badge ${cls}" style="margin-top:5px;">${dp.status}</span></td><td><div style="font-size:12px; font-weight:bold;">${dp.userEmail}</div><div style="font-size:10px; color:var(--muted);">${window.formatDate(dp.createdAt)}</div></td><td><div style="color:var(--ok); font-weight:900;">+${(parseInt(dp.amount)||0).toLocaleString()} Ks</div><div style="font-size:10px; color:var(--muted);">${dp.payMethod}</div></td><td><button class="btn-gel btn-dark" onclick="window.viewSlip('${dp.slipImage}')">Slip</button>${dp.status==='Pending'?` <button class="btn-gel btn-ok" onclick="window.apprDep('${dp.id}','${dp.userId}',${dp.amount})">Approve</button> <button class="btn-gel btn-danger" onclick="window.updDep('${dp.id}','Cancelled')">Reject</button>`:''}</td></tr>`; }); document.getElementById('tb-deposits').innerHTML=h || "<tr><td colspan='4' style='text-align:center;'>No deposits</td></tr>"; document.getElementById('ds-tot-dep').innerText=tD.toLocaleString()+" Ks"; });
-        
-        onSnapshot(collection(db, "withdrawals"), (s) => { let h=""; let a=[]; s.forEach(d=>a.push({id:d.id,...d.data()})); a.sort((x,y)=>window.getMs(y.createdAt)-window.getMs(x.createdAt)); a.forEach(w=>{ let cls=w.status==='Completed'?'bg-active':(w.status==='Cancelled'?'bg-inactive':'bg-pill'); h+=`<tr><td><span style="font-family:monospace; color:var(--accent); font-weight:bold;">${w.wdId||w.id.substring(0,8)}</span><br><span class="badge ${cls}" style="margin-top:5px;">${w.status}</span></td><td><div style="font-size:12px; font-weight:bold;">${w.userEmail}</div><div style="font-size:10px; color:var(--muted);">${window.formatDate(w.createdAt)}</div></td><td><div style="color:var(--danger); font-weight:900;">-${(parseInt(w.amount)||0).toLocaleString()} Ks</div><div style="font-size:11px; color:var(--accent); font-weight:bold;">${w.payMethod}: ${w.accPhone}</div><div style="font-size:9px; color:var(--muted);">${w.accName}</div></td><td>${w.status==='Pending'?`<button class="btn-gel btn-ok" onclick="window.updWd('${w.id}','Completed')">Sent</button> <button class="btn-gel btn-danger" onclick="window.updWd('${w.id}','Cancelled','${w.userId}',${w.amount})">Reject</button>`:''}</td></tr>`; }); document.getElementById('tb-withdraws').innerHTML=h || "<tr><td colspan='4' style='text-align:center;'>No withdrawals</td></tr>"; });
-        onSnapshot(collection(db, "payment_methods"), (snap) => { let h=""; snap.forEach(s => { let p={id:s.id,...s.data()}; h+=`<tr><td><div style="display:flex;align-items:center;gap:10px;"><img src="${p.qrUrl||'https://via.placeholder.com/30'}" style="width:30px;height:30px;border-radius:6px;object-fit:cover;">${p.name}</div></td><td><div style="font-size:13px; font-weight:bold; font-family:monospace; color:var(--accent);">${p.phone}</div><div style="font-size:10px; color:var(--muted);">${p.accName}</div></td><td><button class="btn-gel btn-dark" onclick='window.openPayModal(${JSON.stringify(p).replace(/'/g,"&#39;")})'>Edit</button> <button class="btn-gel btn-danger" onclick="window.delPay('${p.id}')">Del</button></td></tr>`; }); document.getElementById('tb-payments').innerHTML=h || "<tr><td colspan='3' style='text-align:center;'>No data</td></tr>"; });
     }
-    // --- ACTIONS ---
-    window.testTelegram = async () => {
-        let token = document.getElementById('inp-bot-token').value; let chatId = document.getElementById('inp-chat-id').value;
-        if(!token || !chatId) return window.toast("Please fill Bot Token and Chat ID first!");
-        try { window.toast("Sending..."); let res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({ chat_id: chatId, text: "✅ Kyaw Gyi Panel Test Successful!" }) }); let data = await res.json(); if(data.ok) window.toast("Telegram Connected!"); else window.toast("TG Error: " + data.description); } catch(e) { window.toast("Network error."); }
-    };
-    window.filterOrders = (status, el=null) => {
-        if(el) { document.querySelectorAll('.tab-pill').forEach(t=>t.classList.remove('active')); el.classList.add('active'); }
-        let h = ""; let filtered = globalOrders.filter(o => o.status === status);
+
+    function updateStats() {
+        document.getElementById('stat-orders').innerText = window.allOrders.length;
+        document.getElementById('stat-deps').innerText = window.allDeps.filter(x=>x.status==='Pending').length;
+        document.getElementById('stat-wds').innerText = window.allWds.filter(x=>x.status==='Pending').length;
+    }
+
+    function getCardColor(status) {
+        if(status==='Completed'||status==='Approved') return 'glass-tint-ok';
+        if(status==='Cancelled'||status==='Rejected') return 'glass-tint-danger';
+        return 'glass-tint-warn';
+    }
+    function getTextColor(status) {
+        if(status==='Completed'||status==='Approved') return 'var(--ok)';
+        if(status==='Cancelled'||status==='Rejected') return 'var(--danger)';
+        return 'var(--warning)';
+    }
+
+    // 💡 ORDERS 💡
+    window.renderOrders = function() {
+        let filtered = window.allOrders.filter(x => x.status === window.ordersStatus);
+        filtered.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+        let h = "";
         filtered.forEach(o => {
-            let cls = o.status==='Completed'?'bg-active':(o.status==='Cancelled'?'bg-inactive':'bg-pill');
-            let actHtml = "";
-            if(o.status === 'Pending') actHtml = `<button class="btn-gel btn-warning" onclick="window.updOrd('${o.id}','Processing')">Process</button> <button class="btn-gel btn-danger" onclick="window.updOrd('${o.id}','Cancelled')">Cancel</button>`;
-            else if(o.status === 'Processing') actHtml = `<button class="btn-gel btn-ok" onclick="window.updOrd('${o.id}','Completed')">Complete</button> <button class="btn-gel btn-danger" onclick="window.updOrd('${o.id}','Cancelled')">Cancel</button>`;
+            let cCls = getCardColor(o.status); let tCol = getTextColor(o.status);
+            let btnHtml = o.status === 'Pending' ? `<div style="display:flex; gap:10px; margin-top:15px;"><button class="btn-gel" style="flex:1; padding:10px;" onclick="window.updateOrder('${o.id}', 'Completed')">Complete</button><button class="btn-gel" style="flex:1; padding:10px; background:rgba(239,68,68,0.2); border-color:rgba(239,68,68,0.4); color:var(--danger); box-shadow:none;" onclick="window.updateOrder('${o.id}', 'Cancelled')">Cancel</button></div>` : '';
+            let slipBtn = o.slipImage ? `<button style="background:rgba(255,255,255,0.1); border:1px solid var(--glass-border); color:var(--accent); padding:4px 10px; border-radius:8px; font-size:11px; cursor:pointer;" onclick="window.viewImage('${o.slipImage}')"><i class="fas fa-image"></i> View Slip</button>` : '';
             
-            h+=`<tr><td><strong style="color:var(--accent); font-family:monospace;">${o.orderId||o.id.substring(0,8)}</strong></td><td><div style="font-size:10px; color:var(--muted);">${window.formatDate(o.createdAt)}</div></td><td><div style="font-weight:800; font-size:13px;">${o.game}</div><div style="font-size:11px; color:var(--accent);">${o.item}</div><div style="font-size:10px; background:rgba(255,255,255,0.1); padding:2px 4px; border-radius:4px; display:inline-block; margin-top:2px;">${o.playerId}</div></td><td><strong style="color:var(--ok); font-size:14px;">${(o.price||0).toLocaleString()} Ks</strong></td><td><span class="badge ${cls}">${o.status}</span></td><td>${actHtml}</td></tr>`;
+            h += `<div class="glass-card ${cCls}" style="padding:15px; margin-bottom:15px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><strong style="font-family:monospace; color:var(--accent);">${o.orderId||o.id.substring(0,8)}</strong><span style="color:${tCol}; font-weight:800; font-size:12px;">${o.status.toUpperCase()}</span></div>
+                <div style="font-size:12px; margin-bottom:5px;"><i class="fas fa-user text-muted mr-1"></i> ${o.userEmail}</div>
+                <div style="font-size:14px; font-weight:800; margin-bottom:5px;">${o.game} - ${o.item}</div>
+                <div style="font-size:13px; font-family:monospace; background:rgba(0,0,0,0.3); padding:6px 10px; border-radius:8px; display:inline-block; margin-bottom:10px;">ID: <span style="color:var(--accent);">${o.playerId}</span></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed var(--glass-border); padding-top:10px;">
+                    <div><span style="font-size:11px; color:var(--muted);">${o.payMethod}</span> ${slipBtn}</div>
+                    <strong style="color:var(--ok); font-size:16px;">${o.price.toLocaleString()} Ks</strong>
+                </div>
+                ${btnHtml}
+                <div style="font-size:10px; color:var(--muted); text-align:right; margin-top:10px;">${window.formatDate(o.createdAt)}</div>
+            </div>`;
         });
-        document.getElementById('tb-orders-tabbed').innerHTML = h || "<tr><td colspan='6' style='text-align:center;'>No orders found.</td></tr>";
-    };
-    // REFUND LOGIC
-    window.updOrd = async (id, st) => { 
-        if(confirm(`Mark as ${st}?`)) { 
-            try {
-                if(st === 'Cancelled') {
-                    let ordSnap = await getDoc(doc(db, "orders", id));
-                    if(ordSnap.exists()) {
-                        let ord = ordSnap.data();
-                        if(ord.payMethod === 'Wallet' && ord.status !== 'Cancelled') {
-                            let uSnap = await getDoc(doc(db, "users", ord.userId));
-                            if(uSnap.exists()) {
-                                let currBal = parseInt(uSnap.data().walletBalance) || 0;
-                                let ordPrice = parseInt(ord.price) || 0;
-                                await updateDoc(doc(db, "users", ord.userId), { walletBalance: currBal + ordPrice });
-                                await addDoc(collection(db, "transactions"), { userId: ord.userId, type: 'Refund', amount: ordPrice, desc: `Refund for Cancelled Order: ${ord.item}`, createdAt: serverTimestamp() });
-                                window.toast("Refunded " + ordPrice + " Ks to user.");
-                            }
-                        }
+        document.getElementById('list-orders').innerHTML = h || `<div style="text-align:center; padding:30px; color:gray;">No orders found.</div>`;
+    }
+
+    window.updateOrder = async (id, status) => {
+        if(!confirm(`Mark order as ${status}?`)) return;
+        try {
+            let oDoc = await getDoc(doc(db, "orders", id));
+            if(oDoc.exists()) {
+                let o = oDoc.data();
+                await updateDoc(doc(db, "orders", id), { status: status, updatedAt: serverTimestamp() });
+                if(status === 'Cancelled' && o.payMethod === 'Wallet') { // Refund
+                    let uDoc = await getDoc(doc(db, "users", o.userId));
+                    if(uDoc.exists()) {
+                        await updateDoc(doc(db, "users", o.userId), { walletBalance: (uDoc.data().walletBalance || 0) + o.price });
+                        await addDoc(collection(db, "transactions"), { userId: o.userId, type: 'Refund', amount: o.price, desc: `Refund for Order ${o.orderId||id.substring(0,8)}`, createdAt: serverTimestamp() });
                     }
                 }
-                await updateDoc(doc(db,"orders",id),{status:st}); 
-            } catch(e) { window.toast(e.message); }
-        } 
-    };
-    // --- USER LOGIC ---
-    window.showUserDetail = (uid) => {
-        let u = globalUsers.find(x => x.id === uid); if(!u) return;
-        document.getElementById('ud-email').innerText = u.email;
-        document.getElementById('ud-bal').innerText = (parseInt(u.walletBalance)||0).toLocaleString() + " Ks";
-        document.getElementById('ud-spins').innerText = u.spinCount || 0;
-        document.getElementById('ud-edit-btn').onclick = () => { window.closeModal('user-info-modal'); window.openUserModal(u.id, u.walletBalance||0, u.role||'Customer', u.spinCount||0); };
-        let uTrans = globalTransactions.filter(x => x.userId === uid);
-        uTrans.sort((a,b) => window.getMs(b.createdAt) - window.getMs(a.createdAt));
-        let lHtml = "";
-        uTrans.forEach(t => {
-            let color = t.amount >= 0 ? 'var(--ok)' : 'var(--danger)'; let sign = t.amount >= 0 ? '+' : '';
-            lHtml += `<tr><td style="color:var(--muted);">${window.formatDate(t.createdAt)}</td><td><strong style="color:#fff;">${t.type}</strong></td><td>${t.desc}</td><td><strong style="color:${color};">${sign}${(parseInt(t.amount)||0).toLocaleString()} Ks</strong></td></tr>`;
+                window.toast("Order updated!");
+            }
+        } catch(e) { window.toast(e.message); }
+    }
+
+    // 💡 DEPOSITS 💡
+    window.renderDeposits = function() {
+        let filtered = window.allDeps.filter(x => x.status === window.depositsStatus);
+        filtered.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+        let h = "";
+        filtered.forEach(o => {
+            let cCls = getCardColor(o.status); let tCol = getTextColor(o.status);
+            let btnHtml = o.status === 'Pending' ? `<div style="display:flex; gap:10px; margin-top:15px;"><button class="btn-gel" style="flex:1; padding:10px;" onclick="window.updateDeposit('${o.id}', '${o.userId}', ${o.amount}, 'Approved')">Approve</button><button class="btn-gel" style="flex:1; padding:10px; background:rgba(239,68,68,0.2); border-color:rgba(239,68,68,0.4); color:var(--danger); box-shadow:none;" onclick="window.updateDeposit('${o.id}', null, null, 'Rejected')">Reject</button></div>` : '';
+            
+            h += `<div class="glass-card ${cCls}" style="padding:15px; margin-bottom:15px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><strong style="font-family:monospace; color:var(--accent);">${o.depId||o.id.substring(0,8)}</strong><span style="color:${tCol}; font-weight:800; font-size:12px;">${o.status.toUpperCase()}</span></div>
+                <div style="font-size:13px; margin-bottom:5px;"><i class="fas fa-user text-muted mr-1"></i> ${o.userEmail}</div>
+                <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed var(--glass-border); padding-top:10px; margin-top:10px;">
+                    <div>
+                        <div style="font-size:11px; color:var(--muted);">${o.payMethod}</div>
+                        <button style="background:rgba(255,255,255,0.1); border:1px solid var(--glass-border); color:var(--accent); padding:4px 10px; border-radius:8px; font-size:11px; cursor:pointer; margin-top:5px;" onclick="window.viewImage('${o.slipImage}')"><i class="fas fa-image"></i> View Slip</button>
+                    </div>
+                    <strong style="color:var(--ok); font-size:20px;">+${o.amount.toLocaleString()} Ks</strong>
+                </div>
+                ${btnHtml}
+                <div style="font-size:10px; color:var(--muted); text-align:right; margin-top:10px;">${window.formatDate(o.createdAt)}</div>
+            </div>`;
         });
-        document.getElementById('tb-user-ledger').innerHTML = lHtml || "<tr><td colspan='4' style='text-align:center;'>No ledger records found.</td></tr>";
-        window.openModal('user-info-modal'); 
-    };
-    window.openUserModal = (id, bal, role, spins) => { document.getElementById('um-id').value=id; document.getElementById('um-wallet').value=bal; document.getElementById('um-spins').value=spins; document.getElementById('um-role').value=role; window.openModal('user-modal'); };
-    window.saveUserEdit = async () => { let id=document.getElementById('um-id').value; let b=parseInt(document.getElementById('um-wallet').value); let s=parseInt(document.getElementById('um-spins').value); let r=document.getElementById('um-role').value; if(!isNaN(b)){ await updateDoc(doc(db,"users",id),{walletBalance:b, spinCount:s, role:r}); window.toast("User Updated!"); window.closeModal('user-modal'); } };
-    // --- SETTINGS (TOGGLES SAVED) ---
-    window.saveAllSettings = async () => { 
+        document.getElementById('list-deposits').innerHTML = h || `<div style="text-align:center; padding:30px; color:gray;">No deposits found.</div>`;
+    }
+
+    window.updateDeposit = async (id, userId, amount, status) => {
+        if(!confirm(`Mark deposit as ${status}?`)) return;
         try {
-            await setDoc(doc(db,"settings","app_config"), { 
-                tgBotToken: document.getElementById('inp-bot-token').value, 
-                tgChatId: document.getElementById('inp-chat-id').value, 
-                tgOrderTopicId: document.getElementById('inp-tg-order-topic').value, 
-                tgDepositTopicId: document.getElementById('inp-tg-dep-topic').value, 
-                adminUrl: document.getElementById('inp-admin-url').value,
-                homeBannerUrl: document.getElementById('set-banner-url').value,
-                spinEnabled: document.getElementById('inp-spin-on').checked,
-                withdrawEnabled: document.getElementById('inp-wd-on').checked,
-                maintenanceMode: document.getElementById('inp-maint-on').checked,
-                maintenanceMsg: document.getElementById('inp-maint-msg').value
-            }, {merge:true}); 
-            window.toast("Settings Saved!"); 
-        } catch(e) { window.toast("Error saving."); }
+            await updateDoc(doc(db, "deposits", id), { status: status, updatedAt: serverTimestamp() });
+            if(status === 'Approved' && userId) {
+                let uDoc = await getDoc(doc(db, "users", userId));
+                if(uDoc.exists()) {
+                    await updateDoc(doc(db, "users", userId), { walletBalance: (uDoc.data().walletBalance || 0) + amount });
+                    await addDoc(collection(db, "transactions"), { userId: userId, type: 'Deposit', amount: amount, desc: `Deposit Approved`, createdAt: serverTimestamp() });
+                }
+            }
+            window.toast("Deposit updated!");
+        } catch(e) { window.toast(e.message); }
+    }
+
+    // 💡 WITHDRAWS 💡
+    window.renderWithdraws = function() {
+        let filtered = window.allWds.filter(x => x.status === window.withdrawsStatus);
+        filtered.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+        let h = "";
+        filtered.forEach(o => {
+            let cCls = getCardColor(o.status); let tCol = getTextColor(o.status);
+            let btnHtml = o.status === 'Pending' ? `<div style="display:flex; gap:10px; margin-top:15px;"><button class="btn-gel" style="flex:1; padding:10px;" onclick="window.updateWithdraw('${o.id}', null, null, 'Approved')">Approve</button><button class="btn-gel" style="flex:1; padding:10px; background:rgba(239,68,68,0.2); border-color:rgba(239,68,68,0.4); color:var(--danger); box-shadow:none;" onclick="window.updateWithdraw('${o.id}', '${o.userId}', ${o.amount}, 'Rejected')">Reject</button></div>` : '';
+            
+            h += `<div class="glass-card ${cCls}" style="padding:15px; margin-bottom:15px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><strong style="font-family:monospace; color:var(--accent);">${o.wdId||o.id.substring(0,8)}</strong><span style="color:${tCol}; font-weight:800; font-size:12px;">${o.status.toUpperCase()}</span></div>
+                <div style="font-size:13px; margin-bottom:5px;"><i class="fas fa-user text-muted mr-1"></i> ${o.userEmail}</div>
+                <div style="font-size:13px; font-weight:700; background:rgba(0,0,0,0.3); padding:8px; border-radius:10px; margin-bottom:10px;">
+                    <div><span style="color:var(--muted);">Method:</span> <span style="color:var(--accent);">${o.payMethod}</span></div>
+                    <div><span style="color:var(--muted);">Acc:</span> ${o.accPhone} (${o.accName})</div>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed var(--glass-border); padding-top:10px;">
+                    <span style="font-size:12px; color:var(--muted);">Amount</span>
+                    <strong style="color:var(--danger); font-size:20px;">-${o.amount.toLocaleString()} Ks</strong>
+                </div>
+                ${btnHtml}
+                <div style="font-size:10px; color:var(--muted); text-align:right; margin-top:10px;">${window.formatDate(o.createdAt)}</div>
+            </div>`;
+        });
+        document.getElementById('list-withdraws').innerHTML = h || `<div style="text-align:center; padding:30px; color:gray;">No withdrawals found.</div>`;
+    }
+
+    window.updateWithdraw = async (id, userId, amount, status) => {
+        if(!confirm(`Mark withdrawal as ${status}?`)) return;
+        try {
+            await updateDoc(doc(db, "withdrawals", id), { status: status, updatedAt: serverTimestamp() });
+            if(status === 'Rejected' && userId) { // Refund
+                let uDoc = await getDoc(doc(db, "users", userId));
+                if(uDoc.exists()) {
+                    await updateDoc(doc(db, "users", userId), { walletBalance: (uDoc.data().walletBalance || 0) + amount });
+                    await addDoc(collection(db, "transactions"), { userId: userId, type: 'Refund', amount: amount, desc: `Withdrawal Rejected Refund`, createdAt: serverTimestamp() });
+                }
+            }
+            window.toast("Withdrawal updated!");
+        } catch(e) { window.toast(e.message); }
+    }
+
+    // 💡 USERS 💡
+    window.renderUsers = function() {
+        let q = document.getElementById('user-search').value.toLowerCase();
+        let filtered = window.allUsers.filter(u => u.email.toLowerCase().includes(q));
+        let h = "";
+        filtered.forEach(u => {
+            h += `<div class="glass-card" style="padding:15px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <div style="font-weight:700; font-size:14px;">${u.email}</div>
+                    <div style="font-size:11px; color:var(--accent); margin-top:4px;">${u.role||'Customer'} | Spins: ${u.spinCount||0}</div>
+                </div>
+                <div style="text-align:right;">
+                    <div style="font-weight:800; color:var(--ok); font-size:15px; margin-bottom:8px;">${(u.walletBalance||0).toLocaleString()} Ks</div>
+                    <button style="background:transparent; border:1px solid var(--accent); color:var(--text); padding:4px 10px; border-radius:8px; font-size:11px; cursor:pointer;" onclick="window.openUserModal('${u.id}', '${u.email}', ${u.walletBalance||0}, ${u.spinCount||0})">Edit</button>
+                </div>
+            </div>`;
+        });
+        document.getElementById('list-users').innerHTML = h || `<div style="text-align:center; padding:30px; color:gray;">No users found.</div>`;
+    }
+
+    window.openUserModal = (id, email, bal, spin) => {
+        document.getElementById('u-id').value = id;
+        document.getElementById('u-email').innerText = email;
+        document.getElementById('u-bal').value = bal;
+        document.getElementById('u-spin').value = spin;
+        window.openModal('user-modal');
+    };
+    window.saveUser = async () => {
+        let id = document.getElementById('u-id').value;
+        let bal = parseInt(document.getElementById('u-bal').value);
+        let spin = parseInt(document.getElementById('u-spin').value);
+        try {
+            await updateDoc(doc(db, "users", id), { walletBalance: bal, spinCount: spin });
+            window.toast("User saved!"); window.closeModal('user-modal');
+        } catch(e) { window.toast(e.message); }
+    };
+
+    // 💡 GAMES & CATEGORIES 💡
+    window.renderGames = function() {
+        let h = "";
+        window.allGames.forEach(g => {
+            let actStr = g.isActive ? `<span style="color:var(--ok); font-size:11px; font-weight:800;">ACTIVE</span>` : `<span style="color:var(--danger); font-size:11px; font-weight:800;">HIDDEN</span>`;
+            h += `<div class="glass-card" style="padding:15px; margin-bottom:12px; display:flex; align-items:center;">
+                <img src="${g.logoUrl||'https://via.placeholder.com/50'}" style="width:50px; height:50px; border-radius:14px; object-fit:cover; margin-right:15px;">
+                <div style="flex:1;">
+                    <div style="font-weight:800; font-size:15px;">${g.name} <span style="font-size:10px; color:var(--muted);">(Ord: ${g.orderNum||0})</span></div>
+                    ${actStr}
+                </div>
+                <div style="display:flex; flex-direction:column; gap:5px;">
+                    <button style="background:var(--accent); border:none; color:#fff; padding:6px 12px; border-radius:8px; font-size:11px; cursor:pointer;" onclick="window.navToProducts('${g.id}', '${g.name}')">Items</button>
+                    <button style="background:transparent; border:1px solid var(--glass-border); color:var(--text); padding:6px 12px; border-radius:8px; font-size:11px; cursor:pointer;" onclick="window.editGame('${g.id}')">Edit</button>
+                </div>
+            </div>`;
+        });
+        document.getElementById('list-games').innerHTML = h || `<div style="text-align:center; padding:30px; color:gray;">No games added yet.</div>`;
+    }
+
+    window.openGameModal = () => {
+        document.getElementById('g-id').value = ''; document.getElementById('g-name').value = ''; document.getElementById('g-order').value = '';
+        document.getElementById('g-logo-file').value = ''; document.getElementById('g-logo-url').value = ''; document.getElementById('g-logo-preview').style.display = 'none';
+        document.getElementById('g-banner-file').value = ''; document.getElementById('g-banner-url').value = ''; document.getElementById('g-banner-preview').style.display = 'none';
+        document.getElementById('g-f-uid').checked = true; document.getElementById('g-f-zone').checked = false;
+        document.getElementById('g-p-uid').value = ''; document.getElementById('g-p-zone').value = '';
+        document.getElementById('g-active').checked = true;
+        window.openModal('game-modal');
     };
     
-    // --- SPIN LOGIC INTEGRATED ---
-    window.apprDep = async (id, uid, amt) => { 
-        if(confirm(`Approve +${amt}?`)){ 
-            let u=await getDoc(doc(db,"users",uid)); let uData=u.data(); 
-            let newSpins = Math.floor(parseInt(amt) / 10000);
-            await updateDoc(doc(db,"users",uid),{walletBalance:(parseInt(uData.walletBalance)||0)+parseInt(amt), spinCount: (parseInt(uData.spinCount)||0) + newSpins}); 
-            await updateDoc(doc(db,"deposits",id),{status:'Completed'}); 
-            await addDoc(collection(db,"transactions"),{userId:uid, type:'Deposit', amount:parseInt(amt), desc:'Approved', createdAt:serverTimestamp()}); 
-            window.toast(`Approved! Added ${newSpins} Spin(s)`); 
-        } 
+    window.editGame = (id) => {
+        let g = window.allGames.find(x => x.id === id); if(!g) return;
+        document.getElementById('g-id').value = g.id; document.getElementById('g-name').value = g.name; document.getElementById('g-order').value = g.orderNum||0;
+        document.getElementById('g-logo-url').value = g.logoUrl||''; 
+        let lp = document.getElementById('g-logo-preview'); if(g.logoUrl){ lp.src=g.logoUrl; lp.style.display='block';} else lp.style.display='none';
+        document.getElementById('g-banner-url').value = g.bannerUrl||'';
+        let bp = document.getElementById('g-banner-preview'); if(g.bannerUrl){ bp.src=g.bannerUrl; bp.style.display='block';} else bp.style.display='none';
+        
+        let f = g.forms || [];
+        document.getElementById('g-f-uid').checked = f.includes('gameId');
+        document.getElementById('g-f-zone').checked = f.includes('zoneId');
+        document.getElementById('g-p-uid').value = g.uidPlaceholder||'';
+        document.getElementById('g-p-zone').value = g.zonePlaceholder||'';
+        document.getElementById('g-active').checked = g.isActive;
+        window.openModal('game-modal');
     };
-    window.updDep = async (id, st) => { if(confirm(`Mark as ${st}?`)) await updateDoc(doc(db,"deposits",id),{status:st}); };
-    window.updWd = async (id, st, uid, amt) => { if(confirm(`Confirm ${st}?`)){ if(st==='Cancelled'&&uid&&amt){ let u=await getDoc(doc(db,"users",uid)); await updateDoc(doc(db,"users",uid),{walletBalance:(parseInt(u.data().walletBalance)||0)+parseInt(amt)}); await addDoc(collection(db, "transactions"), { userId: uid, type: 'Refund', amount: parseInt(amt), desc: `Rejected withdraw`, createdAt: serverTimestamp() });} await updateDoc(doc(db,"withdrawals",id),{status:st}); window.toast(`Done!`); } };
-    
-    // --- UPLOADS INTEGRATED ---
-    window.openCatModal = (c=null) => { document.getElementById('cm-id').value=c?c.id:''; document.getElementById('cm-name').value=c?c.name:''; document.getElementById('cm-slug').value=c?c.slug:''; document.getElementById('cm-img-url').value=c?c.logoUrl:''; document.getElementById('cm-img-preview').src=c?c.logoUrl:''; document.getElementById('cm-img-preview').style.display=c&&c.logoUrl?'block':'none'; let f=(c&&c.forms)?c.forms:[]; document.getElementById('cm-form-uid').checked=f.includes('gameId'); document.getElementById('cm-form-zone').checked=f.includes('zoneId'); document.getElementById('cm-ph-uid').value=c&&c.uidPlaceholder ? c.uidPlaceholder : ''; document.getElementById('cm-ph-zone').value=c&&c.zonePlaceholder ? c.zonePlaceholder : ''; document.getElementById('cm-title').innerText=c?"Edit Category":"New Category"; window.openModal('cat-modal'); };
-    window.saveCategory = async () => { let id=document.getElementById('cm-id').value; let forms=[]; if(document.getElementById('cm-form-uid').checked)forms.push('gameId'); if(document.getElementById('cm-form-zone').checked)forms.push('zoneId'); let data={ name:document.getElementById('cm-name').value, slug:document.getElementById('cm-slug').value, logoUrl:document.getElementById('cm-img-url').value, forms:forms, uidPlaceholder: document.getElementById('cm-ph-uid').value, zonePlaceholder: document.getElementById('cm-ph-zone').value, isActive:true }; if(id) await updateDoc(doc(db,"categories",id),data); else await addDoc(collection(db,"categories"),data); window.closeModal('cat-modal'); window.toast("Saved!"); };
-    window.delCat = async (id) => { if(confirm('Delete?')) await deleteDoc(doc(db,'categories',id)); };
-    
-    window.openProdModal = (p=null) => { document.getElementById('pm-id').value=p?p.id:''; document.getElementById('pm-name').value=p?p.name:''; document.getElementById('pm-cat').value=p?p.categoryId:''; document.getElementById('pm-cost').value=p?p.retailPrice:''; document.getElementById('pm-price').value=p?p.sellingPrice:''; document.getElementById('pm-img-url').value=p?p.logoUrl:''; document.getElementById('pm-img-preview').src=p?p.logoUrl:''; document.getElementById('pm-img-preview').style.display=p&&p.logoUrl?'block':'none'; document.getElementById('pm-title').innerText=p?"Edit Product":"New Product"; window.openModal('prod-modal'); };
-    window.saveProduct = async () => { let id=document.getElementById('pm-id').value; let data={ name:document.getElementById('pm-name').value, categoryId:document.getElementById('pm-cat').value, retailPrice:parseFloat(document.getElementById('pm-cost').value)||0, sellingPrice:parseFloat(document.getElementById('pm-price').value)||0, logoUrl:document.getElementById('pm-img-url').value, isActive:true }; if(id) await updateDoc(doc(db,"products",id),data); else await addDoc(collection(db,"products"),data); window.closeModal('prod-modal'); window.toast("Saved!"); };
-    window.delProd = async (id) => { if(confirm('Delete?')) await deleteDoc(doc(db,'products',id)); };
-    window.openPayModal = (p=null) => { document.getElementById('pay-id').value=p?p.id:''; document.getElementById('pay-name').value=p?p.name:''; document.getElementById('pay-phone').value=p?p.phone:''; document.getElementById('pay-acc').value=p?p.accName:''; document.getElementById('pay-qr-url').value=p?p.qrUrl:''; document.getElementById('pay-qr-preview').src=p?p.qrUrl:''; document.getElementById('pay-qr-preview').style.display=p&&p.qrUrl?'block':'none'; window.openModal('pay-modal'); };
-    window.savePayment = async () => { let id=document.getElementById('pay-id').value; let data={name:document.getElementById('pay-name').value, phone:document.getElementById('pay-phone').value, accName:document.getElementById('pay-acc').value, qrUrl:document.getElementById('pay-qr-url').value}; if(id) await updateDoc(doc(db,"payment_methods",id),data); else await addDoc(collection(db,"payment_methods"),data); window.closeModal('pay-modal'); window.toast("Saved!"); };
-    window.delPay = async (id) => { if(confirm('Delete?')) await deleteDoc(doc(db,'payment_methods',id)); };
-    window.openGuideModal = (g=null) => { document.getElementById('gm-id').value=g?g.id:''; document.getElementById('gm-title-inp').value=g?g.title:''; document.getElementById('gm-content').value=g?g.content:''; document.getElementById('gm-video').value=g?g.videoUrl:''; document.getElementById('gm-title').innerText=g?"Edit Guide":"New Guide"; window.openModal('guide-modal'); };
-    window.saveGuide = async () => { let id = document.getElementById('gm-id').value; let data = { title: document.getElementById('gm-title-inp').value, content: document.getElementById('gm-content').value, videoUrl: document.getElementById('gm-video').value, createdAt: serverTimestamp() }; if(id) await updateDoc(doc(db,"guides",id), data); else await addDoc(collection(db,"guides"), data); window.closeModal('guide-modal'); window.toast("Saved!"); };
-    window.delGuide = async (id) => { if(confirm('Delete?')) await deleteDoc(doc(db,'guides',id)); };
+
+    window.saveGame = async () => {
+        let id = document.getElementById('g-id').value;
+        let name = document.getElementById('g-name').value;
+        let order = parseInt(document.getElementById('g-order').value) || 0;
+        let logoFile = document.getElementById('g-logo-file').files[0];
+        let bannerFile = document.getElementById('g-banner-file').files[0];
+        let logoUrl = document.getElementById('g-logo-url').value;
+        let bannerUrl = document.getElementById('g-banner-url').value;
+        let pUid = document.getElementById('g-p-uid').value || "Player ID / Email";
+        let pZone = document.getElementById('g-p-zone').value || "Zone / Server ID";
+        let forms = [];
+        if(document.getElementById('g-f-uid').checked) forms.push('gameId');
+        if(document.getElementById('g-f-zone').checked) forms.push('zoneId');
+        let isActive = document.getElementById('g-active').checked;
+
+        if(!name) return window.toast("Name required");
+        let btn = document.getElementById('btn-save-game'); btn.innerText = "Uploading..."; btn.disabled = true;
+        
+        try {
+            if(logoFile) logoUrl = await uploadToImgBB(logoFile);
+            if(bannerFile) bannerUrl = await uploadToImgBB(bannerFile);
+            
+            let data = { name, orderNum: order, logoUrl, bannerUrl, forms, uidPlaceholder: pUid, zonePlaceholder: pZone, isActive, updatedAt: serverTimestamp() };
+            if(id) { await updateDoc(doc(db, "categories", id), data); } 
+            else { data.createdAt = serverTimestamp(); await addDoc(collection(db, "categories"), data); }
+            window.toast("Game saved!"); window.closeModal('game-modal');
+        } catch(e) { window.toast(e.message); }
+        btn.innerText = "Save Game"; btn.disabled = false;
+    };
+
+    // 💡 PRODUCTS 💡
+    window.navToProducts = (catId, catName) => {
+        window.currentCatId = catId; document.getElementById('prod-game-title').innerText = catName + " Items";
+        window.renderProducts(); window.navTo('v-products');
+    };
+
+    window.renderProducts = function() {
+        let filtered = window.allProds.filter(p => p.categoryId === window.currentCatId);
+        let h = "";
+        filtered.forEach(p => {
+            let actStr = p.isActive ? `<span style="color:var(--ok); font-size:11px; font-weight:800;">ACTIVE</span>` : `<span style="color:var(--danger); font-size:11px; font-weight:800;">HIDDEN</span>`;
+            let imgH = p.logoUrl ? `<img src="${p.logoUrl}" style="width:40px; height:40px; border-radius:10px; object-fit:contain; margin-right:15px; background:rgba(255,255,255,0.1);">` : `<div style="width:40px; height:40px; border-radius:10px; background:rgba(236,72,153,0.15); display:flex; align-items:center; justify-content:center; margin-right:15px; color:var(--accent);"><i class="fas fa-gem"></i></div>`;
+            h += `<div class="glass-card" style="padding:15px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between;">
+                <div style="display:flex; align-items:center; flex:1;">
+                    ${imgH}
+                    <div>
+                        <div style="font-weight:800; font-size:14px;">${p.name} <span style="font-size:10px; color:var(--muted);">(Ord: ${p.orderNum||0})</span></div>
+                        <div style="color:var(--ok); font-weight:900; font-size:13px; margin:2px 0;">${p.sellingPrice.toLocaleString()} Ks</div>
+                        ${actStr}
+                    </div>
+                </div>
+                <div style="display:flex; gap:5px;">
+                    <button style="background:transparent; border:1px solid var(--glass-border); color:var(--text); padding:6px 10px; border-radius:8px; font-size:11px; cursor:pointer;" onclick="window.editProd('${p.id}')"><i class="fas fa-pen"></i></button>
+                    <button style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); color:var(--danger); padding:6px 10px; border-radius:8px; font-size:11px; cursor:pointer;" onclick="window.deleteProd('${p.id}')"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>`;
+        });
+        document.getElementById('list-products').innerHTML = h || `<div style="text-align:center; padding:30px; color:gray;">No items added.</div>`;
+    }
+
+    window.openProdModal = () => {
+        document.getElementById('p-id').value = ''; document.getElementById('p-cat').value = window.currentCatId;
+        document.getElementById('p-name').value = ''; document.getElementById('p-price').value = ''; document.getElementById('p-order').value = '';
+        document.getElementById('p-icon-file').value = ''; document.getElementById('p-icon-url').value = '';
+        document.getElementById('p-active').checked = true; window.openModal('prod-modal');
+    };
+
+    window.editProd = (id) => {
+        let p = window.allProds.find(x => x.id === id); if(!p) return;
+        document.getElementById('p-id').value = p.id; document.getElementById('p-cat').value = p.categoryId;
+        document.getElementById('p-name').value = p.name; document.getElementById('p-price').value = p.sellingPrice; document.getElementById('p-order').value = p.orderNum||0;
+        document.getElementById('p-icon-url').value = p.logoUrl||''; document.getElementById('p-active').checked = p.isActive;
+        window.openModal('prod-modal');
+    };
+
+    window.saveProd = async () => {
+        let id = document.getElementById('p-id').value; let catId = document.getElementById('p-cat').value;
+        let name = document.getElementById('p-name').value; let price = parseInt(document.getElementById('p-price').value);
+        let order = parseInt(document.getElementById('p-order').value) || 0;
+        let iconFile = document.getElementById('p-icon-file').files[0]; let iconUrl = document.getElementById('p-icon-url').value;
+        let isActive = document.getElementById('p-active').checked;
+
+        if(!name || !price) return window.toast("Name and Price required");
+        let btn = document.getElementById('btn-save-prod'); btn.innerText = "Saving..."; btn.disabled = true;
+        
+        try {
+            if(iconFile) iconUrl = await uploadToImgBB(iconFile);
+            let data = { categoryId: catId, name, sellingPrice: price, orderNum: order, logoUrl: iconUrl, isActive, updatedAt: serverTimestamp() };
+            if(id) { await updateDoc(doc(db, "products", id), data); } 
+            else { data.createdAt = serverTimestamp(); await addDoc(collection(db, "products"), data); }
+            window.toast("Item saved!"); window.closeModal('prod-modal');
+        } catch(e) { window.toast(e.message); }
+        btn.innerText = "Save Item"; btn.disabled = false;
+    };
+
+    window.deleteProd = async (id) => { if(confirm("Delete this item?")) { await deleteDoc(doc(db, "products", id)); window.toast("Deleted"); } };
+
+    // 💡 PAY METHODS 💡
+    window.renderPays = function() {
+        let h = "";
+        window.allPays.forEach(p => {
+            h += `<div class="glass-card" style="padding:15px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+                <div><strong style="color:var(--accent); font-size:14px;">${p.name}</strong><br><span style="font-size:12px; font-family:monospace;">${p.phone}</span> <span style="font-size:11px; color:var(--muted);">(${p.accName})</span></div>
+                <div style="display:flex; gap:5px;">
+                    <button style="background:transparent; border:1px solid var(--glass-border); color:var(--text); padding:4px 8px; border-radius:8px; font-size:11px;" onclick="window.editPay('${p.id}')"><i class="fas fa-pen"></i></button>
+                    <button style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); color:var(--danger); padding:4px 8px; border-radius:8px; font-size:11px;" onclick="window.deletePay('${p.id}')"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>`;
+        });
+        document.getElementById('list-pay-methods').innerHTML = h;
+    };
+
+    window.openPayModal = () => { document.getElementById('pm-id').value=''; document.getElementById('pm-name').value=''; document.getElementById('pm-phone').value=''; document.getElementById('pm-acc').value=''; window.openModal('pay-modal'); };
+    window.editPay = (id) => { let p = window.allPays.find(x=>x.id===id); if(p){ document.getElementById('pm-id').value=p.id; document.getElementById('pm-name').value=p.name; document.getElementById('pm-phone').value=p.phone; document.getElementById('pm-acc').value=p.accName; window.openModal('pay-modal'); } };
+    window.savePayMethod = async () => {
+        let id = document.getElementById('pm-id').value; let name = document.getElementById('pm-name').value; let phone = document.getElementById('pm-phone').value; let acc = document.getElementById('pm-acc').value;
+        if(!name || !phone) return window.toast("Fill fields");
+        try {
+            if(id) await updateDoc(doc(db, "payment_methods", id), { name, phone, accName: acc }); else await addDoc(collection(db, "payment_methods"), { name, phone, accName: acc });
+            window.toast("Saved!"); window.closeModal('pay-modal');
+        } catch(e) { window.toast(e.message); }
+    };
+    window.deletePay = async (id) => { if(confirm("Delete?")) { await deleteDoc(doc(db, "payment_methods", id)); } };
+
+    // 💡 GUIDES 💡
+    window.renderGuides = function() {
+        let h = "";
+        window.allGuides.forEach(g => {
+            h += `<div class="glass-card" style="padding:15px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+                <div style="font-weight:700; font-size:14px;">${g.title}</div>
+                <div style="display:flex; gap:5px;">
+                    <button style="background:transparent; border:1px solid var(--glass-border); color:var(--text); padding:4px 8px; border-radius:8px; font-size:11px;" onclick="window.editGuide('${g.id}')"><i class="fas fa-pen"></i></button>
+                    <button style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); color:var(--danger); padding:4px 8px; border-radius:8px; font-size:11px;" onclick="window.deleteGuide('${g.id}')"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>`;
+        });
+        document.getElementById('list-guides').innerHTML = h;
+    };
+    window.openGuideModal = () => { document.getElementById('gd-id').value=''; document.getElementById('gd-title').value=''; document.getElementById('gd-content').value=''; document.getElementById('gd-video').value=''; window.openModal('guide-modal'); };
+    window.editGuide = (id) => { let g = window.allGuides.find(x=>x.id===id); if(g){ document.getElementById('gd-id').value=g.id; document.getElementById('gd-title').value=g.title; document.getElementById('gd-content').value=g.content; document.getElementById('gd-video').value=g.videoUrl||''; window.openModal('guide-modal'); } };
+    window.saveGuide = async () => {
+        let id = document.getElementById('gd-id').value; let title = document.getElementById('gd-title').value; let content = document.getElementById('gd-content').value; let video = document.getElementById('gd-video').value;
+        if(!title || !content) return window.toast("Fill title and content");
+        try {
+            if(id) await updateDoc(doc(db, "guides", id), { title, content, videoUrl: video }); else await addDoc(collection(db, "guides"), { title, content, videoUrl: video });
+            window.toast("Saved!"); window.closeModal('guide-modal');
+        } catch(e) { window.toast(e.message); }
+    };
+    window.deleteGuide = async (id) => { if(confirm("Delete?")) { await deleteDoc(doc(db, "guides", id)); } };
+
+    // 💡 HOME BANNERS 💡
+    window.renderBanners = function() {
+        let h = "";
+        let banners = window.appConfig.homeBanners || [];
+        if(window.appConfig.homeBannerUrl && banners.length === 0) banners.push(window.appConfig.homeBannerUrl); // migrate old
+        
+        banners.forEach((b, index) => {
+            h += `<div class="glass-card" style="padding:10px; display:flex; align-items:center; justify-content:space-between;">
+                <img src="${b}" style="width:120px; height:50px; object-fit:cover; border-radius:10px;">
+                <button style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); color:var(--danger); padding:6px 10px; border-radius:8px; font-size:11px;" onclick="window.deleteBanner(${index})"><i class="fas fa-trash"></i></button>
+            </div>`;
+        });
+        document.getElementById('list-banners').innerHTML = h || `<div style="font-size:12px; color:gray; text-align:center;">No banners added.</div>`;
+    };
+
+    window.openBannerModal = () => { document.getElementById('bn-file').value=''; window.openModal('banner-modal'); };
+    window.saveBanner = async () => {
+        let f = document.getElementById('bn-file').files[0]; if(!f) return window.toast("Select image");
+        let btn = document.getElementById('btn-save-banner'); btn.innerText = "Uploading..."; btn.disabled = true;
+        try {
+            let url = await uploadToImgBB(f);
+            let banners = window.appConfig.homeBanners || [];
+            banners.push(url);
+            await setDoc(doc(db, "settings", "app_config"), { homeBanners: banners }, { merge: true });
+            window.toast("Banner added!"); window.closeModal('banner-modal');
+        } catch(e) { window.toast(e.message); }
+        btn.innerText = "Upload & Save"; btn.disabled = false;
+    };
+    window.deleteBanner = async (index) => {
+        if(!confirm("Delete this banner?")) return;
+        let banners = window.appConfig.homeBanners || [];
+        banners.splice(index, 1);
+        try { await setDoc(doc(db, "settings", "app_config"), { homeBanners: banners }, { merge: true }); window.toast("Banner deleted."); } catch(e) { window.toast(e.message); }
+    };
+
+    // 💡 SETTINGS SAVES 💡
+    window.saveTgSettings = async () => {
+        let t = document.getElementById('tg-bot-token').value; let c = document.getElementById('tg-chat-id').value; let d = document.getElementById('tg-dep-id').value; let o = document.getElementById('tg-ord-id').value; let a = document.getElementById('tg-admin-url').value;
+        try { await setDoc(doc(db, "settings", "app_config"), { tgBotToken: t, tgChatId: c, tgDepositTopicId: d, tgOrderTopicId: o, adminUrl: a }, { merge: true }); window.toast("TG Settings Saved!"); } catch(e) { window.toast(e.message); }
+    };
+    window.saveToggleSettings = async () => {
+        let mm = document.getElementById('tgl-maint').checked; let msg = document.getElementById('inp-maint-msg').value; let spin = document.getElementById('tgl-spin').checked; let wd = document.getElementById('tgl-wd').checked;
+        try { await setDoc(doc(db, "settings", "app_config"), { maintenanceMode: mm, maintenanceMsg: msg, spinEnabled: spin, withdrawEnabled: wd }, { merge: true }); window.toast("Toggles Saved!"); } catch(e) { window.toast(e.message); }
+    };
+
 </script>
 </body>
 </html>
+
