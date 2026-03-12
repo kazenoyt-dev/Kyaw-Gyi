@@ -3,28 +3,59 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>Khin Khin Shop</title>
+<title>Khin Shop</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <style>
-  :root { --bg: #030308; --text: #ffffff; --muted: #a1a1aa; --primary: #db2777; --accent: #f472b6; --ok: #10b981; --danger: #ef4444; --warning: #f59e0b; --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%); --glass-border: rgba(255, 255, 255, 0.1); --glass-highlight: rgba(255, 255, 255, 0.25); --glass-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.03); --nav-bg: rgba(5, 5, 12, 0.85); --input-bg: rgba(0, 0, 0, 0.3); }
-  [data-theme="light"] { --bg: #fdf2f8; --text: #4c1d95; --muted: #db2777; --primary: #db2777; --accent: #f472b6; --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 100%); --glass-border: rgba(255, 255, 255, 0.8); --glass-highlight: #ffffff; --glass-shadow: 0 8px 30px rgba(219, 39, 119, 0.1), inset 0 0 20px rgba(255,255,255,0.6); --nav-bg: rgba(255, 255, 255, 0.85); --input-bg: rgba(255, 255, 255, 0.5); }
+  /* 🌸 CUSTOM THEME: Crimson & Pink 🌸 */
+  :root { 
+    --bg: #030002; /* Deep dark background */
+    --text: #ffffff; 
+    --muted: #fbcfe8; 
+    --primary: #9e1b32; /* ကြက်သွေးရောင် */
+    --accent: #ff69b4; /* ပန်းနုရောင် */
+    --ok: #10b981; 
+    --danger: #ef4444; 
+    --warning: #f59e0b; 
+    --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%); 
+    --glass-border: rgba(255, 105, 180, 0.2); 
+    --glass-highlight: rgba(255, 255, 255, 0.25); 
+    --glass-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,105,180,0.05); 
+    --nav-bg: rgba(10, 0, 5, 0.85); 
+    --input-bg: rgba(0, 0, 0, 0.4); 
+  }
+  
+  [data-theme="light"] { 
+    --bg: #fff0f6; /* Very light pink background */
+    --text: #4a044e; 
+    --muted: #9d174d; 
+    --primary: #be123c; /* Lighter crimson for light mode */
+    --accent: #db2777; /* Deeper pink for contrast */
+    --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 100%); 
+    --glass-border: rgba(219, 39, 119, 0.3); 
+    --glass-highlight: #ffffff; 
+    --glass-shadow: 0 8px 30px rgba(219, 39, 119, 0.1), inset 0 0 20px rgba(255,255,255,0.6); 
+    --nav-bg: rgba(255, 255, 255, 0.9); 
+    --input-bg: rgba(255, 255, 255, 0.7); 
+  }
   
   *{box-sizing:border-box; outline:none; margin:0; padding:0; -webkit-tap-highlight-color:transparent;} 
   body{font-family:'Poppins', sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; transition: background 0.4s ease, color 0.4s ease;}
   
-  .liquid-bg { position: fixed; inset: 0; z-index: -3; background: radial-gradient(circle at 15% 50%, rgba(244, 114, 182, 0.25), transparent 50%), radial-gradient(circle at 85% 30%, rgba(219, 39, 119, 0.25), transparent 50%); filter: blur(60px); animation: liquidFlow 15s infinite alternate ease-in-out; pointer-events: none;} 
-  @keyframes liquidFlow { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.1) translate(5%, 5%); } }
-  
-  /* FLOWER PETAL ANIMATION CSS */
-  .petal { position: fixed; top: -10px; background: #fbcfe8; border-radius: 15px 0 15px 0; z-index: -1; animation: fall linear forwards; opacity: 0.6; box-shadow: 0 0 8px rgba(251, 207, 232, 0.6);}
-  [data-theme="light"] .petal { background: #f9a8d4; opacity: 0.8; box-shadow: 0 0 5px rgba(249, 168, 212, 0.5); }
-  @keyframes fall { 
-      0% { transform: translateY(-10px) rotate(0deg) translateX(0); }
-      50% { transform: translateY(50vh) rotate(180deg) translateX(20px); }
-      100% { transform: translateY(110vh) rotate(360deg) translateX(-20px); } 
-  }
+  /* 🌸 CUSTOM REQUEST: Moving liquid colors behind glass 🌸 */
+  .liquid-bg { position: fixed; inset: 0; z-index: -3; background: radial-gradient(circle at 15% 50%, rgba(255, 105, 180, 0.3), transparent 50%), radial-gradient(circle at 85% 30%, rgba(158, 27, 50, 0.3), transparent 60%), radial-gradient(circle at 50% 80%, rgba(219, 39, 119, 0.2), transparent 50%); filter: blur(60px); animation: liquidFlow 12s infinite alternate ease-in-out; pointer-events: none;} 
+  @keyframes liquidFlow { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.15) translate(5%, -5%); } }
 
+  /* 🌸 CUSTOM REQUEST: Falling Flowers UI 🌸 */
+  .petals-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -2; overflow: hidden; }
+  .petal { position: absolute; top: -10%; color: var(--accent); opacity: 0.5; font-size: 1.2rem; user-select: none; animation: fall linear infinite; filter: drop-shadow(0 0 5px rgba(255,105,180,0.5));}
+  @keyframes fall {
+    0% { transform: translateY(-10vh) rotate(0deg) scale(0.8); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(110vh) rotate(360deg) scale(1.2); opacity: 0; }
+  }
+  
   .app-container{max-width:480px; margin:0 auto; min-height:100vh; position:relative; padding-bottom:100px;}
   
   .glass-card { background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--glass-border); border-top: 1px solid var(--glass-highlight); border-left: 1px solid var(--glass-highlight); box-shadow: var(--glass-shadow); border-radius: 20px; transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -36,9 +67,9 @@
   @keyframes fadeInSlide { from {opacity:0; transform:translateY(15px);} to {opacity:1; transform:translateY(0);} }
   
   .glass-input { width: 100%; font-family: 'Poppins'; font-size: 14px; padding: 16px; border-radius: 16px; margin-bottom: 15px; transition: 0.3s; background: var(--input-bg); color: var(--text); border: 1px solid var(--glass-border); box-shadow: inset 0 4px 10px rgba(0,0,0,0.3); } 
-  .glass-input:focus { border-color: var(--accent); box-shadow: inset 0 4px 10px rgba(0,0,0,0.3), 0 0 15px rgba(244, 114, 182, 0.3); }
+  .glass-input:focus { border-color: var(--accent); box-shadow: inset 0 4px 10px rgba(0,0,0,0.3), 0 0 15px rgba(255, 105, 180, 0.4); }
   
-  .btn-gel { background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%), linear-gradient(135deg, var(--accent), var(--primary)); color: #fff; border: 1px solid rgba(255,255,255,0.4); padding: 16px 20px; border-radius: 16px; font-weight: 700; width: 100%; font-family: 'Poppins'; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 25px rgba(219, 39, 119, 0.4); } 
+  .btn-gel { background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%), linear-gradient(135deg, var(--accent), var(--primary)); color: #fff; border: 1px solid rgba(255,255,255,0.4); padding: 16px 20px; border-radius: 16px; font-weight: 700; width: 100%; font-family: 'Poppins'; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4); } 
   .btn-gel:active { transform: scale(0.95); } .btn-gel:disabled { background: rgba(128,128,128,0.3); border-color: transparent; color: var(--muted); box-shadow: none; cursor: not-allowed; }
   
   .toast{position:fixed; top:-100px; left:50%; transform:translateX(-50%); background:var(--ok); color:#fff; padding:12px 24px; border-radius:999px; font-weight:800; font-size:13px; opacity:0; transition:0.5s; z-index:99999; box-shadow: 0 8px 30px rgba(0,0,0,0.5);} 
@@ -66,13 +97,13 @@
   
   .pack-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-bottom:25px; } 
   .pack-card { padding:20px 10px; cursor:pointer; text-align:center; border:2px solid transparent; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 20px;} 
-  .pack-card.selected { border-color:var(--accent); background:rgba(244, 114, 182, 0.15); box-shadow:0 10px 30px rgba(244, 114, 182, 0.2), inset 0 0 15px rgba(244, 114, 182, 0.1); transform: translateY(-5px); border-top: 2px solid rgba(255,255,255,0.5);}
+  .pack-card.selected { border-color:var(--accent); background:rgba(255, 105, 180, 0.15); box-shadow:0 10px 30px rgba(255, 105, 180, 0.2), inset 0 0 15px rgba(255, 105, 180, 0.1); transform: translateY(-5px); border-top: 2px solid rgba(255,255,255,0.5);}
   
   .buy-bottom-bar { position:fixed; bottom:0; left:0; right:0; max-width:480px; margin:0 auto; padding:20px 20px max(20px, env(safe-area-inset-bottom)); z-index:100; display:flex; justify-content:space-between; align-items:center; border-radius:30px 30px 0 0; background: var(--nav-bg); backdrop-filter: blur(30px) saturate(150%); border-top: 1px solid var(--glass-highlight); box-shadow: 0 -10px 40px rgba(0,0,0,0.8); }
   
   .main-nav { position:fixed; bottom:15px; left:15px; right:15px; max-width:450px; margin:0 auto; display:flex; justify-content:space-around; background: var(--nav-bg); backdrop-filter:blur(30px); border:1px solid var(--glass-border); border-top: 1px solid var(--glass-highlight); border-radius: 999px; padding:12px 10px max(12px,env(safe-area-inset-bottom)); z-index:90; box-shadow: 0 20px 40px rgba(0,0,0,0.8); } 
   .nav-btn{flex:1; background:transparent; border:none; color:var(--muted); display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; transition: 0.3s;} 
-  .nav-btn.active{color:var(--accent); text-shadow: 0 0 15px rgba(244, 114, 182, 0.6);} 
+  .nav-btn.active{color:var(--accent); text-shadow: 0 0 15px rgba(255,105,180,0.6);} 
   .nav-btn.active i { transform: scale(1.15) translateY(-2px); color: var(--accent); }
   
   .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(15px); display:none; align-items:center; justify-content:center; z-index:9000; padding:20px; opacity:0; transition:0.3s; } 
@@ -87,10 +118,12 @@
 <body data-theme="dark">
 
 <div class="liquid-bg"></div>
+<div class="petals-container" id="petals-container"></div>
+
 <div id="toast" class="toast">Message</div>
 
 <div id="maintenance-screen">
-    <i class="fas fa-tools text-accent" style="font-size: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(244,114,182,0.5));"></i>
+    <i class="fas fa-tools text-accent" style="font-size: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255,105,180,0.5));"></i>
     <h1 style="font-weight: 900; margin-bottom: 15px; color: #fff;">System Maintenance</h1>
     <p id="maint-msg" style="color: var(--muted); font-size: 14px; line-height: 1.8;">We are currently updating our system. Please check back later.</p>
 </div>
@@ -98,8 +131,8 @@
 <div id="auth-screen" class="modal-overlay">
     <div class="glass-card modal-box" style="margin-top:0; border:1px solid var(--accent); text-align:center;">
         <div style="text-align:left; margin-bottom:15px; cursor:pointer; color:var(--muted); font-size:13px;" onclick="window.closeAuthScreen()"><i class="fas fa-arrow-left"></i> <span data-i18n="back_shop">ဆိုင်သို့ ပြန်သွားမည်</span></div>
-        <div style="width:80px; height:80px; background:linear-gradient(135deg, var(--accent), var(--primary)); border-radius:24px; display:flex; align-items:center; justify-content:center; font-size:40px; color:#fff; margin:0 auto 20px; box-shadow:0 15px 30px rgba(219,39,119,0.4), inset 0 2px 10px rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.4);">
-            <img src="https://i.ibb.co/JR3Qx2y2/2216.png" style="width:50px; object-fit:contain;">
+        <div style="width:80px; height:80px; background:linear-gradient(135deg, var(--accent), var(--primary)); border-radius:24px; display:flex; align-items:center; justify-content:center; overflow:hidden; margin:0 auto 20px; box-shadow:0 15px 30px rgba(158,27,50,0.4), inset 0 2px 10px rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.4);">
+            <img src="https://i.ibb.co/JR3Qx2y2/2216.png" style="width:100%; height:100%; object-fit:cover;">
         </div>
         <div style="font-size:24px; font-weight:800; margin-bottom:30px; color:var(--text);" data-i18n="pls_login">ကျေးဇူးပြု၍ အကောင့်ဝင်ပါ</div>
         <input type="email" id="auth-email" class="glass-input" data-i18n-ph="email_ph" placeholder="အီးမေးလ်">
@@ -173,7 +206,7 @@
     <div id="page-profile" class="page">
         <h2 style="margin-bottom:20px; font-weight:800; font-size:24px;" data-i18n="profile">ပရိုဖိုင်</h2>
         <div class="glass-card" style="padding:30px 20px; text-align:center; margin-bottom:25px;">
-            <div style="width:80px; height:80px; background:linear-gradient(135deg, var(--accent), var(--primary)); color:#fff; border-radius:24px; display:flex; align-items:center; justify-content:center; font-size:35px; font-weight:bold; margin:0 auto 15px;">👤</div>
+            <div style="width:80px; height:80px; background:linear-gradient(135deg, var(--accent), var(--primary)); color:#fff; border-radius:24px; display:flex; align-items:center; justify-content:center; font-size:35px; font-weight:bold; margin:0 auto 15px;">🌸</div>
             <div style="font-size:18px; font-weight:bold;" id="prof-email">--</div>
             <div style="font-size:12px; color:var(--accent); font-weight:700; margin-bottom:25px;" id="prof-role">Customer</div>
             
@@ -195,7 +228,7 @@
             <i class="fas fa-chevron-right text-muted"></i>
         </div>
         <div class="glass-card" style="padding:16px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="window.navTo('page-ledger')">
-            <div style="display:flex; align-items:center; gap:15px;"><div style="width:40px; height:40px; border-radius:12px; background:rgba(244,114,182,0.15); color:var(--accent); display:flex; justify-content:center; align-items:center;"><i class="fas fa-book"></i></div><strong style="font-weight:600;" data-i18n="ledger">ပိုက်ဆံအိတ် မှတ်တမ်း</strong></div>
+            <div style="display:flex; align-items:center; gap:15px;"><div style="width:40px; height:40px; border-radius:12px; background:rgba(255,105,180,0.15); color:var(--accent); display:flex; justify-content:center; align-items:center;"><i class="fas fa-book"></i></div><strong style="font-weight:600;" data-i18n="ledger">ပိုက်ဆံအိတ် မှတ်တမ်း</strong></div>
             <i class="fas fa-chevron-right text-muted"></i>
         </div>
         
@@ -205,7 +238,7 @@
         </div>
         
         <div class="glass-card" style="padding:16px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="window.openPassModal()">
-            <div style="display:flex; align-items:center; gap:15px;"><div style="width:40px; height:40px; border-radius:12px; background:rgba(219,39,119,0.15); color:var(--primary); display:flex; justify-content:center; align-items:center;"><i class="fas fa-key"></i></div><strong style="font-weight:600;" data-i18n="change_pass">စကားဝှက် ပြောင်းရန်</strong></div>
+            <div style="display:flex; align-items:center; gap:15px;"><div style="width:40px; height:40px; border-radius:12px; background:rgba(158,27,50,0.15); color:var(--primary); display:flex; justify-content:center; align-items:center;"><i class="fas fa-key"></i></div><strong style="font-weight:600;" data-i18n="change_pass">စကားဝှက် ပြောင်းရန်</strong></div>
             <i class="fas fa-chevron-right text-muted"></i>
         </div>
         <div class="glass-card" style="padding:16px; margin-bottom:25px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="window.logout()">
@@ -246,7 +279,7 @@
 
     <div id="page-spin" class="page">
         <div style="display:flex; align-items:center; gap:15px; margin-bottom:25px;"><div class="top-action-btn" onclick="window.navBack()"><i class="fas fa-arrow-left"></i></div><h2 style="margin:0; font-weight:800;" data-i18n="spin">ကံစမ်းမဲ</h2></div>
-        <div class="glass-card" style="border: 2px dashed rgba(219,39,119,0.5); padding: 40px 20px; text-align: center; margin-bottom: 25px;">
+        <div class="glass-card" style="border: 2px dashed rgba(255,105,180,0.5); padding: 40px 20px; text-align: center; margin-bottom: 25px;">
             <div style="font-size:15px; font-weight:600;">Spin & Win up to 5000 Ks!</div>
             <div id="spin-result" style="font-size: 48px; font-weight: 900; color: var(--accent); margin: 25px 0;">0 Ks</div>
         </div>
@@ -274,20 +307,23 @@
 </div>
 
 <script>
-    // FEMININE TOUCH - FLOWER PETALS JS
-    function createPetal() {
-        const petal = document.createElement('div');
-        petal.classList.add('petal');
-        petal.style.left = Math.random() * 100 + 'vw';
-        petal.style.animationDuration = Math.random() * 3 + 3 + 's';
-        petal.style.opacity = Math.random() * 0.4 + 0.4;
-        let size = Math.random() * 8 + 6;
-        petal.style.width = size + 'px';
-        petal.style.height = size + 'px';
-        document.body.appendChild(petal);
-        setTimeout(() => { petal.remove(); }, 6000);
+    // 🌸 FALLING FLOWER PETALS JS 🌸
+    function createPetals() {
+        const container = document.getElementById('petals-container');
+        if(!container) return;
+        const petalChars = ['🌸', '💮', '🌺', '✨'];
+        for(let i=0; i<18; i++) {
+            let p = document.createElement('div');
+            p.className = 'petal';
+            p.innerText = petalChars[Math.floor(Math.random()*petalChars.length)];
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = (Math.random() * 5 + 6) + 's';
+            p.style.animationDelay = (Math.random() * 5) + 's';
+            p.style.fontSize = (Math.random() * 12 + 10) + 'px';
+            container.appendChild(p);
+        }
     }
-    setInterval(createPetal, 400); // adjust petal frequency
+    document.addEventListener('DOMContentLoaded', createPetals);
 
     // BASIC UI SCRIPTS
     window.toast = function(m) { const t = document.getElementById("toast"); t.textContent = m; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2500); };
@@ -296,8 +332,8 @@
     window.formatDate = function(ts) { if(!ts) return "-"; let d; if(ts.toDate) d = ts.toDate(); else if(ts.seconds) d = new Date(ts.seconds * 1000); else d = new Date(ts); return d.toLocaleString('en-US', {month:'short', day:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'}); };
     
     const dict = {
-        my: { app_name:"Khin Khin Shop", email_ph:"အီးမေးလ်", pass_ph:"စကားဝှက်", login_btn:"အကောင့်ဝင်မည်", go_signup:"အကောင့်မရှိသေးဘူးလား? အသစ်ဖွင့်မည်", go_login:"အကောင့်ရှိပြီးသားလား? ဝင်မည်", forgot_pass:"စကားဝှက်မေ့နေပါသလား?", loading:"စောင့်ဆိုင်းပါ...", step1:"၁။ အကောင့်အချက်အလက် ထည့်ပါ", step2:"၂။ ပစ္စည်းရွေးချယ်ပါ", step3:"၃။ ငွေပေးချေမည့်နည်းလမ်း", wallet:"ပိုက်ဆံအိတ်", bank_tr:"ငွေလွှဲပြေစာ", avail_bal:"လက်ကျန်ငွေ", up_slip:"+ ငွေလွှဲပြေစာ ပုံတင်ရန်", total:"စုစုပေါင်း", pay_now:"ဝယ်ယူမည်", processing:"လုပ်ဆောင်နေပါသည်...", profile:"ပရိုဖိုင်", my_wallet:"လက်ကျန်ငွေ", topup:"ငွေသွင်း", withdraw:"ငွေထုတ်", change_pass:"စကားဝှက် ပြောင်းရန်", menu:"မီနူး", spin:"ကံစမ်းမဲ", ledger:"ပိုက်ဆံအိတ် မှတ်တမ်း", my_orders:"အော်ဒါမှတ်တမ်း", logout:"အကောင့်ထွက်မည်", noti:"အသိပေးချက်များ", shop:"ဆိုင်", orders:"မှတ်တမ်း", me:"ပရိုဖိုင်", guide:"အသုံးပြုနည်း လမ်းညွှန်", theme:"အလင်း/အမှောင်", order_proc: "အော်ဒါ လုပ်ဆောင်နေပါသည်", order_comp: "အော်ဒါ အောင်မြင်ပါသည်", order_canc: "အော်ဒါ ပယ်ဖျက်လိုက်ပါသည်", order_det: "အော်ဒါ အသေးစိတ်", order_id: "အော်ဒါ နံပါတ်", date: "နေ့ရက် နှင့် အချိန်", game: "ဂိမ်းအမည်", item: "ပစ္စည်း", player_id: "ပလေယာ ID", pay_method: "ပေးချေမှုစနစ်", amt_paid: "ကျသင့်ငွေ", status: "အခြေအနေ", close_btn: "ပိတ်မည်", before_bal: "ယခင် လက်ကျန်ငွေ", after_bal: "ယခု လက်ကျန်ငွေ", no_orders: "အော်ဒါ မှတ်တမ်း မရှိသေးပါ။", no_noti: "အသိပေးချက် မရှိပါ။", your_order: "သင်၏", is: "သည်", pls_login: "ကျေးဇူးပြု၍ အကောင့်ဝင်ပါ", back_shop: "ဆိုင်သို့ ပြန်သွားမည်", pending_dep_exist: "ယခင် ငွေသွင်းထားမှု (Pending) ရှိနေပါသည်။", min_dep_err: "အနည်းဆုံး ၅၀၀ ကျပ် သွင်းရပါမည်", pass_err: "စကားဝှက်ဟောင်း မှားယွင်းနေပါသည်" },
-        en: { app_name:"Khin Khin Shop", email_ph:"Email", pass_ph:"Password", login_btn:"Login", go_signup:"Don't have an account? Sign Up", go_login:"Already have an account? Login", forgot_pass:"Forgot Password?", loading:"Loading...", step1:"1. Account Info", step2:"2. Select Item", step3:"3. Payment Method", wallet:"Wallet", bank_tr:"Bank Transfer", avail_bal:"Available Balance", up_slip:"+ Upload Transfer Slip", total:"Total", pay_now:"Buy Now", processing:"Processing...", profile:"Profile", my_wallet:"Balance", topup:"Top Up", withdraw:"Withdraw", change_pass:"Change Password", menu:"Menu", spin:"Lucky Spin", ledger:"Wallet Ledger", my_orders:"Order History", logout:"Logout", noti:"Notifications", shop:"Shop", orders:"Orders", me:"Me", guide:"User Guide", theme:"Dark/Light Theme", order_proc: "Order Processing", order_comp: "Order Completed", order_canc: "Order Cancelled", order_det: "Order Details", order_id: "Order ID", date: "Date & Time", game: "Game", item: "Item", player_id: "Player ID", pay_method: "Payment", amt_paid: "Amount Paid", status: "STATUS", close_btn: "Close", before_bal: "Balance Before", after_bal: "Balance After", no_orders: "No order history yet.", no_noti: "No notifications.", your_order: "Your order for", is: "is", pls_login: "Please login first", back_shop: "Back to Shop", pending_dep_exist: "You already have a pending deposit! Please wait.", min_dep_err: "Minimum deposit is 500 Ks", pass_err: "Incorrect old password" }
+        my: { app_name:"Khin Shop", email_ph:"အီးမေးလ်", pass_ph:"စကားဝှက်", login_btn:"အကောင့်ဝင်မည်", go_signup:"အကောင့်မရှိသေးဘူးလား? အသစ်ဖွင့်မည်", go_login:"အကောင့်ရှိပြီးသားလား? ဝင်မည်", forgot_pass:"စကားဝှက်မေ့နေပါသလား?", loading:"စောင့်ဆိုင်းပါ...", step1:"၁။ အကောင့်အချက်အလက် ထည့်ပါ", step2:"၂။ ပစ္စည်းရွေးချယ်ပါ", step3:"၃။ ငွေပေးချေမည့်နည်းလမ်း", wallet:"ပိုက်ဆံအိတ်", bank_tr:"ငွေလွှဲပြေစာ", avail_bal:"လက်ကျန်ငွေ", up_slip:"+ ငွေလွှဲပြေစာ ပုံတင်ရန်", total:"စုစုပေါင်း", pay_now:"ဝယ်ယူမည်", processing:"လုပ်ဆောင်နေပါသည်...", profile:"ပရိုဖိုင်", my_wallet:"လက်ကျန်ငွေ", topup:"ငွေသွင်း", withdraw:"ငွေထုတ်", change_pass:"စကားဝှက် ပြောင်းရန်", menu:"မီနူး", spin:"ကံစမ်းမဲ", ledger:"ပိုက်ဆံအိတ် မှတ်တမ်း", my_orders:"အော်ဒါမှတ်တမ်း", logout:"အကောင့်ထွက်မည်", noti:"အသိပေးချက်များ", shop:"ဆိုင်", orders:"မှတ်တမ်း", me:"ပရိုဖိုင်", guide:"အသုံးပြုနည်း လမ်းညွှန်", theme:"အလင်း/အမှောင်", order_proc: "အော်ဒါ လုပ်ဆောင်နေပါသည်", order_comp: "အော်ဒါ အောင်မြင်ပါသည်", order_canc: "အော်ဒါ ပယ်ဖျက်လိုက်ပါသည်", order_det: "အော်ဒါ အသေးစိတ်", order_id: "အော်ဒါ နံပါတ်", date: "နေ့ရက် နှင့် အချိန်", game: "ဂိမ်းအမည်", item: "ပစ္စည်း", player_id: "ပလေယာ ID", pay_method: "ပေးချေမှုစနစ်", amt_paid: "ကျသင့်ငွေ", status: "အခြေအနေ", close_btn: "ပိတ်မည်", before_bal: "ယခင် လက်ကျန်ငွေ", after_bal: "ယခု လက်ကျန်ငွေ", no_orders: "အော်ဒါ မှတ်တမ်း မရှိသေးပါ။", no_noti: "အသိပေးချက် မရှိပါ။", your_order: "သင်၏", is: "သည်", pls_login: "ကျေးဇူးပြု၍ အကောင့်ဝင်ပါ", back_shop: "ဆိုင်သို့ ပြန်သွားမည်", pending_dep_exist: "ယခင် ငွေသွင်းထားမှု (Pending) ရှိနေပါသည်။", min_dep_err: "အနည်းဆုံး ၅၀၀ ကျပ် သွင်းရပါမည်", pass_err: "စကားဝှက်ဟောင်း မှားယွင်းနေပါသည်" },
+        en: { app_name:"Khin Shop", email_ph:"Email", pass_ph:"Password", login_btn:"Login", go_signup:"Don't have an account? Sign Up", go_login:"Already have an account? Login", forgot_pass:"Forgot Password?", loading:"Loading...", step1:"1. Account Info", step2:"2. Select Item", step3:"3. Payment Method", wallet:"Wallet", bank_tr:"Bank Transfer", avail_bal:"Available Balance", up_slip:"+ Upload Transfer Slip", total:"Total", pay_now:"Buy Now", processing:"Processing...", profile:"Profile", my_wallet:"Balance", topup:"Top Up", withdraw:"Withdraw", change_pass:"Change Password", menu:"Menu", spin:"Lucky Spin", ledger:"Wallet Ledger", my_orders:"Order History", logout:"Logout", noti:"Notifications", shop:"Shop", orders:"Orders", me:"Me", guide:"User Guide", theme:"Dark/Light Theme", order_proc: "Order Processing", order_comp: "Order Completed", order_canc: "Order Cancelled", order_det: "Order Details", order_id: "Order ID", date: "Date & Time", game: "Game", item: "Item", player_id: "Player ID", pay_method: "Payment", amt_paid: "Amount Paid", status: "STATUS", close_btn: "Close", before_bal: "Balance Before", after_bal: "Balance After", no_orders: "No order history yet.", no_noti: "No notifications.", your_order: "Your order for", is: "is", pls_login: "Please login first", back_shop: "Back to Shop", pending_dep_exist: "You already have a pending deposit! Please wait.", min_dep_err: "Minimum deposit is 500 Ks", pass_err: "Incorrect old password" }
     };
     
     window.curLang = localStorage.getItem('lang') || 'my'; window.curTheme = localStorage.getItem('theme') || 'dark'; window.isGridView = localStorage.getItem('view') === 'grid';
@@ -317,12 +353,12 @@
     window.closeAuthScreen = function() { let a = document.getElementById('auth-screen'); if(a) a.classList.remove('active'); };
     window.switchPayTab = function(m, el) { window.payMode = m; document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.pay-view').forEach(v => v.classList.remove('active')); el.classList.add('active'); let p = document.getElementById('pay-'+m); if(p) p.classList.add('active'); if(typeof window.checkForm === 'function') window.checkForm(); };
 </script>
-
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, EmailAuthProvider, reauthenticateWithCredential, updatePassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
     import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, where, doc, setDoc, updateDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
     
+    // 🌸 CUSTOM FIREBASE CONFIG 🌸
     const firebaseConfig = {
       apiKey: "AIzaSyAkJh1Q1gp172R5rBEAF2sijfpdg3Iw38Y",
       authDomain: "kyawgyi-390bc.firebaseapp.com",
@@ -338,9 +374,7 @@
     window.allMyData = []; window.dynamicCats = []; window.dynamicProds = []; window.payMethods = []; window.currentOrder = {}; window.depFile = null; window.orderFile = null; window.payMode = 'wallet';
     window.tgBotToken = ""; window.tgChatId = ""; window.tgDepositTopicId = ""; window.tgOrderTopicId = ""; window.adminUrl = "";
     window.isLoginMode = true;
-
     window.toggleAuthMode = () => { window.isLoginMode = !window.isLoginMode; document.getElementById('auth-btn').innerText = window.isLoginMode ? window.t('login_btn') : "Sign Up"; document.getElementById('auth-toggle').innerText = window.isLoginMode ? window.t('go_signup') : window.t('go_login'); };
-
     window.handleAuth = async () => { const em = document.getElementById('auth-email').value.trim(); const pw = document.getElementById('auth-password').value.trim(); if(pw.length < 6) return window.toast("Password min 6 chars"); document.getElementById('auth-btn').innerText = window.t('loading'); try { if(window.isLoginMode) await signInWithEmailAndPassword(auth, em, pw); else { const res = await createUserWithEmailAndPassword(auth, em, pw); await setDoc(doc(db, "users", res.user.uid), { email:em, walletBalance:0, spinCount:0, role: "Customer", createdAt:serverTimestamp() }); } } catch(e) { window.toast(e.message); document.getElementById('auth-btn').innerText = window.isLoginMode ? window.t('login_btn') : "Sign Up"; } };
     window.logout = () => { signOut(auth); window.navToMain('page-home'); };
     
@@ -358,6 +392,7 @@
             if(slider) {
                 if(config.homeBanners && config.homeBanners.length > 0) {
                     let bHtml = ""; config.homeBanners.forEach(b => { bHtml += `<img class="banner-slide" src="${b}">`; }); slider.innerHTML = bHtml;
+                    // Auto-slide logic
                     if(window.bannerInterval) clearInterval(window.bannerInterval);
                     if(config.homeBanners.length > 1) {
                         window.bannerInterval = setInterval(() => {
@@ -483,6 +518,7 @@
         if(window.payMode === 'slip') { let pMethod = document.getElementById('selected-pay-method'); if(!window.orderFile || !pMethod || !pMethod.value) isValid = false; }
         let btn = document.getElementById('btn-submit'); if(btn) btn.disabled = !isValid; 
     };
+    
     window.handleOrderUpload = (i) => { if(i.files[0]) { window.orderFile = i.files[0]; let r = new FileReader(); r.onload = (e) => { let up = document.getElementById('upload-placeholder'); if(up) up.style.display='none'; let pi = document.getElementById('preview-img'); if(pi){ pi.src=e.target.result; pi.style.display='block';} window.checkForm(); }; r.readAsDataURL(i.files[0]); } };
     
     // 💡 TG ALERT WITH DEEP LINKS 💡
@@ -500,7 +536,7 @@
                 payload.photo = imageUrl; payload.caption = msg; 
                 let res = await fetch(`https://api.telegram.org/bot${window.tgBotToken}/sendPhoto`, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload) }); 
                 let data = await res.json();
-                if(!data.ok) { // Fallback to text
+                if(!data.ok) { 
                     payload.text = msg + `\n\n🖼️ <b>Slip Link:</b> <a href="${imageUrl}">View Image</a>`;
                     delete payload.photo; delete payload.caption;
                     await fetch(`https://api.telegram.org/bot${window.tgBotToken}/sendMessage`, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload) });
@@ -523,6 +559,7 @@
             
             let beforeBal = window.myWallet; let afterBal = window.myWallet;
             let slipUrl = null; let finalMethod = 'Wallet';
+            
             if(window.payMode === 'slip') {
                 slipUrl = await uploadImage(window.orderFile); let pMet = document.getElementById('selected-pay-method'); finalMethod = pMet ? pMet.value : 'Slip';
             } else {
@@ -531,14 +568,17 @@
                 await updateDoc(doc(db, "users", window.me.uid), { walletBalance: afterBal });
                 await addDoc(collection(db, "transactions"), { userId: window.me.uid, type: 'Order', amount: -window.currentOrder.price, desc: `Bought ${window.currentOrder.item} (${window.currentOrder.gameName})`, createdAt: serverTimestamp() });
             }
+            
             await addDoc(collection(db, "orders"), { orderId: ordId, userId: window.me.uid, userEmail: window.me.email, game: window.currentOrder.gameName, item: window.currentOrder.item, price: window.currentOrder.price, playerId: finalId, payMethod: finalMethod, slipImage: slipUrl, beforeBalance: beforeBal, afterBalance: afterBal, status: "Pending", createdAt: serverTimestamp() });
             
             sendTgAlert(`📦 <b>NEW ORDER</b>\nGame: ${window.currentOrder.gameName}\nItem: ${window.currentOrder.item}\nPlayer ID: <code>${finalId}</code>\nPrice: ${window.currentOrder.price} Ks\nMethod: ${finalMethod}`, window.tgOrderTopicId, slipUrl, '#v-orders');
+            
             window.toast("Order Placed Successfully!"); window.orderFile = null; let prevImg = document.getElementById('preview-img'); if(prevImg) prevImg.style.display='none'; let upPlace = document.getElementById('upload-placeholder'); if(upPlace) upPlace.style.display='block'; window.navToMain('page-orders');
         } catch (e) { window.toast(e.message); window.checkForm(); } if(b) { b.innerText = window.t('pay_now'); b.disabled = false; }
     };
     
     window.handleDepUpload = (i) => { if(i.files[0]) { window.depFile = i.files[0]; let r = new FileReader(); r.onload = (e) => { let dp = document.getElementById('dep-placeholder'); if(dp) dp.style.display='none'; let di = document.getElementById('dep-img'); if(di) { di.src=e.target.result; di.style.display='block'; } }; r.readAsDataURL(i.files[0]); } };
+    
     async function uploadImage(f) { let fd = new FormData(); fd.append("image", f); try { let res = await fetch(`https://api.imgbb.com/1/upload?key=f0d759dd374df91104867c6701e199f2`, { method:'POST', body:fd }); let d = await res.json(); if(d.success) return d.data.url; throw new Error(); } catch(e) { throw new Error("Upload failed"); } }
     
     window.submitDeposit = async () => { 
@@ -594,4 +634,3 @@
 </script>
 </body>
 </html>
-
