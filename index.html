@@ -1,51 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff66b2">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('PWA Registered!', reg))
+        .catch(err => console.log('PWA Registration Failed!', err));
+    });
+  }
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>Miki Game Shop</title>
+<title>Kiki Game Shop</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <style>
-  :root { 
-    --bg: #1a0b12; /* Softer dark background for feminine theme */
-    --text: #ffffff; 
-    --muted: #fbcfe8; /* Soft pink text */
-    --primary: #900C3F; /* Maroon / ကြက်သွေးရောင် */
-    --accent: #FF69B4; /* Pink / ပန်းရောင် */
-    --ok: #10b981; 
-    --danger: #ef4444; 
-    --warning: #f59e0b; 
-    --glass-bg: linear-gradient(135deg, rgba(255, 105, 180, 0.08) 0%, rgba(255, 105, 180, 0.01) 100%); 
-    --glass-border: rgba(255, 105, 180, 0.15); 
-    --glass-highlight: rgba(255, 105, 180, 0.25); 
-    --glass-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,105,180,0.05); 
-    --nav-bg: rgba(26, 11, 18, 0.85); 
-    --input-bg: rgba(0, 0, 0, 0.3); 
-  }
-  [data-theme="light"] { 
-    --bg: #fff0f5; /* Lavender blush for light feminine theme */
-    --text: #4a044e; 
-    --muted: #db2777; 
-    --primary: #900C3F; 
-    --accent: #FF1493; 
-    --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 100%); 
-    --glass-border: rgba(255, 105, 180, 0.4); 
-    --glass-highlight: #ffffff; 
-    --glass-shadow: 0 8px 30px rgba(255, 105, 180, 0.15), inset 0 0 20px rgba(255,255,255,0.6); 
-    --nav-bg: rgba(255, 240, 245, 0.85); 
-    --input-bg: rgba(255, 255, 255, 0.6); 
-  }
+  :root { --bg: #030308; --text: #ffffff; --muted: #a1a1aa; --primary: #9e1b32; --accent: #ff66b2; --ok: #10b981; --danger: #ef4444; --warning: #f59e0b; --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%); --glass-border: rgba(255, 255, 255, 0.1); --glass-highlight: rgba(255, 255, 255, 0.25); --glass-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.03); --nav-bg: rgba(5, 5, 12, 0.85); --input-bg: rgba(0, 0, 0, 0.3); }
+  [data-theme="light"] { --bg: #f8fafc; --text: #0f172a; --muted: #64748b; --primary: #800000; --accent: #ff1493; --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.5) 100%); --glass-border: rgba(255, 255, 255, 0.8); --glass-highlight: #ffffff; --glass-shadow: 0 8px 30px rgba(31, 38, 135, 0.1), inset 0 0 20px rgba(255,255,255,0.6); --nav-bg: rgba(255, 255, 255, 0.85); --input-bg: rgba(255, 255, 255, 0.5); }
   
   *{box-sizing:border-box; outline:none; margin:0; padding:0; -webkit-tap-highlight-color:transparent;} 
   body{font-family:'Poppins', sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; transition: background 0.4s ease, color 0.4s ease;}
   
-  .liquid-bg { position: fixed; inset: 0; z-index: -3; background: radial-gradient(circle at 15% 50%, rgba(255, 105, 180, 0.25), transparent 50%), radial-gradient(circle at 85% 30%, rgba(144, 12, 63, 0.25), transparent 50%); filter: blur(60px); animation: liquidFlow 15s infinite alternate ease-in-out; pointer-events: none;} 
+  .liquid-bg { position: fixed; inset: 0; z-index: -3; background: radial-gradient(circle at 15% 50%, rgba(255, 102, 178, 0.25), transparent 50%), radial-gradient(circle at 85% 30%, rgba(158, 27, 50, 0.25), transparent 50%); filter: blur(60px); animation: liquidFlow 15s infinite alternate ease-in-out; pointer-events: none;} 
   @keyframes liquidFlow { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.1) translate(5%, 5%); } }
   
   .app-container{max-width:480px; margin:0 auto; min-height:100vh; position:relative; padding-bottom:100px;}
   
-  .glass-card { background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--glass-border); border-top: 1px solid var(--glass-highlight); border-left: 1px solid var(--glass-highlight); box-shadow: var(--glass-shadow); border-radius: 28px; transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+  .glass-card { background: var(--glass-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--glass-border); border-top: 1px solid var(--glass-highlight); border-left: 1px solid var(--glass-highlight); box-shadow: var(--glass-shadow); border-radius: 20px; transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
   .glass-tint-ok { background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.02)); border-color: rgba(16,185,129,0.3); } 
   .glass-tint-warn { background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.02)); border-color: rgba(245,158,11,0.3); } 
   .glass-tint-danger { background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(239,68,68,0.02)); border-color: rgba(239,68,68,0.3); }
@@ -53,63 +37,63 @@
   .page, #auth-screen{display:none; padding:16px; animation:fadeInSlide 0.3s forwards;} .page.active, #auth-screen.active{display:block;} 
   @keyframes fadeInSlide { from {opacity:0; transform:translateY(15px);} to {opacity:1; transform:translateY(0);} }
   
-  .glass-input { width: 100%; font-family: 'Poppins'; font-size: 14px; padding: 16px; border-radius: 24px; margin-bottom: 15px; transition: 0.3s; background: var(--input-bg); color: var(--text); border: 1px solid var(--glass-border); box-shadow: inset 0 4px 10px rgba(0,0,0,0.3); } 
-  .glass-input:focus { border-color: var(--accent); box-shadow: inset 0 4px 10px rgba(0,0,0,0.3), 0 0 15px rgba(255, 105, 180, 0.3); }
+  .glass-input { width: 100%; font-family: 'Poppins'; font-size: 14px; padding: 16px; border-radius: 16px; margin-bottom: 15px; transition: 0.3s; background: var(--input-bg); color: var(--text); border: 1px solid var(--glass-border); box-shadow: inset 0 4px 10px rgba(0,0,0,0.3); } 
+  .glass-input:focus { border-color: var(--accent); box-shadow: inset 0 4px 10px rgba(0,0,0,0.3), 0 0 15px rgba(255, 102, 178, 0.3); }
   
-  .btn-gel { background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%), linear-gradient(135deg, var(--accent), var(--primary)); color: #fff; border: 1px solid rgba(255,255,255,0.4); padding: 16px 20px; border-radius: 30px; font-weight: 700; width: 100%; font-family: 'Poppins'; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 25px rgba(255, 105, 180, 0.4); } 
+  .btn-gel { background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%), linear-gradient(135deg, var(--accent), var(--primary)); color: #fff; border: 1px solid rgba(255,255,255,0.4); padding: 16px 20px; border-radius: 16px; font-weight: 700; width: 100%; font-family: 'Poppins'; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 25px rgba(158, 27, 50, 0.4); } 
   .btn-gel:active { transform: scale(0.95); } .btn-gel:disabled { background: rgba(128,128,128,0.3); border-color: transparent; color: var(--muted); box-shadow: none; cursor: not-allowed; }
   
   .toast{position:fixed; top:-100px; left:50%; transform:translateX(-50%); background:var(--ok); color:#fff; padding:12px 24px; border-radius:999px; font-weight:800; font-size:13px; opacity:0; transition:0.5s; z-index:99999; box-shadow: 0 8px 30px rgba(0,0,0,0.5);} 
   .toast.show{opacity:1; top:30px;}
   
-  .compact-header { display:flex; justify-content:space-between; align-items:center; padding:10px 15px; margin-bottom:20px; border-radius:24px; background:var(--glass-bg); backdrop-filter:blur(25px); border:1px solid var(--glass-border); box-shadow:var(--glass-shadow); } 
-  .top-action-btn { background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:var(--text); border-radius:16px; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition: 0.2s;}
+  .compact-header { display:flex; justify-content:space-between; align-items:center; padding:10px 15px; margin-bottom:20px; border-radius:20px; background:var(--glass-bg); backdrop-filter:blur(25px); border:1px solid var(--glass-border); box-shadow:var(--glass-shadow); } 
+  .top-action-btn { background:rgba(255,255,255,0.05); border:1px solid var(--glass-border); color:var(--text); border-radius:12px; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition: 0.2s;}
   
-  .banner-slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; margin-bottom: 25px; border-radius: 28px; scrollbar-width: none; }
+  /* 💡 BANNER SLIDER 💡 */
+  .banner-slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; margin-bottom: 25px; border-radius: 24px; scrollbar-width: none; }
   .banner-slider::-webkit-scrollbar { display: none; }
-  .banner-slide { flex: 0 0 100%; width: 100%; height: 180px; object-fit: cover; scroll-snap-align: center; border-radius: 28px; border: 1px solid var(--glass-highlight); box-shadow: var(--glass-shadow); pointer-events: none;}
+  .banner-slide { flex: 0 0 100%; width: 100%; height: 180px; object-fit: cover; scroll-snap-align: center; border-radius: 24px; border: 1px solid var(--glass-highlight); box-shadow: var(--glass-shadow); pointer-events: none;}
 
   .game-container { display:grid; grid-template-columns:repeat(2, 1fr); gap:14px; } 
-  .game-card { padding:18px; display:flex; flex-direction:column; align-items:center; text-align:center; cursor: pointer; border-radius: 28px;} 
-  .game-img { width:80px; height:80px; border-radius:24px; margin-bottom:12px; object-fit: cover; box-shadow: 0 8px 25px rgba(255,105,180,0.3);} 
+  .game-card { padding:18px; display:flex; flex-direction:column; align-items:center; text-align:center; cursor: pointer; border-radius: 24px;} 
+  .game-img { width:80px; height:80px; border-radius:20px; margin-bottom:12px; object-fit: cover; box-shadow: 0 8px 25px rgba(0,0,0,0.4);} 
   .game-card:active { transform: scale(0.96); border-color: var(--accent); }
   
-  .pay-tabs { display:flex; background:rgba(0,0,0,0.3); border-radius:18px; padding:5px; margin-bottom:20px; border:1px solid var(--glass-border); } 
-  .pay-tab { flex:1; text-align:center; padding:12px; font-size:13px; font-weight:700; color:var(--muted); border-radius:14px; cursor:pointer; transition:0.3s; } 
+  .pay-tabs { display:flex; background:rgba(0,0,0,0.3); border-radius:14px; padding:5px; margin-bottom:20px; border:1px solid var(--glass-border); } 
+  .pay-tab { flex:1; text-align:center; padding:12px; font-size:13px; font-weight:700; color:var(--muted); border-radius:10px; cursor:pointer; transition:0.3s; } 
   .pay-tab.active { background:var(--glass-highlight); color:var(--text); box-shadow:0 4px 15px rgba(0,0,0,0.2); } 
   .pay-view { display:none; animation:fadeInSlide 0.3s forwards; } .pay-view.active { display:block; }
   
-  .dyn-pay-card { background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 20px; padding: 15px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; display:flex; justify-content:space-between; align-items:center;} 
+  .dyn-pay-card { background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 16px; padding: 15px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; display:flex; justify-content:space-between; align-items:center;} 
   .dyn-pay-card.selected { border-color: var(--ok); background: rgba(16, 185, 129, 0.15); box-shadow:inset 0 0 15px rgba(16,185,129,0.2);}
   
   .pack-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-bottom:25px; } 
-  .pack-card { padding:20px 10px; cursor:pointer; text-align:center; border:2px solid transparent; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 24px;} 
-  .pack-card.selected { border-color:var(--accent); background:rgba(255, 105, 180, 0.15); box-shadow:0 10px 30px rgba(255, 105, 180, 0.2), inset 0 0 15px rgba(255, 105, 180, 0.1); transform: translateY(-5px); border-top: 2px solid rgba(255,255,255,0.5);}
+  .pack-card { padding:20px 10px; cursor:pointer; text-align:center; border:2px solid transparent; transition: 0.3s; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 20px;} 
+  .pack-card.selected { border-color:var(--accent); background:rgba(255, 102, 178, 0.15); box-shadow:0 10px 30px rgba(255, 102, 178, 0.2), inset 0 0 15px rgba(255, 102, 178, 0.1); transform: translateY(-5px); border-top: 2px solid rgba(255,255,255,0.5);}
   
-  .buy-bottom-bar { position:fixed; bottom:0; left:0; right:0; max-width:480px; margin:0 auto; padding:20px 20px max(20px, env(safe-area-inset-bottom)); z-index:100; display:flex; justify-content:space-between; align-items:center; border-radius:35px 35px 0 0; background: var(--nav-bg); backdrop-filter: blur(30px) saturate(150%); border-top: 1px solid var(--glass-highlight); box-shadow: 0 -10px 40px rgba(0,0,0,0.8); }
+  .buy-bottom-bar { position:fixed; bottom:0; left:0; right:0; max-width:480px; margin:0 auto; padding:20px 20px max(20px, env(safe-area-inset-bottom)); z-index:100; display:flex; justify-content:space-between; align-items:center; border-radius:30px 30px 0 0; background: var(--nav-bg); backdrop-filter: blur(30px) saturate(150%); border-top: 1px solid var(--glass-highlight); box-shadow: 0 -10px 40px rgba(0,0,0,0.8); }
   
   .main-nav { position:fixed; bottom:15px; left:15px; right:15px; max-width:450px; margin:0 auto; display:flex; justify-content:space-around; background: var(--nav-bg); backdrop-filter:blur(30px); border:1px solid var(--glass-border); border-top: 1px solid var(--glass-highlight); border-radius: 999px; padding:12px 10px max(12px,env(safe-area-inset-bottom)); z-index:90; box-shadow: 0 20px 40px rgba(0,0,0,0.8); } 
   .nav-btn{flex:1; background:transparent; border:none; color:var(--muted); display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; transition: 0.3s;} 
-  .nav-btn.active{color:var(--accent); text-shadow: 0 0 15px rgba(255,105,180,0.6);} 
+  .nav-btn.active{color:var(--accent); text-shadow: 0 0 15px rgba(255,102,178,0.6);} 
   .nav-btn.active i { transform: scale(1.15) translateY(-2px); color: var(--accent); }
   
   .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(15px); display:none; align-items:center; justify-content:center; z-index:9000; padding:20px; opacity:0; transition:0.3s; } 
   .modal-overlay.active { display:flex; opacity:1; } 
-  .modal-box { width:100%; max-width:400px; padding:24px; border-radius:32px; position:relative; transform:scale(0.95) translateY(20px); transition:0.4s; } 
+  .modal-box { width:100%; max-width:400px; padding:24px; border-radius:28px; position:relative; transform:scale(0.95) translateY(20px); transition:0.4s; } 
   .modal-overlay.active .modal-box { transform:scale(1) translateY(0); }
-  
+
+  /* Maintenance Screen */
   #maintenance-screen { position: fixed; inset: 0; background: var(--bg); z-index: 999999; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; }
   #maintenance-screen.active { display: flex; }
-
 </style>
 </head>
 <body data-theme="dark">
-
 <div class="liquid-bg"></div>
 <div id="toast" class="toast">Message</div>
 
 <div id="maintenance-screen">
-    <i class="fas fa-tools text-accent" style="font-size: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255,105,180,0.5));"></i>
+    <i class="fas fa-tools text-accent" style="font-size: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255,102,178,0.5));"></i>
     <h1 style="font-weight: 900; margin-bottom: 15px; color: #fff;">System Maintenance</h1>
     <p id="maint-msg" style="color: var(--muted); font-size: 14px; line-height: 1.8;">We are currently updating our system. Please check back later.</p>
 </div>
@@ -117,7 +101,7 @@
 <div id="auth-screen" class="modal-overlay">
     <div class="glass-card modal-box" style="margin-top:0; border:1px solid var(--accent); text-align:center;">
         <div style="text-align:left; margin-bottom:15px; cursor:pointer; color:var(--muted); font-size:13px;" onclick="window.closeAuthScreen()"><i class="fas fa-arrow-left"></i> <span data-i18n="back_shop">ဆိုင်သို့ ပြန်သွားမည်</span></div>
-        <div style="width:80px; height:80px; background:linear-gradient(135deg, var(--accent), var(--primary)); border-radius:28px; display:flex; align-items:center; justify-content:center; font-size:40px; color:#fff; margin:0 auto 20px; box-shadow:0 15px 30px rgba(144,12,63,0.4), inset 0 2px 10px rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.4);">M</div>
+        <div style="width:80px; height:80px; background:linear-gradient(135deg, var(--accent), var(--primary)); border-radius:24px; display:flex; align-items:center; justify-content:center; font-size:40px; color:#fff; margin:0 auto 20px; box-shadow:0 15px 30px rgba(158,27,50,0.4), inset 0 2px 10px rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.4);"><img src="https://i.ibb.co/JR3Qx2y2/2216.png" style="width: 50px; height: 50px; object-fit: contain;"></div>
         <div style="font-size:24px; font-weight:800; margin-bottom:30px; color:var(--text);" data-i18n="pls_login">ကျေးဇူးပြု၍ အကောင့်ဝင်ပါ</div>
         <input type="email" id="auth-email" class="glass-input" data-i18n-ph="email_ph" placeholder="အီးမေးလ်">
         <input type="password" id="auth-password" class="glass-input" data-i18n-ph="pass_ph" placeholder="စကားဝှက်">
@@ -127,16 +111,15 @@
 </div>
 
 <div id="main-app" class="app-container active">
+
     <div id="page-home" class="page active">
         <div class="compact-header">
-            <div style="display:flex; gap:10px; align-items:center;">
-                <img src="https://i.ibb.co/JR3Qx2y2/2216.png" style="height:30px; object-fit:contain;">
-            </div>
+            <div style="display:flex; gap:10px; align-items:center;"><img src="https://i.ibb.co/JR3Qx2y2/2216.png" style="height:30px; object-fit:contain;"></div>
             <div style="display:flex; gap:8px; align-items:center;">
-                <div onclick="window.checkAuthAndGo('page-profile')" style="display:flex; align-items:center; gap:8px; background:rgba(16,185,129,0.15); padding:6px 12px; border-radius:16px; border:1px solid rgba(16,185,129,0.3); cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
+                <div onclick="window.checkAuthAndGo('page-profile')" style="display:flex; align-items:center; gap:8px; background:rgba(16,185,129,0.15); padding:6px 12px; border-radius:12px; border:1px solid rgba(16,185,129,0.3); cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.2);">
                     <i class="fas fa-wallet" style="color:var(--ok); font-size:14px;"></i><span id="home-wallet" style="font-weight:bold; font-size:13px; color:var(--text);">Login...</span>
                 </div>
-                <div class="top-action-btn" onclick="window.checkAuthAndGo('page-notifications')" style="position:relative; width:36px; height:36px; border-radius:16px;">
+                <div class="top-action-btn" onclick="window.checkAuthAndGo('page-notifications')" style="position:relative; width:36px; height:36px; border-radius:12px;">
                     <i class="fas fa-bell" style="font-size:14px;"></i><span id="bell-count" style="display:none; position:absolute; top:6px; right:6px; width:8px; height:8px; background:var(--danger); border-radius:50%; box-shadow:0 0 5px red;"></span>
                 </div>
             </div>
@@ -148,8 +131,8 @@
     </div>
 
     <div id="page-detail" class="page" style="padding-top:0;">
-        <div class="top-action-btn" style="position:absolute; top:15px; left:15px; z-index:10; width:45px; height:45px; border-radius:16px; background:rgba(0,0,0,0.5);" onclick="window.navBack()"><i class="fas fa-arrow-left"></i></div>
-        <img id="detail-banner" style="width:100%; height:220px; object-fit:cover; margin:-16px -16px 20px -16px; width:calc(100% + 32px); border-radius:0 0 35px 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); pointer-events:none;" src="">
+        <div class="top-action-btn" style="position:absolute; top:15px; left:15px; z-index:10; width:45px; height:45px; border-radius:14px; background:rgba(0,0,0,0.5);" onclick="window.navBack()"><i class="fas fa-arrow-left"></i></div>
+        <img id="detail-banner" style="width:100%; height:220px; object-fit:cover; margin:-16px -16px 20px -16px; width:calc(100% + 32px); border-radius:0 0 30px 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); pointer-events:none;" src="">
         <div style="font-weight:800; font-size:24px; margin-bottom:25px;" id="detail-game-title">Title</div>
         
         <div style="font-size:13px; font-weight:700; margin-bottom:15px; color:var(--accent);"><i class="fas fa-id-card mr-2"></i> <span data-i18n="step1">အကောင့်အချက်အလက် ထည့်ပါ</span></div>
@@ -174,7 +157,7 @@
             <input type="hidden" id="selected-pay-method" value="">
             <label for="order-file" class="glass-card" style="display:block; border:2px dashed var(--glass-highlight); padding:20px; text-align:center; cursor:pointer;">
                 <div id="upload-placeholder" style="font-size:13px; font-weight:700; color:var(--accent);"><i class="fas fa-cloud-upload-alt text-2xl mb-2 block"></i><br><span data-i18n="up_slip">+ ငွေလွှဲပြေစာ ပုံတင်ရန်</span></div>
-                <img id="preview-img" style="width:100%; border-radius:16px; display:none; margin-top:10px;">
+                <img id="preview-img" style="width:100%; border-radius:12px; display:none; margin-top:10px;">
                 <input type="file" id="order-file" style="display:none;" accept="image/*" onchange="window.handleOrderUpload(this)">
             </label>
         </div>
@@ -183,14 +166,14 @@
         
         <div class="buy-bottom-bar">
             <div><div style="font-size:12px; color:var(--muted); font-weight:600;" data-i18n="total">စုစုပေါင်း</div><div style="font-size:24px; font-weight:800; color:var(--accent);" id="display-total">0 Ks</div></div>
-            <button class="btn-gel" style="width:auto; padding:16px 40px; border-radius:30px;" id="btn-submit" disabled onclick="window.submitOrder()" data-i18n="pay_now">ဝယ်ယူမည်</button>
+            <button class="btn-gel" style="width:auto; padding:16px 40px; border-radius:20px;" id="btn-submit" disabled onclick="window.submitOrder()" data-i18n="pay_now">ဝယ်ယူမည်</button>
         </div>
     </div>
 
     <div id="page-profile" class="page">
         <h2 style="margin-bottom:20px; font-weight:800; font-size:24px;" data-i18n="profile">ပရိုဖိုင်</h2>
         <div class="glass-card" style="padding:30px 20px; text-align:center; margin-bottom:25px;">
-            <div style="width:80px; height:80px; background:linear-gradient(135deg, var(--accent), var(--primary)); color:#fff; border-radius:28px; display:flex; align-items:center; justify-content:center; font-size:35px; font-weight:bold; margin:0 auto 15px; box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);">👩🏻</div>
+            <div style="width:80px; height:80px; background:linear-gradient(135deg, var(--accent), var(--primary)); color:#fff; border-radius:24px; display:flex; align-items:center; justify-content:center; font-size:35px; font-weight:bold; margin:0 auto 15px;">👤</div>
             <div style="font-size:18px; font-weight:bold;" id="prof-email">--</div>
             <div style="font-size:12px; color:var(--accent); font-weight:700; margin-bottom:25px;" id="prof-role">Customer</div>
             
@@ -204,15 +187,15 @@
         
         <h3 style="font-size:14px; color:var(--muted); margin-bottom:15px; font-weight:700; text-transform:uppercase; letter-spacing:1px;" data-i18n="menu">မီနူး</h3>
         <div class="glass-card" id="menu-spin" style="padding:16px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="window.navTo('page-spin')">
-            <div style="display:flex; align-items:center; gap:15px;"><div style="width:40px; height:40px; border-radius:14px; background:rgba(245,158,11,0.15); color:var(--warning); display:flex; justify-content:center; align-items:center;"><i class="fas fa-gift"></i></div><strong style="font-weight:600;" data-i18n="spin">ကံစမ်းမဲ</strong></div>
+            <div style="display:flex; align-items:center; gap:15px;"><div style="width:40px; height:40px; border-radius:12px; background:rgba(245,158,11,0.15); color:var(--warning); display:flex; justify-content:center; align-items:center;"><i class="fas fa-gift"></i></div><strong style="font-weight:600;" data-i18n="spin">ကံစမ်းမဲ</strong></div>
             <i class="fas fa-chevron-right text-muted"></i>
         </div>
         <div class="glass-card" style="padding:16px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="window.navTo('page-guide')">
-            <div style="display:flex; align-items:center; gap:15px;"><div style="width:40px; height:40px; border-radius:14px; background:rgba(16,185,129,0.15); color:var(--ok); display:flex; justify-content:center; align-items:center;"><i class="fas fa-book-open"></i></div><strong style="font-weight:600;" data-i18n="guide">အသုံးပြုနည်း လမ်းညွှန်</strong></div>
+            <div style="display:flex; align-items:center; gap:15px;"><div style="width:40px; height:40px; border-radius:12px; background:rgba(16,185,129,0.15); color:var(--ok); display:flex; justify-content:center; align-items:center;"><i class="fas fa-book-open"></i></div><strong style="font-weight:600;" data-i18n="guide">အသုံးပြုနည်း လမ်းညွှန်</strong></div>
             <i class="fas fa-chevron-right text-muted"></i>
         </div>
         <div class="glass-card" style="padding:16px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="window.navTo('page-ledger')">
-            <div style="display:flex; align-items:center; gap:15px;"><div style="width:40px; height:40px; border-radius:14px; background:rgba(255,105,180,0.15); color:var(--accent); display:flex; justify-content:center; align-items:center;"><i class="fas fa-book"></i></div><strong style="font-weight:600;" data-i18n="ledger">ပိုက်ဆံအိတ် မှတ်တမ်း</strong></div>
+            <div style="display:flex; align-items:center; gap:15px;"><div style="width:40px; height:40px; border-radius:12px; background:rgba(14,165,233,0.15); color:var(--accent); display:flex; justify-content:center; align-items:center;"><i class="fas fa-book"></i></div><strong style="font-weight:600;" data-i18n="ledger">ပိုက်ဆံအိတ် မှတ်တမ်း</strong></div>
             <i class="fas fa-chevron-right text-muted"></i>
         </div>
         
@@ -222,11 +205,11 @@
         </div>
         
         <div class="glass-card" style="padding:16px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="window.openPassModal()">
-            <div style="display:flex; align-items:center; gap:15px;"><div style="width:40px; height:40px; border-radius:14px; background:rgba(144,12,63,0.15); color:var(--primary); display:flex; justify-content:center; align-items:center;"><i class="fas fa-key"></i></div><strong style="font-weight:600;" data-i18n="change_pass">စကားဝှက် ပြောင်းရန်</strong></div>
+            <div style="display:flex; align-items:center; gap:15px;"><div style="width:40px; height:40px; border-radius:12px; background:rgba(139,92,246,0.15); color:var(--primary); display:flex; justify-content:center; align-items:center;"><i class="fas fa-key"></i></div><strong style="font-weight:600;" data-i18n="change_pass">စကားဝှက် ပြောင်းရန်</strong></div>
             <i class="fas fa-chevron-right text-muted"></i>
         </div>
         <div class="glass-card" style="padding:16px; margin-bottom:25px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="window.logout()">
-            <div style="display:flex; align-items:center; gap:15px;"><div style="width:40px; height:40px; border-radius:14px; background:rgba(239,68,68,0.15); color:var(--danger); display:flex; justify-content:center; align-items:center;"><i class="fas fa-sign-out-alt"></i></div><strong style="color:var(--danger); font-weight:600;" data-i18n="logout">အကောင့်ထွက်မည်</strong></div>
+            <div style="display:flex; align-items:center; gap:15px;"><div style="width:40px; height:40px; border-radius:12px; background:rgba(239,68,68,0.15); color:var(--danger); display:flex; justify-content:center; align-items:center;"><i class="fas fa-sign-out-alt"></i></div><strong style="color:var(--danger); font-weight:600;" data-i18n="logout">အကောင့်ထွက်မည်</strong></div>
         </div>
     </div>
 
@@ -242,7 +225,7 @@
         <div id="dep-dyn-payments">Loading methods...</div><input type="hidden" id="selected-dep-method" value="">
         <label for="dep-file" class="glass-card" style="display:block; border:2px dashed var(--glass-highlight); padding:30px; text-align:center; cursor:pointer; margin-bottom:20px;">
             <div id="dep-placeholder" style="color:var(--accent); font-weight:bold;"><i class="fas fa-cloud-upload-alt text-2xl mb-2 block"></i><br>Upload Slip</div>
-            <img id="dep-img" style="width:100%; border-radius:16px; display:none; margin-top:15px;">
+            <img id="dep-img" style="width:100%; border-radius:12px; display:none; margin-top:15px;">
             <input type="file" id="dep-file" style="display:none;" accept="image/*" onchange="window.handleDepUpload(this)">
         </label>
         <button class="btn-gel" id="btn-dep" onclick="window.submitDeposit()">Submit Deposit</button>
@@ -263,7 +246,7 @@
 
     <div id="page-spin" class="page">
         <div style="display:flex; align-items:center; gap:15px; margin-bottom:25px;"><div class="top-action-btn" onclick="window.navBack()"><i class="fas fa-arrow-left"></i></div><h2 style="margin:0; font-weight:800;" data-i18n="spin">ကံစမ်းမဲ</h2></div>
-        <div class="glass-card" style="border: 2px dashed rgba(255,105,180,0.5); padding: 40px 20px; text-align: center; margin-bottom: 25px;">
+        <div class="glass-card" style="border: 2px dashed rgba(158,27,50,0.5); padding: 40px 20px; text-align: center; margin-bottom: 25px;">
             <div style="font-size:15px; font-weight:600;">Spin & Win up to 5000 Ks!</div>
             <div id="spin-result" style="font-size: 48px; font-weight: 900; color: var(--accent); margin: 25px 0;">0 Ks</div>
         </div>
@@ -278,7 +261,7 @@
     <div class="modal-overlay" id="order-modal" onclick="if(event.target===this) window.closeModal('order-modal')">
         <div class="modal-box glass-card"><h3 style="margin-bottom:20px; color:var(--accent); font-weight:800; border-bottom:1px solid var(--glass-border); padding-bottom:15px; font-size:18px;" id="om-title">Order Details</h3><div id="order-modal-content" style="font-size:14px; line-height:2;"></div><button class="btn-gel" style="margin-top:25px;" onclick="window.closeModal('order-modal')" id="om-close">Close</button></div>
     </div>
-    
+
     <div class="modal-overlay" id="pass-modal" onclick="if(event.target===this) window.closeModal('pass-modal')">
         <div class="modal-box glass-card"><h3 style="margin-bottom:20px; color:var(--accent); font-weight:800; font-size:18px;" data-i18n="change_pass">စကားဝှက် ပြောင်းရန်</h3><input type="password" id="cp-old" class="glass-input" placeholder="Current Password"><input type="password" id="cp-new" class="glass-input" placeholder="New Password"><button class="btn-gel" onclick="window.changePassword()" style="margin-bottom:15px;">Change Password</button><button class="btn-gel" style="background:transparent; border:1px solid var(--glass-border); color:var(--text); box-shadow:none;" onclick="window.closeModal('pass-modal')">Cancel</button></div>
     </div>
@@ -298,8 +281,8 @@
     window.formatDate = function(ts) { if(!ts) return "-"; let d; if(ts.toDate) d = ts.toDate(); else if(ts.seconds) d = new Date(ts.seconds * 1000); else d = new Date(ts); return d.toLocaleString('en-US', {month:'short', day:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'}); };
     
     const dict = {
-        my: { app_name:"Miki Game ဆိုင်", email_ph:"အီးမေးလ်", pass_ph:"စကားဝှက်", login_btn:"အကောင့်ဝင်မည်", go_signup:"အကောင့်မရှိသေးဘူးလား? အသစ်ဖွင့်မည်", go_login:"အကောင့်ရှိပြီးသားလား? ဝင်မည်", forgot_pass:"စကားဝှက်မေ့နေပါသလား?", loading:"စောင့်ဆိုင်းပါ...", step1:"၁။ အကောင့်အချက်အလက် ထည့်ပါ", step2:"၂။ ပစ္စည်းရွေးချယ်ပါ", step3:"၃။ ငွေပေးချေမည့်နည်းလမ်း", wallet:"ပိုက်ဆံအိတ်", bank_tr:"ငွေလွှဲပြေစာ", avail_bal:"လက်ကျန်ငွေ", up_slip:"+ ငွေလွှဲပြေစာ ပုံတင်ရန်", total:"စုစုပေါင်း", pay_now:"ဝယ်ယူမည်", processing:"လုပ်ဆောင်နေပါသည်...", profile:"ပရိုဖိုင်", my_wallet:"လက်ကျန်ငွေ", topup:"ငွေသွင်း", withdraw:"ငွေထုတ်", change_pass:"စကားဝှက် ပြောင်းရန်", menu:"မီနူး", spin:"ကံစမ်းမဲ", ledger:"ပိုက်ဆံအိတ် မှတ်တမ်း", my_orders:"အော်ဒါမှတ်တမ်း", logout:"အကောင့်ထွက်မည်", noti:"အသိပေးချက်များ", shop:"ဆိုင်", orders:"မှတ်တမ်း", me:"ပရိုဖိုင်", guide:"အသုံးပြုနည်း လမ်းညွှန်", theme:"အလင်း/အမှောင်", order_proc: "အော်ဒါ လုပ်ဆောင်နေပါသည်", order_comp: "အော်ဒါ အောင်မြင်ပါသည်", order_canc: "အော်ဒါ ပယ်ဖျက်လိုက်ပါသည်", order_det: "အော်ဒါ အသေးစိတ်", order_id: "အော်ဒါ နံပါတ်", date: "နေ့ရက် နှင့် အချိန်", game: "ဂိမ်းအမည်", item: "ပစ္စည်း", player_id: "ပလေယာ ID", pay_method: "ပေးချေမှုစနစ်", amt_paid: "ကျသင့်ငွေ", status: "အခြေအနေ", close_btn: "ပိတ်မည်", before_bal: "ယခင် လက်ကျန်ငွေ", after_bal: "ယခု လက်ကျန်ငွေ", no_orders: "အော်ဒါ မှတ်တမ်း မရှိသေးပါ။", no_noti: "အသိပေးချက် မရှိပါ။", your_order: "သင်၏", is: "သည်", pls_login: "ကျေးဇူးပြု၍ အကောင့်ဝင်ပါ", back_shop: "ဆိုင်သို့ ပြန်သွားမည်", pending_dep_exist: "ယခင် ငွေသွင်းထားမှု (Pending) ရှိနေပါသည်။", min_dep_err: "အနည်းဆုံး ၅၀၀ ကျပ် သွင်းရပါမည်", pass_err: "စကားဝှက်ဟောင်း မှားယွင်းနေပါသည်" },
-        en: { app_name:"Miki Game Shop", email_ph:"Email", pass_ph:"Password", login_btn:"Login", go_signup:"Don't have an account? Sign Up", go_login:"Already have an account? Login", forgot_pass:"Forgot Password?", loading:"Loading...", step1:"1. Account Info", step2:"2. Select Item", step3:"3. Payment Method", wallet:"Wallet", bank_tr:"Bank Transfer", avail_bal:"Available Balance", up_slip:"+ Upload Transfer Slip", total:"Total", pay_now:"Buy Now", processing:"Processing...", profile:"Profile", my_wallet:"Balance", topup:"Top Up", withdraw:"Withdraw", change_pass:"Change Password", menu:"Menu", spin:"Lucky Spin", ledger:"Wallet Ledger", my_orders:"Order History", logout:"Logout", noti:"Notifications", shop:"Shop", orders:"Orders", me:"Me", guide:"User Guide", theme:"Dark/Light Theme", order_proc: "Order Processing", order_comp: "Order Completed", order_canc: "Order Cancelled", order_det: "Order Details", order_id: "Order ID", date: "Date & Time", game: "Game", item: "Item", player_id: "Player ID", pay_method: "Payment", amt_paid: "Amount Paid", status: "STATUS", close_btn: "Close", before_bal: "Balance Before", after_bal: "Balance After", no_orders: "No order history yet.", no_noti: "No notifications.", your_order: "Your order for", is: "is", pls_login: "Please login first", back_shop: "Back to Shop", pending_dep_exist: "You already have a pending deposit! Please wait.", min_dep_err: "Minimum deposit is 500 Ks", pass_err: "Incorrect old password" }
+        my: { app_name:"Kiki Game Shop ဆိုင်", email_ph:"အီးမေးလ်", pass_ph:"စကားဝှက်", login_btn:"အကောင့်ဝင်မည်", go_signup:"အကောင့်မရှိသေးဘူးလား? အသစ်ဖွင့်မည်", go_login:"အကောင့်ရှိပြီးသားလား? ဝင်မည်", forgot_pass:"စကားဝှက်မေ့နေပါသလား?", loading:"စောင့်ဆိုင်းပါ...", step1:"၁။ အကောင့်အချက်အလက် ထည့်ပါ", step2:"၂။ ပစ္စည်းရွေးချယ်ပါ", step3:"၃။ ငွေပေးချေမည့်နည်းလမ်း", wallet:"ပိုက်ဆံအိတ်", bank_tr:"ငွေလွှဲပြေစာ", avail_bal:"လက်ကျန်ငွေ", up_slip:"+ ငွေလွှဲပြေစာ ပုံတင်ရန်", total:"စုစုပေါင်း", pay_now:"ဝယ်ယူမည်", processing:"လုပ်ဆောင်နေပါသည်...", profile:"ပရိုဖိုင်", my_wallet:"လက်ကျန်ငွေ", topup:"ငွေသွင်း", withdraw:"ငွေထုတ်", change_pass:"စကားဝှက် ပြောင်းရန်", menu:"မီနူး", spin:"ကံစမ်းမဲ", ledger:"ပိုက်ဆံအိတ် မှတ်တမ်း", my_orders:"အော်ဒါမှတ်တမ်း", logout:"အကောင့်ထွက်မည်", noti:"အသိပေးချက်များ", shop:"ဆိုင်", orders:"မှတ်တမ်း", me:"ပရိုဖိုင်", guide:"အသုံးပြုနည်း လမ်းညွှန်", theme:"အလင်း/အမှောင်", order_proc: "အော်ဒါ လုပ်ဆောင်နေပါသည်", order_comp: "အော်ဒါ အောင်မြင်ပါသည်", order_canc: "အော်ဒါ ပယ်ဖျက်လိုက်ပါသည်", order_det: "အော်ဒါ အသေးစိတ်", order_id: "အော်ဒါ နံပါတ်", date: "နေ့ရက် နှင့် အချိန်", game: "ဂိမ်းအမည်", item: "ပစ္စည်း", player_id: "ပလေယာ ID", pay_method: "ပေးချေမှုစနစ်", amt_paid: "ကျသင့်ငွေ", status: "အခြေအနေ", close_btn: "ပိတ်မည်", before_bal: "ယခင် လက်ကျန်ငွေ", after_bal: "ယခု လက်ကျန်ငွေ", no_orders: "အော်ဒါ မှတ်တမ်း မရှိသေးပါ။", no_noti: "အသိပေးချက် မရှိပါ။", your_order: "သင်၏", is: "သည်", pls_login: "ကျေးဇူးပြု၍ အကောင့်ဝင်ပါ", back_shop: "ဆိုင်သို့ ပြန်သွားမည်", pending_dep_exist: "ယခင် ငွေသွင်းထားမှု (Pending) ရှိနေပါသည်။", min_dep_err: "အနည်းဆုံး ၅၀၀ ကျပ် သွင်းရပါမည်", pass_err: "စကားဝှက်ဟောင်း မှားယွင်းနေပါသည်" },
+        en: { app_name:"Kiki Game Shop", email_ph:"Email", pass_ph:"Password", login_btn:"Login", go_signup:"Don't have an account? Sign Up", go_login:"Already have an account? Login", forgot_pass:"Forgot Password?", loading:"Loading...", step1:"1. Account Info", step2:"2. Select Item", step3:"3. Payment Method", wallet:"Wallet", bank_tr:"Bank Transfer", avail_bal:"Available Balance", up_slip:"+ Upload Transfer Slip", total:"Total", pay_now:"Buy Now", processing:"Processing...", profile:"Profile", my_wallet:"Balance", topup:"Top Up", withdraw:"Withdraw", change_pass:"Change Password", menu:"Menu", spin:"Lucky Spin", ledger:"Wallet Ledger", my_orders:"Order History", logout:"Logout", noti:"Notifications", shop:"Shop", orders:"Orders", me:"Me", guide:"User Guide", theme:"Dark/Light Theme", order_proc: "Order Processing", order_comp: "Order Completed", order_canc: "Order Cancelled", order_det: "Order Details", order_id: "Order ID", date: "Date & Time", game: "Game", item: "Item", player_id: "Player ID", pay_method: "Payment", amt_paid: "Amount Paid", status: "STATUS", close_btn: "Close", before_bal: "Balance Before", after_bal: "Balance After", no_orders: "No order history yet.", no_noti: "No notifications.", your_order: "Your order for", is: "is", pls_login: "Please login first", back_shop: "Back to Shop", pending_dep_exist: "You already have a pending deposit! Please wait.", min_dep_err: "Minimum deposit is 500 Ks", pass_err: "Incorrect old password" }
     };
     
     window.curLang = localStorage.getItem('lang') || 'my'; window.curTheme = localStorage.getItem('theme') || 'dark'; window.isGridView = localStorage.getItem('view') === 'grid';
@@ -331,15 +314,14 @@
     import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, where, doc, setDoc, updateDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
     const firebaseConfig = {
-      apiKey: "AIzaSyAkJh1Q1gp172R5rBEAF2sijfpdg3Iw38Y",
-      authDomain: "kyawgyi-390bc.firebaseapp.com",
-      projectId: "kyawgyi-390bc",
-      storageBucket: "kyawgyi-390bc.firebasestorage.app",
-      messagingSenderId: "550934767997",
-      appId: "1:550934767997:web:02cec32177f7e8ceb20414",
-      measurementId: "G-JR3HQ8PCNV"
+          apiKey: "AIzaSyAkJh1Q1gp172R5rBEAF2sijfpdg3Iw38Y",
+          authDomain: "kyawgyi-390bc.firebaseapp.com",
+          projectId: "kyawgyi-390bc",
+          storageBucket: "kyawgyi-390bc.firebasestorage.app",
+          messagingSenderId: "550934767997",
+          appId: "1:550934767997:web:02cec32177f7e8ceb20414",
+          measurementId: "G-JR3HQ8PCNV"
     };
-
     const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
 
     window.me = null; window.myWallet = 0; window.myRole = 'Customer'; window.mySpins = 0; 
@@ -354,7 +336,7 @@
     window.openPassModal = () => window.openModal('pass-modal');
     window.changePassword = async () => { let oldP = document.getElementById('cp-old').value; let newP = document.getElementById('cp-new').value; if(!oldP || newP.length < 6) return window.toast("Password must be 6 chars."); try { const cred = EmailAuthProvider.credential(window.me.email, oldP); await reauthenticateWithCredential(window.me, cred); await updatePassword(window.me, newP); window.toast("Password Updated!"); window.closeModal('pass-modal'); document.getElementById('cp-old').value=''; document.getElementById('cp-new').value='';} catch(e) { window.toast(window.t('pass_err')); } };
 
-    // LOAD SETTINGS (MULTI-BANNER & TOGGLES)
+    // 💡 LOAD SETTINGS (MULTI-BANNER & TOGGLES) 💡
     onSnapshot(doc(db, "settings", "app_config"), (d) => {
         if(d.exists()) {
             let config = d.data();
@@ -365,6 +347,7 @@
             if(slider) {
                 if(config.homeBanners && config.homeBanners.length > 0) {
                     let bHtml = ""; config.homeBanners.forEach(b => { bHtml += `<img class="banner-slide" src="${b}">`; }); slider.innerHTML = bHtml;
+                    // Auto-slide logic
                     if(window.bannerInterval) clearInterval(window.bannerInterval);
                     if(config.homeBanners.length > 1) {
                         window.bannerInterval = setInterval(() => {
@@ -378,6 +361,7 @@
                 } else if(config.homeBannerUrl) { slider.innerHTML = `<img class="banner-slide" src="${config.homeBannerUrl}">`; }
             }
 
+            // Maint Mode & Feature Toggles
             let mScr = document.getElementById('maintenance-screen');
             if(config.maintenanceMode) { mScr.classList.add('active'); let mm = document.getElementById('maint-msg'); if(mm) mm.innerText = config.maintenanceMsg || "We are updating the system. Please wait."; } else { mScr.classList.remove('active'); }
             
@@ -386,6 +370,7 @@
         }
     });
 
+    // 💡 SORTING CATEGORIES & PRODUCTS BY ORDER 💡
     onSnapshot(collection(db, "categories"), (snap) => { window.dynamicCats = []; snap.forEach(s => { let c = {id: s.id, ...s.data()}; window.dynamicCats.push(c); }); window.dynamicCats.sort((a,b) => (a.orderNum ?? 999999999) - (b.orderNum ?? 999999999)); window.renderGames(window.dynamicCats); });
     onSnapshot(collection(db, "products"), (snap) => { window.dynamicProds = []; snap.forEach(s => { if(s.data().isActive) window.dynamicProds.push({id: s.id, ...s.data()}); }); window.dynamicProds.sort((a,b) => (a.orderNum ?? 999999999) - (b.orderNum ?? 999999999)); });
     
@@ -401,8 +386,8 @@
         snap.forEach(s => {
             let g = s.data(); let videoHtml = '';
             if(g.videoUrl) {
-                if(g.videoUrl.includes('youtube.com') || g.videoUrl.includes('youtu.be')) { videoHtml = `<iframe src="${g.videoUrl}" allowfullscreen style="border-radius:16px; width:100%; height:200px; border:none; margin-top:10px;"></iframe>`; } 
-                else { videoHtml = `<video controls style="width:100%; border-radius:16px; margin-top:10px; background:#000;"><source src="${g.videoUrl}" type="video/mp4">Your browser does not support video.</video>`; }
+                if(g.videoUrl.includes('youtube.com') || g.videoUrl.includes('youtu.be')) { videoHtml = `<iframe src="${g.videoUrl}" allowfullscreen style="border-radius:12px; width:100%; height:200px; border:none; margin-top:10px;"></iframe>`; } 
+                else { videoHtml = `<video controls style="width:100%; border-radius:12px; margin-top:10px; background:#000;"><source src="${g.videoUrl}" type="video/mp4">Your browser does not support video.</video>`; }
             }
             h += `<div class="glass-card" style="padding:20px; margin-bottom:20px;"><h3 style="color:var(--accent); font-weight:800; margin-bottom:10px;">${g.title}</h3><div style="font-size:13px; color:var(--text); line-height:1.8;">${g.content}</div>${videoHtml}</div>`;
         });
@@ -419,8 +404,8 @@
         } else { window.me = null; let hw = document.getElementById('home-wallet'); if(hw) hw.innerText = "Login..."; window.allMyData = []; window.renderHistory(); let ll = document.getElementById('ledger-list'); if(ll) ll.innerHTML = ""; }
     });
 
-    window.renderGames = function(list) { let html = ""; list.forEach(c => { if(c.isActive) { html += `<div class="game-card glass-card" onclick="window.openGameDetail('${c.id}')"><img class="game-img" src="${c.logoUrl||'https://via.placeholder.com/60'}"><div style="flex:1; margin:0 12px; text-align:left;"><div style="font-weight:800; font-size:16px; color:var(--text);">${c.name}</div><div style="font-size:12px; color:var(--ok); font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Available</div></div><div class="btn-gel" style="padding:10px; width:auto; border-radius:20px; font-size:12px;">Open</div></div>`; } }); let c = document.getElementById('dyn-game-list'); if(c) c.innerHTML = html || `<div style="text-align:center; color:gray; width:100%; padding:20px; grid-column: span 2;">No games found.</div>`; }
-    
+    window.renderGames = function(list) { let html = ""; list.forEach(c => { if(c.isActive) { html += `<div class="game-card glass-card" onclick="window.openGameDetail('${c.id}')"><img class="game-img" src="${c.logoUrl||'https://via.placeholder.com/60'}"><div style="flex:1; margin:0 12px; text-align:left;"><div style="font-weight:800; font-size:16px; color:var(--text);">${c.name}</div><div style="font-size:12px; color:var(--ok); font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-top:2px;">Available</div></div><div class="btn-gel" style="padding:10px; width:auto; border-radius:12px; font-size:12px;">Open</div></div>`; } }); let c = document.getElementById('dyn-game-list'); if(c) c.innerHTML = html || `<div style="text-align:center; color:gray; width:100%; padding:20px; grid-column: span 2;">No games found.</div>`; }
+
     window.renderHistory = function() {
         if(!window.me) return; window.allMyData.sort((a,b) => { let at=a.createdAt?.seconds||0; let bt=b.createdAt?.seconds||0; return bt-at; });
         let oHtml = "", nHtml = "", unread = 0;
@@ -429,11 +414,11 @@
             let txtColor = o.status==='Completed' ? 'var(--ok)' : (o.status==='Cancelled' ? 'var(--danger)' : 'var(--warning)');
             let statKey = o.status==='Completed' ? 'order_comp' : (o.status==='Cancelled' ? 'order_canc' : 'order_proc');
             if(o.type === 'order') { 
-                oHtml += `<div class="glass-card ${colorCls}" style="padding:18px; margin-bottom:15px; cursor:pointer;" onclick="window.showOrderDetails('${o.id}')"><div style="display:flex; justify-content:space-between; margin-bottom:12px;"><span style="font-family:monospace; color:var(--text); font-weight:bold; font-size:13px;">${o.orderId || o.id.substring(0,8)}</span><span style="background:rgba(255,255,255,0.1); color:${txtColor}; font-size:11px; padding:4px 12px; border-radius:12px; font-weight:800; border:1px solid ${txtColor}40;">${window.t(statKey).toUpperCase()}</span></div><div style="font-weight:800; font-size:16px; color:var(--text);">${o.game} - <span style="color:var(--muted);">${o.item}</span></div><div style="font-size:18px; font-weight:900; margin-top:12px; color:${txtColor}; text-shadow:0 0 10px ${txtColor}40;">${o.price.toLocaleString()} Ks</div></div>`; 
+                oHtml += `<div class="glass-card ${colorCls}" style="padding:18px; margin-bottom:15px; cursor:pointer;" onclick="window.showOrderDetails('${o.id}')"><div style="display:flex; justify-content:space-between; margin-bottom:12px;"><span style="font-family:monospace; color:var(--text); font-weight:bold; font-size:13px;">${o.orderId || o.id.substring(0,8)}</span><span style="background:rgba(255,255,255,0.1); color:${txtColor}; font-size:11px; padding:4px 12px; border-radius:8px; font-weight:800; border:1px solid ${txtColor}40;">${window.t(statKey).toUpperCase()}</span></div><div style="font-weight:800; font-size:16px; color:var(--text);">${o.game} - <span style="color:var(--muted);">${o.item}</span></div><div style="font-size:18px; font-weight:900; margin-top:12px; color:${txtColor}; text-shadow:0 0 10px ${txtColor}40;">${o.price.toLocaleString()} Ks</div></div>`; 
             }
             if(o.status !== 'Pending' && o.type === 'order') { 
                 unread++; 
-                nHtml += `<div class="glass-card ${colorCls}" style="padding:16px; margin-bottom:14px; border-left:3px solid ${txtColor}; border-radius:16px;"><div style="font-weight:bold; font-size:14px; margin-bottom:8px; color:${txtColor};">${window.t(statKey)}</div><div style="font-size:13px; color:var(--text); line-height:1.6;">${window.t('your_order')} <span style="font-weight:bold; color:var(--accent);">${o.item} (${o.game})</span> ${window.t('is')} ${window.t(statKey).toLowerCase()}.</div><div style="font-size:11px; text-align:right; margin-top:10px; color:var(--muted);"><i class="far fa-clock"></i> ${window.formatDate(o.createdAt)}</div></div>`; 
+                nHtml += `<div class="glass-card ${colorCls}" style="padding:16px; margin-bottom:14px; border-left:3px solid ${txtColor};"><div style="font-weight:bold; font-size:14px; margin-bottom:8px; color:${txtColor};">${window.t(statKey)}</div><div style="font-size:13px; color:var(--text); line-height:1.6;">${window.t('your_order')} <span style="font-weight:bold; color:var(--accent);">${o.item} (${o.game})</span> ${window.t('is')} ${window.t(statKey).toLowerCase()}.</div><div style="font-size:11px; text-align:right; margin-top:10px; color:var(--muted);"><i class="far fa-clock"></i> ${window.formatDate(o.createdAt)}</div></div>`; 
             }
         });
         let ol = document.getElementById('orders-list'); if(ol) ol.innerHTML = oHtml || `<div style='text-align:center; color:gray; padding:50px;'><i class="fas fa-box-open text-5xl mb-4 block"></i>${window.t('no_orders')}</div>`;
@@ -456,7 +441,7 @@
         let ll = document.getElementById('ledger-list'); if(ll) ll.innerHTML = lHtml || `<div style='text-align:center; color:gray; padding:20px;'>No records yet.</div>`;
     }
 
-    window.showOrderDetails = (id) => { let o = window.allMyData.find(x => x.id === id); if(!o) return; let c = o.status==='Completed' ? 'var(--ok)' : (o.status==='Cancelled' ? 'var(--danger)' : 'var(--warning)'); let statKey = o.status==='Completed' ? 'order_comp' : (o.status==='Cancelled' ? 'order_canc' : 'order_proc'); let bBalHtml = (o.beforeBalance !== undefined) ? `<div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="fas fa-wallet mr-2"></i>${window.t('before_bal')}</span> <strong style="font-size:15px;">${o.beforeBalance.toLocaleString()} Ks</strong></div><div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="fas fa-hand-holding-usd mr-2"></i>${window.t('after_bal')}</span> <strong style="font-size:15px; color:var(--warning);">${o.afterBalance.toLocaleString()} Ks</strong></div>` : ''; let h = `<div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="fas fa-hashtag mr-2"></i>${window.t('order_id')}</span> <strong style="color:var(--accent); font-family:monospace; font-size:15px;">${o.orderId || o.id.substring(0,8)}</strong></div><div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="far fa-calendar-alt mr-2"></i>${window.t('date')}</span> <strong style="font-size:13px;">${window.formatDate(o.createdAt)}</strong></div><div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="fas fa-gamepad mr-2"></i>${window.t('game')}</span> <strong style="font-size:15px;">${o.game}</strong></div><div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="fas fa-gem mr-2"></i>${window.t('item')}</span> <strong style="color:var(--accent); font-size:15px;">${o.item}</strong></div><div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="fas fa-id-card mr-2"></i>${window.t('player_id')}</span> <strong style="background:rgba(255,255,255,0.15); padding:6px 12px; border-radius:14px; font-family:monospace; font-size:15px;">${o.playerId}</strong></div><div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="fas fa-money-check-alt mr-2"></i>${window.t('pay_method')}</span> <strong><span class="badge" style="background:var(--primary); padding:6px 10px; border-radius:12px; font-size:12px;">${o.payMethod || 'Wallet'}</span></strong></div>${bBalHtml}<div style="display:flex; justify-content:space-between; align-items:center; padding:15px 0; margin-bottom:10px;"><span style="color:var(--text); font-weight:800; font-size:16px;">${window.t('amt_paid')}</span> <strong style="color:var(--ok); font-size:26px;">${o.price.toLocaleString()} Ks</strong></div><div style="text-align:center; margin-top:20px; font-weight:900; color:${c}; font-size:16px; background:rgba(255,255,255,0.05); padding:16px; border-radius:16px; border:1px solid ${c}50;">${window.t('status')}: ${window.t(statKey).toUpperCase()}</div>`; let omc = document.getElementById('order-modal-content'); if(omc) omc.innerHTML = h; window.openModal('order-modal'); };
+    window.showOrderDetails = (id) => { let o = window.allMyData.find(x => x.id === id); if(!o) return; let c = o.status==='Completed' ? 'var(--ok)' : (o.status==='Cancelled' ? 'var(--danger)' : 'var(--warning)'); let statKey = o.status==='Completed' ? 'order_comp' : (o.status==='Cancelled' ? 'order_canc' : 'order_proc'); let bBalHtml = (o.beforeBalance !== undefined) ? `<div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="fas fa-wallet mr-2"></i>${window.t('before_bal')}</span> <strong style="font-size:15px;">${o.beforeBalance.toLocaleString()} Ks</strong></div><div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="fas fa-hand-holding-usd mr-2"></i>${window.t('after_bal')}</span> <strong style="font-size:15px; color:var(--warning);">${o.afterBalance.toLocaleString()} Ks</strong></div>` : ''; let h = `<div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="fas fa-hashtag mr-2"></i>${window.t('order_id')}</span> <strong style="color:var(--accent); font-family:monospace; font-size:15px;">${o.orderId || o.id.substring(0,8)}</strong></div><div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="far fa-calendar-alt mr-2"></i>${window.t('date')}</span> <strong style="font-size:13px;">${window.formatDate(o.createdAt)}</strong></div><div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="fas fa-gamepad mr-2"></i>${window.t('game')}</span> <strong style="font-size:15px;">${o.game}</strong></div><div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="fas fa-gem mr-2"></i>${window.t('item')}</span> <strong style="color:var(--accent); font-size:15px;">${o.item}</strong></div><div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="fas fa-id-card mr-2"></i>${window.t('player_id')}</span> <strong style="background:rgba(255,255,255,0.15); padding:6px 12px; border-radius:10px; font-family:monospace; font-size:15px;">${o.playerId}</strong></div><div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--glass-border); padding-bottom:12px; margin-bottom:12px;"><span style="color:var(--muted);"><i class="fas fa-money-check-alt mr-2"></i>${window.t('pay_method')}</span> <strong><span class="badge" style="background:var(--primary); padding:6px 10px; border-radius:8px; font-size:12px;">${o.payMethod || 'Wallet'}</span></strong></div>${bBalHtml}<div style="display:flex; justify-content:space-between; align-items:center; padding:15px 0; margin-bottom:10px;"><span style="color:var(--text); font-weight:800; font-size:16px;">${window.t('amt_paid')}</span> <strong style="color:var(--ok); font-size:26px;">${o.price.toLocaleString()} Ks</strong></div><div style="text-align:center; margin-top:20px; font-weight:900; color:${c}; font-size:16px; background:rgba(255,255,255,0.05); padding:16px; border-radius:16px; border:1px solid ${c}50;">${window.t('status')}: ${window.t(statKey).toUpperCase()}</div>`; let omc = document.getElementById('order-modal-content'); if(omc) omc.innerHTML = h; window.openModal('order-modal'); };
 
     window.openGameDetail = (catId) => {
         let c = window.dynamicCats.find(x => x.id === catId); if(!c) return;
@@ -489,24 +474,27 @@
         if(window.payMode === 'slip') { let pMethod = document.getElementById('selected-pay-method'); if(!window.orderFile || !pMethod || !pMethod.value) isValid = false; }
         let btn = document.getElementById('btn-submit'); if(btn) btn.disabled = !isValid; 
     };
-    
+
     window.handleOrderUpload = (i) => { if(i.files[0]) { window.orderFile = i.files[0]; let r = new FileReader(); r.onload = (e) => { let up = document.getElementById('upload-placeholder'); if(up) up.style.display='none'; let pi = document.getElementById('preview-img'); if(pi){ pi.src=e.target.result; pi.style.display='block';} window.checkForm(); }; r.readAsDataURL(i.files[0]); } };
-    
+
+    // 💡 TG ALERT WITH DEEP LINKS 💡
     async function sendTgAlert(msg, threadIdStr, imageUrl, targetHash) { 
         if(!window.tgBotToken || !window.tgChatId) return; 
         let payload = { chat_id: window.tgChatId, parse_mode: "HTML" }; 
         if(threadIdStr) payload.message_thread_id = parseInt(threadIdStr); 
+        
         if(window.adminUrl) {
             let finalLink = window.adminUrl;
-            if(targetHash) finalLink += targetHash; 
+            if(targetHash) finalLink += targetHash; // e.g. https://site.com/admin.html#v-orders
             payload.reply_markup = { inline_keyboard: [[{ text: "⚙️ Confirm / Manage", url: finalLink }]] };
         }
+
         try {
             if(imageUrl) { 
                 payload.photo = imageUrl; payload.caption = msg; 
                 let res = await fetch(`https://api.telegram.org/bot${window.tgBotToken}/sendPhoto`, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload) }); 
                 let data = await res.json();
-                if(!data.ok) { 
+                if(!data.ok) { // Fallback to text
                     payload.text = msg + `\n\n🖼️ <b>Slip Link:</b> <a href="${imageUrl}">View Image</a>`;
                     delete payload.photo; delete payload.caption;
                     await fetch(`https://api.telegram.org/bot${window.tgBotToken}/sendMessage`, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload) });
@@ -541,6 +529,7 @@
 
             await addDoc(collection(db, "orders"), { orderId: ordId, userId: window.me.uid, userEmail: window.me.email, game: window.currentOrder.gameName, item: window.currentOrder.item, price: window.currentOrder.price, playerId: finalId, payMethod: finalMethod, slipImage: slipUrl, beforeBalance: beforeBal, afterBalance: afterBal, status: "Pending", createdAt: serverTimestamp() });
             
+            // 💡 Appends #v-orders to admin URL
             sendTgAlert(`📦 <b>NEW ORDER</b>\nGame: ${window.currentOrder.gameName}\nItem: ${window.currentOrder.item}\nPlayer ID: <code>${finalId}</code>\nPrice: ${window.currentOrder.price} Ks\nMethod: ${finalMethod}`, window.tgOrderTopicId, slipUrl, '#v-orders');
 
             window.toast("Order Placed Successfully!"); window.orderFile = null; let prevImg = document.getElementById('preview-img'); if(prevImg) prevImg.style.display='none'; let upPlace = document.getElementById('upload-placeholder'); if(upPlace) upPlace.style.display='block'; window.navToMain('page-orders');
@@ -548,7 +537,6 @@
     };
 
     window.handleDepUpload = (i) => { if(i.files[0]) { window.depFile = i.files[0]; let r = new FileReader(); r.onload = (e) => { let dp = document.getElementById('dep-placeholder'); if(dp) dp.style.display='none'; let di = document.getElementById('dep-img'); if(di) { di.src=e.target.result; di.style.display='block'; } }; r.readAsDataURL(i.files[0]); } };
-
     async function uploadImage(f) { let fd = new FormData(); fd.append("image", f); try { let res = await fetch(`https://api.imgbb.com/1/upload?key=f0d759dd374df91104867c6701e199f2`, { method:'POST', body:fd }); let d = await res.json(); if(d.success) return d.data.url; throw new Error(); } catch(e) { throw new Error("Upload failed"); } }
     
     window.submitDeposit = async () => { 
@@ -563,6 +551,7 @@
             let slipUrl = await uploadImage(window.depFile); let depId = 'DEP-' + Math.random().toString(36).substr(2, 6).toUpperCase(); 
             await addDoc(collection(db, "deposits"), { depId: depId, userId: window.me.uid, userEmail: window.me.email, amount: amt, payMethod: pMethod, slipImage: slipUrl, status: "Pending", createdAt: serverTimestamp() }); 
             
+            // 💡 Appends #v-deposits to admin URL
             sendTgAlert(`💸 <b>NEW DEPOSIT</b>\nUser: ${window.me.email}\nAmount: ${amt} Ks\nMethod: ${pMethod}`, window.tgDepositTopicId, slipUrl, '#v-deposits');
             
             window.toast("Deposit request sent!"); if(amtEl) amtEl.value = ""; let di = document.getElementById('dep-img'); if(di) di.style.display = "none"; let dp = document.getElementById('dep-placeholder'); if(dp) dp.style.display = "block"; window.depFile = null; window.navToMain('page-profile'); 
@@ -581,6 +570,7 @@
             await addDoc(collection(db, "withdrawals"), { wdId: wdId, userId: window.me.uid, userEmail: window.me.email, amount: amt, payMethod: met, accPhone: ph, accName: nm, status: "Pending", createdAt: serverTimestamp() }); 
             await addDoc(collection(db, "transactions"), { userId: window.me.uid, type: 'Withdrawal', amount: -amt, desc: `Requested withdraw via ${met}`, createdAt: serverTimestamp() }); 
             
+            // 💡 Appends #v-withdraws to admin URL
             sendTgAlert(`💳 <b>WITHDRAW REQUEST</b>\nUser: ${window.me.email}\nAmount: ${amt} Ks\nMethod: ${met}\nAcc: ${ph} (${nm})`, window.tgDepositTopicId, null, '#v-withdraws');
             
             window.toast("Withdraw requested!"); window.navToMain('page-profile'); if(wa) wa.value=''; if(wp) wp.value=''; if(wn) wn.value=''; 
